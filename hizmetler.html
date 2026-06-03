@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hizmetler &#8211; MEBA KALIP</title>
+  <link rel="stylesheet" href="assets/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    .services-section { padding: 72px 0 96px; }
+    .service-block { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; margin-bottom: 80px; padding-bottom: 80px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .service-block:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .service-block.reverse { direction: rtl; }
+    .service-block.reverse > * { direction: ltr; }
+    .service-img { border-radius: 8px; overflow: hidden; border: 1px solid rgba(255,255,255,0.07); }
+    .service-img img { width: 100%; height: 320px; object-fit: cover; display: block; transition: transform 0.4s ease; }
+    .service-img:hover img { transform: scale(1.04); }
+    .service-content h2 { font-family:'Outfit',sans-serif; font-size: 1.8rem; font-weight: 800; color: var(--white); margin-bottom: 16px; }
+    .service-content h2 span { color: var(--red); }
+    .service-content p { color: var(--muted); line-height: 1.8; margin-bottom: 20px; font-size: 0.93rem; }
+    .service-features { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; }
+    .service-features li { display: flex; align-items: center; gap: 10px; font-size: 0.85rem; color: var(--muted); }
+    .service-features li i { color: var(--red); font-size: 0.7rem; }
+    @media (max-width: 1024px) { .service-block, .service-block.reverse { grid-template-columns: 1fr; direction: ltr; } }
+  </style>
+</head>
+<body>
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><img src="assets/logo.jpg" alt="Meba Kalip" /><div class="nav-logo-text">MEBA KALIP<small>Makina Imalat San. ve Tic. Ltd.</small></div></a>
+    <div class="nav-menu">
+      <a href="index.html">Ana Sayfa</a><a href="hakkimizda.html">Hakk&#305;m&#305;zda</a>
+      <a href="hizmetler.html" class="active">Hizmetler</a><a href="galeri.html">Galeri</a><a href="iletisim.html">&#304;leti&#351;im</a>
+    </div>
+    <div class="nav-right">
+      <div class="nav-social"><a href="https://www.instagram.com/meba_kalip_cnc" target="_blank"><i class="fab fa-instagram"></i></a><a href="https://www.facebook.com/mebakalip" target="_blank"><i class="fab fa-facebook-f"></i></a><a href="https://wa.me/905359443655" target="_blank"><i class="fab fa-whatsapp"></i></a></div>
+      <div class="nav-cta"><a href="tel:+905359443655"><i class="fas fa-phone"></i> 0535 944 36 55</a></div>
+    </div>
+    <button class="nav-hamburger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<nav class="nav-mobile">
+  <a href="index.html">Ana Sayfa</a><a href="hakkimizda.html">Hakk&#305;m&#305;zda</a>
+  <a href="hizmetler.html">Hizmetler</a><a href="galeri.html">Galeri</a><a href="iletisim.html">&#304;leti&#351;im</a>
+  <a href="tel:+905359443655" style="color:var(--red);margin-top:8px;"><i class="fas fa-phone"></i> 0535 944 36 55</a>
+</nav>
+
+<div class="page-header">
+  <div class="container">
+    <div class="breadcrumb"><a href="index.html">Ana Sayfa</a><i class="fas fa-chevron-right" style="font-size:0.6rem;"></i><span>Hizmetler</span></div>
+    <h1>Hizmetlerimiz</h1>
+    <p>Kal&#305;p imalat&#305;ndan CNC frezelemeye, tala&#351;l&#305; imalattan fason &#252;retime kapsaml&#305; &#231;&#246;z&#252;mler.</p>
+  </div>
+</div>
+
+<section class="services-section">
+  <div class="container">
+
+    <div class="service-block slide-up">
+      <div class="service-img"><img src="img/galeri/ig_2.webp" alt="Kalip Imalati" /></div>
+      <div class="service-content">
+        <div class="section-label">Hizmet 01</div>
+        <h2>Kal&#305;p <span>&#304;malat&#305;</span></h2>
+        <p>Metal ve plastik enjeksiyon kal&#305;plar&#305; ba&#351;ta olmak &#252;zere her t&#252;r kal&#305;p tasar&#305;m&#305; ve imalat&#305;n&#305; ger&#231;ekle&#351;tiriyoruz. Tasar&#305;mdan prototipe, prototipten seri &#252;retime kadar t&#252;m süreci y&#246;netiyoruz.</p>
+        <ul class="service-features">
+          <li><i class="fas fa-circle"></i> Plastik enjeksiyon kal&#305;plar&#305;</li>
+          <li><i class="fas fa-circle"></i> Metal d&#246;k&#252;m kal&#305;plar&#305;</li>
+          <li><i class="fas fa-circle"></i> Pres ve sac kal&#305;plar&#305;</li>
+          <li><i class="fas fa-circle"></i> Tasar&#305;m dan&#305;&#351;manl&#305;&#287;&#305;</li>
+        </ul>
+        <a href="iletisim.html" class="btn btn-primary"><i class="fas fa-arrow-right"></i> Teklif Al</a>
+      </div>
+    </div>
+
+    <div class="service-block reverse slide-up">
+      <div class="service-img"><img src="img/galeri/ig_4.webp" alt="CNC Frezeleme" /></div>
+      <div class="service-content">
+        <div class="section-label">Hizmet 02</div>
+        <h2>CNC <span>Frezeleme</span></h2>
+        <p>3 ve 4 eksenli CNC freze tezgahlar&#305;m&#305;zla kompleks geometrili par&#231;alar&#305; y&#252;ksek hassasiyetle i&#351;liyoruz. Alüminyum, &#231;elik, paslanmaz &#231;elik ve plastik malzemelerde i&#351;leme kabiliyetimiz mevcuttur.</p>
+        <ul class="service-features">
+          <li><i class="fas fa-circle"></i> 3-4 eksenli CNC i&#351;leme</li>
+          <li><i class="fas fa-circle"></i> Mikron tolerans kabiliyeti</li>
+          <li><i class="fas fa-circle"></i> Al&#252;minyum, &#231;elik, paslanmaz</li>
+          <li><i class="fas fa-circle"></i> Prototip ve seri &#252;retim</li>
+        </ul>
+        <a href="iletisim.html" class="btn btn-primary"><i class="fas fa-arrow-right"></i> Teklif Al</a>
+      </div>
+    </div>
+
+    <div class="service-block slide-up">
+      <div class="service-img"><img src="img/galeri/ig_6.webp" alt="Talasli Imalat" /></div>
+      <div class="service-content">
+        <div class="section-label">Hizmet 03</div>
+        <h2>Tala&#351;l&#305; <span>&#304;malat</span></h2>
+        <p>Torna, freze ve taşlama operasyonlar&#305; ile silindirik, konik ve profilli par&#231;alar&#305; hassas &#246;l&#231;&#252;lerde imal ediyoruz. Tek par&#231;adan seri &#252;retime kadar t&#252;m hacimlerde hizmet veriyoruz.</p>
+        <ul class="service-features">
+          <li><i class="fas fa-circle"></i> CNC torna i&#351;lemleri</li>
+          <li><i class="fas fa-circle"></i> Silindirik ta&#351;lama</li>
+          <li><i class="fas fa-circle"></i> Di&#351;li ve vida i&#351;leme</li>
+          <li><i class="fas fa-circle"></i> Y&#252;zey i&#351;leme ve honlama</li>
+        </ul>
+        <a href="iletisim.html" class="btn btn-primary"><i class="fas fa-arrow-right"></i> Teklif Al</a>
+      </div>
+    </div>
+
+    <div class="service-block reverse slide-up">
+      <div class="service-img"><img src="img/galeri/ig_8.webp" alt="Fason Uretim" /></div>
+      <div class="service-content">
+        <div class="section-label">Hizmet 04</div>
+        <h2>Fason <span>&#220;retim</span></h2>
+        <p>Teknik &#231;izim ve numunelerinize g&#246;re par&#231;a imalat&#305; yap&#305;yoruz. K&#252;&#231;&#252;k seri, orta seri ve b&#252;y&#252;k hacimli siparişleri kabul ediyoruz. Firmalar&#305;n ar&#351;iv m&#252;&#351;terisi olmak &#252;zere hizmet veriyoruz.</p>
+        <ul class="service-features">
+          <li><i class="fas fa-circle"></i> Teknik resme g&#246;re imalat</li>
+          <li><i class="fas fa-circle"></i> K&#252;&#231;&#252;k ve orta seri &#252;retim</li>
+          <li><i class="fas fa-circle"></i> Numune ve prototip</li>
+          <li><i class="fas fa-circle"></i> Uygun fiyat, h&#305;zl&#305; teslimat</li>
+        </ul>
+        <a href="iletisim.html" class="btn btn-primary"><i class="fas fa-arrow-right"></i> Teklif Al</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section style="padding:64px 0;background:var(--steel);">
+  <div class="container" style="text-align:center;">
+    <div class="section-label">&#304;leti&#351;im</div>
+    <h2 class="section-title" style="margin-bottom:20px;">Projenizi <span>Konu&#351;al&#305;m</span></h2>
+    <p style="color:var(--muted);max-width:500px;margin:0 auto 32px;">Teknik sorular&#305;n&#305;z veya fiyat teklifleri i&#231;in bizi aray&#305;n ya da WhatsApp&apos;tan mesaj g&#246;nderin.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <a href="tel:+905359443655" class="btn btn-primary"><i class="fas fa-phone"></i> 0535 944 36 55</a>
+      <a href="https://wa.me/905359443655" target="_blank" class="btn btn-outline" style="color:#25D366;border-color:rgba(37,211,102,0.3);"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><a href="index.html" class="nav-logo"><img src="assets/logo.jpg" alt="Meba Kalip" style="height:44px;width:44px;object-fit:contain;" /><div class="nav-logo-text">MEBA KALIP<small>Makina Imalat San. ve Tic. Ltd.</small></div></a><p>Dudullu OSB&apos;de CNC i&#351;leme, kal&#305;p imalat&#305; ve tala&#351;l&#305; imalat.</p><div class="footer-social"><a href="https://www.instagram.com/meba_kalip_cnc" target="_blank"><i class="fab fa-instagram"></i></a><a href="https://www.facebook.com/mebakalip" target="_blank"><i class="fab fa-facebook-f"></i></a><a href="https://wa.me/905359443655" target="_blank"><i class="fab fa-whatsapp"></i></a></div></div>
+      <div class="footer-col"><h4>Sayfalar</h4><ul><li><a href="index.html">Ana Sayfa</a></li><li><a href="hakkimizda.html">Hakk&#305;m&#305;zda</a></li><li><a href="hizmetler.html">Hizmetler</a></li><li><a href="galeri.html">Galeri</a></li><li><a href="iletisim.html">&#304;leti&#351;im</a></li></ul></div>
+      <div class="footer-col"><h4>Hizmetler</h4><ul><li><a href="hizmetler.html">Kal&#305;p &#304;malat&#305;</a></li><li><a href="hizmetler.html">CNC Frezeleme</a></li><li><a href="hizmetler.html">Tala&#351;l&#305; &#304;malat</a></li><li><a href="hizmetler.html">Fason &#220;retim</a></li></ul></div>
+      <div class="footer-col"><h4>&#304;leti&#351;im</h4><div class="footer-contact-item"><i class="fas fa-map-marker-alt"></i><span>Dudullu O.S.B. Mh. &#304;MES Sanayi Sitesi E Blok No:2/1, &#220;mraniye / &#304;stanbul</span></div><div class="footer-contact-item"><i class="fas fa-phone"></i><span>0535 944 36 55</span></div><div class="footer-contact-item"><i class="fas fa-phone"></i><span>0216 364 33 47</span></div></div>
+    </div>
+  </div>
+  <div style="border-top:1px solid rgba(255,255,255,0.06);padding:18px 0;"><div class="container footer-bottom"><span>&copy; 2025 Meba Kal&#305;p Makina &#304;malat San. ve Tic. Ltd. &#350;ti.</span><span>T&#252;m haklar&#305; sakl&#305;d&#305;r.</span></div></div>
+</footer>
+<a href="https://wa.me/905359443655" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+<script src="assets/script.js"></script>
+</body>
+</html>

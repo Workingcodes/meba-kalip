@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>İletişim – MEBA KALIP</title>
+  <link rel="stylesheet" href="assets/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    .contact-section { padding: 80px 0 96px; }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 56px; align-items: start; }
+    .contact-card { background: var(--steel2); border: 1px solid rgba(255,255,255,0.07); border-radius: 8px; padding: 22px; display: flex; align-items: flex-start; gap: 14px; margin-bottom: 12px; transition: all var(--transition); }
+    .contact-card:hover { border-color: rgba(204,27,27,0.3); }
+    .contact-card-icon { width: 44px; height: 44px; border-radius: 8px; background: rgba(204,27,27,0.1); color: var(--red); display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
+    .contact-card-label { font-family:'Outfit',sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 5px; }
+    .contact-card-value { font-size: 0.92rem; color: var(--white); line-height: 1.5; }
+    .contact-card-value a { color: var(--red); }
+    .social-row { display: flex; gap: 10px; margin-top: 16px; }
+    .social-btn { display: flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 6px; background: var(--steel2); border: 1px solid rgba(255,255,255,0.07); font-family:'Outfit',sans-serif; font-size: 0.8rem; font-weight: 600; color: var(--muted); transition: all var(--transition); }
+    .social-btn:hover { border-color: var(--red); color: var(--white); }
+    .hours-box { background: var(--steel2); border: 1px solid rgba(255,255,255,0.07); border-radius: 8px; padding: 22px; margin-top: 12px; }
+    .hours-box h4 { font-family:'Outfit',sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--red); margin-bottom: 14px; }
+    .hours-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.85rem; }
+    .hours-row:last-child { border-bottom: none; }
+    .hours-day { color: var(--muted); }
+    .hours-time { color: var(--white); font-family:'Outfit',sans-serif; font-weight: 600; }
+    .map-box { border-radius: 8px; overflow: hidden; border: 1px solid rgba(255,255,255,0.07); height: 400px; }
+    .map-box iframe { width: 100%; height: 100%; border: none; display: block; }
+    .cta-phones { display: flex; flex-direction: column; gap: 10px; }
+    .phone-btn { display: flex; align-items: center; gap: 12px; padding: 14px 20px; background: var(--steel2); border: 1px solid rgba(255,255,255,0.07); border-radius: 8px; font-family:'Outfit',sans-serif; font-size: 0.9rem; font-weight: 700; color: var(--white); transition: all var(--transition); }
+    .phone-btn:hover { border-color: var(--red); background: rgba(204,27,27,0.08); }
+    .phone-btn i { color: var(--red); font-size: 1rem; width: 18px; }
+    @media (max-width: 1024px) { .contact-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 768px) { .social-row { flex-wrap: wrap; } }
+  </style>
+</head>
+<body>
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><img src="assets/logo.jpg" alt="Meba Kalip" /><div class="nav-logo-text">MEBA KALIP<small>Makina Imalat San. ve Tic. Ltd.</small></div></a>
+    <div class="nav-menu">
+      <a href="index.html">Ana Sayfa</a><a href="hakkimizda.html">Hakkimizda</a>
+      <a href="hizmetler.html">Hizmetler</a><a href="galeri.html">Galeri</a><a href="iletisim.html" class="active">Iletisim</a>
+    </div>
+    <div class="nav-right">
+      <div class="nav-social"><a href="https://www.instagram.com/meba_kalip_cnc" target="_blank"><i class="fab fa-instagram"></i></a><a href="https://www.facebook.com/mebakalip" target="_blank"><i class="fab fa-facebook-f"></i></a><a href="https://wa.me/905359443655" target="_blank"><i class="fab fa-whatsapp"></i></a></div>
+      <div class="nav-cta"><a href="tel:+905359443655"><i class="fas fa-phone"></i> 0535 944 36 55</a></div>
+    </div>
+    <button class="nav-hamburger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<nav class="nav-mobile">
+  <a href="index.html">Ana Sayfa</a><a href="hakkimizda.html">Hakkimizda</a>
+  <a href="hizmetler.html">Hizmetler</a><a href="galeri.html">Galeri</a><a href="iletisim.html">Iletisim</a>
+  <a href="tel:+905359443655" style="color:var(--red);margin-top:8px;"><i class="fas fa-phone"></i> 0535 944 36 55</a>
+</nav>
+<div class="page-header">
+  <div class="container">
+    <div class="breadcrumb"><a href="index.html">Ana Sayfa</a><i class="fas fa-chevron-right" style="font-size:0.6rem;"></i><span>Iletisim</span></div>
+    <h1>&#304;leti&#351;im</h1>
+    <p>Bize ula&#351;&#305;n, teknik sorular&#305;n&#305;z&#305; yan&#305;tlayal&#305;m ve fiyat teklifi haz&#305;rlayal&#305;m.</p>
+  </div>
+</div>
+<section class="contact-section">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="slide-left">
+        <div class="section-label">Bize Ula&#351;&#305;n</div>
+        <h2 class="section-title" style="margin-bottom:28px;">&#304;leti&#351;im<br><span>Bilgileri</span></h2>
+        <div class="contact-card">
+          <div class="contact-card-icon"><i class="fas fa-map-marker-alt"></i></div>
+          <div><div class="contact-card-label">Adres</div><div class="contact-card-value">Dudullu O.S.B. Mh. &#304;MES Sanayi Sitesi<br>E Blok No: 2/1, P.K. 34775<br>&#220;mraniye / &#304;stanbul</div></div>
+        </div>
+        <div class="contact-card">
+          <div class="contact-card-icon"><i class="fas fa-phone"></i></div>
+          <div>
+            <div class="contact-card-label">Telefon</div>
+            <div class="contact-card-value">
+              <a href="tel:+905359443655">0535 944 36 55</a><br>
+              <a href="tel:+905442930108">0544 293 01 08</a><br>
+              <a href="tel:+902163643347">0216 364 33 47</a>
+            </div>
+          </div>
+        </div>
+        <div class="contact-card">
+          <div class="contact-card-icon"><i class="fab fa-whatsapp"></i></div>
+          <div><div class="contact-card-label">WhatsApp</div><div class="contact-card-value"><a href="https://wa.me/905359443655" target="_blank">0535 944 36 55 ile yaz&#305;n &#8594;</a></div></div>
+        </div>
+        <div class="social-row">
+          <a href="https://www.instagram.com/meba_kalip_cnc" target="_blank" class="social-btn"><i class="fab fa-instagram"></i> Instagram</a>
+          <a href="https://www.facebook.com/mebakalip" target="_blank" class="social-btn"><i class="fab fa-facebook-f"></i> Facebook</a>
+        </div>
+        <div class="hours-box">
+          <h4><i class="fas fa-clock"></i> &nbsp;&#199;al&#305;&#351;ma Saatleri</h4>
+          <div class="hours-row"><span class="hours-day">Pazartesi &#8211; Cuma</span><span class="hours-time">08:00 &#8211; 18:00</span></div>
+          <div class="hours-row"><span class="hours-day">Cumartesi</span><span class="hours-time">08:00 &#8211; 13:00</span></div>
+          <div class="hours-row"><span class="hours-day">Pazar</span><span class="hours-time" style="color:var(--muted);">Kapal&#305;</span></div>
+        </div>
+      </div>
+      <div class="slide-right">
+        <div class="section-label">Konum</div>
+        <h2 class="section-title" style="margin-bottom:20px;">Bizi <span>Haritada</span> Bulun</h2>
+        <div class="map-box">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3011.5!2d29.1585902!3d41.0010871!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cab158823b084f%3A0x6f40ed98f023dcda!2sMeba%20Kal%C4%B1p%20Makina%20%C4%B0malat%20San.Tic.Ltd.%C5%9Eti.!5e0!3m2!1str!2str!4v1700000000000!5m2!1str!2str" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Meba Kalip Konum"></iframe>
+        </div>
+        <a href="https://www.google.com/maps/place/Meba+Kal%C4%B1p+Makina+%C4%B0malat+San.Tic.Ltd.%C5%9Eti./@41.0010871,29.1585902,17z" target="_blank" class="btn btn-outline" style="margin-top:12px;width:100%;justify-content:center;"><i class="fas fa-external-link-alt"></i> Google Haritalar'da A&#231;</a>
+        <div style="margin-top:24px;">
+          <div class="section-label" style="margin-bottom:12px;">H&#305;zl&#305; Arama</div>
+          <div class="cta-phones">
+            <a href="tel:+905359443655" class="phone-btn"><i class="fas fa-mobile-alt"></i> 0535 944 36 55 (GSM)</a>
+            <a href="tel:+905442930108" class="phone-btn"><i class="fas fa-mobile-alt"></i> 0544 293 01 08 (GSM)</a>
+            <a href="tel:+902163643347" class="phone-btn"><i class="fas fa-phone"></i> 0216 364 33 47 (Sabit)</a>
+            <a href="https://wa.me/905359443655" target="_blank" class="phone-btn" style="color:#25D366;border-color:rgba(37,211,102,0.2);"><i class="fab fa-whatsapp" style="color:#25D366;"></i> WhatsApp ile Yaz</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><a href="index.html" class="nav-logo"><img src="assets/logo.jpg" alt="Meba Kalip" style="height:44px;width:44px;object-fit:contain;" /><div class="nav-logo-text">MEBA KALIP<small>Makina Imalat San. ve Tic. Ltd.</small></div></a><p>Dudullu OSB'de CNC i&#351;leme, kal&#305;p imalat&#305; ve tala&#351;l&#305; imalat.</p><div class="footer-social"><a href="https://www.instagram.com/meba_kalip_cnc" target="_blank"><i class="fab fa-instagram"></i></a><a href="https://www.facebook.com/mebakalip" target="_blank"><i class="fab fa-facebook-f"></i></a><a href="https://wa.me/905359443655" target="_blank"><i class="fab fa-whatsapp"></i></a></div></div>
+      <div class="footer-col"><h4>Sayfalar</h4><ul><li><a href="index.html">Ana Sayfa</a></li><li><a href="hakkimizda.html">Hakk&#305;m&#305;zda</a></li><li><a href="hizmetler.html">Hizmetler</a></li><li><a href="galeri.html">Galeri</a></li><li><a href="iletisim.html">&#304;leti&#351;im</a></li></ul></div>
+      <div class="footer-col"><h4>Hizmetler</h4><ul><li><a href="hizmetler.html">Kal&#305;p &#304;malat&#305;</a></li><li><a href="hizmetler.html">CNC Frezeleme</a></li><li><a href="hizmetler.html">Tala&#351;l&#305; &#304;malat</a></li><li><a href="hizmetler.html">Fason &#220;retim</a></li></ul></div>
+      <div class="footer-col"><h4>&#304;leti&#351;im</h4><div class="footer-contact-item"><i class="fas fa-map-marker-alt"></i><span>Dudullu O.S.B. Mh. &#304;MES Sanayi Sitesi E Blok No:2/1, &#220;mraniye / &#304;stanbul</span></div><div class="footer-contact-item"><i class="fas fa-phone"></i><span>0535 944 36 55</span></div><div class="footer-contact-item"><i class="fas fa-phone"></i><span>0216 364 33 47</span></div></div>
+    </div>
+  </div>
+  <div style="border-top:1px solid rgba(255,255,255,0.06);padding:18px 0;"><div class="container footer-bottom"><span>&copy; 2025 Meba Kal&#305;p Makina &#304;malat San. ve Tic. Ltd. &#350;ti.</span><span>T&#252;m haklar&#305; sakl&#305;d&#305;r.</span></div></div>
+</footer>
+<a href="https://wa.me/905359443655" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+<script src="assets/script.js"></script>
+</body>
+</html>

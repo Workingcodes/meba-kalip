@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MEBA KALIP &#8211; Kal&#305;p &#304;malat&#305; &amp; CNC &#304;&#351;leme</title>
+  <link rel="stylesheet" href="assets/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    /* ===== HERO ===== */
+    .hero { min-height: 100dvh; display: flex; align-items: center; position: relative; overflow: hidden; background: var(--black); }
+    .hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(204,27,27,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(204,27,27,0.04) 1px, transparent 1px); background-size: 48px 48px; animation: grid-shift 20s linear infinite; }
+    @keyframes grid-shift { 0% { background-position: 0 0; } 100% { background-position: 48px 48px; } }
+    .hero-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; position: relative; z-index: 2; width: 100%; }
+    .hero-content { }
+    .hero-badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; background: rgba(204,27,27,0.1); border: 1px solid rgba(204,27,27,0.25); border-radius: 20px; font-family:'Outfit',sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--red); margin-bottom: 24px; }
+    .hero-badge span.dot { width: 6px; height: 6px; border-radius: 50%; background: var(--red); animation: pulse-dot 2s ease-in-out infinite; }
+    @keyframes pulse-dot { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.7); } }
+    .hero-headline { font-family:'Outfit',sans-serif; font-size: clamp(2.4rem, 5vw, 3.8rem); font-weight: 900; line-height: 1.05; color: var(--white); margin-bottom: 20px; }
+    .hero-headline .hl { color: var(--red); display: block; }
+    .hero-sub { color: var(--muted); font-size: 1rem; line-height: 1.7; max-width: 480px; margin-bottom: 36px; }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .hero-vis { position: relative; height: 420px; display: flex; align-items: center; justify-content: center; }
+    /* CNC visualization */
+    .cnc-wrap { position: relative; width: 300px; height: 300px; }
+    .cnc-ring { position: absolute; top: 50%; left: 50%; border-radius: 50%; border: 1px solid rgba(204,27,27,0.25); transform: translate(-50%,-50%); }
+    .cnc-ring-1 { width: 280px; height: 280px; border-color: rgba(204,27,27,0.3); animation: spin-cw 18s linear infinite; }
+    .cnc-ring-1::before { content:''; position: absolute; top: 10px; left: 50%; width: 8px; height: 8px; background: var(--red); border-radius: 50%; transform: translateX(-50%); box-shadow: 0 0 10px var(--red); }
+    .cnc-ring-2 { width: 200px; height: 200px; border-color: rgba(204,27,27,0.2); border-style: dashed; animation: spin-ccw 25s linear infinite; }
+    .cnc-ring-2::before { content:''; position: absolute; bottom: 12px; left: 50%; width: 5px; height: 5px; background: rgba(204,27,27,0.7); border-radius: 50%; transform: translateX(-50%); }
+    .cnc-ring-3 { width: 120px; height: 120px; border-color: rgba(204,27,27,0.15); animation: spin-cw 35s linear infinite; }
+    @keyframes spin-cw { from { transform: translate(-50%,-50%) rotate(0deg); } to { transform: translate(-50%,-50%) rotate(360deg); } }
+    @keyframes spin-ccw { from { transform: translate(-50%,-50%) rotate(0deg); } to { transform: translate(-50%,-50%) rotate(-360deg); } }
+    .cnc-crosshair { position: absolute; top: 50%; left: 50%; width: 60px; height: 60px; transform: translate(-50%,-50%); animation: spin-cw 8s linear infinite; }
+    .cnc-crosshair::before, .cnc-crosshair::after { content:''; position: absolute; background: rgba(204,27,27,0.5); }
+    .cnc-crosshair::before { width: 100%; height: 1px; top: 50%; left: 0; }
+    .cnc-crosshair::after { width: 1px; height: 100%; left: 50%; top: 0; }
+    .cnc-dot { position: absolute; top: 50%; left: 50%; width: 16px; height: 16px; transform: translate(-50%,-50%); }
+    .cnc-dot::before { content:''; position: absolute; inset: 0; background: var(--red); border-radius: 50%; box-shadow: 0 0 20px var(--red-glow); animation: pulse-dot 2s ease-in-out infinite; }
+    .orbit-dot { position: absolute; top: 50%; left: 50%; width: 8px; height: 8px; border-radius: 50%; background: rgba(204,27,27,0.6); margin: -4px; }
+    .orbit-1 { animation: orbit1 18s linear infinite; }
+    .orbit-2 { animation: orbit2 25s linear infinite; }
+    @keyframes orbit1 { from { transform: rotate(0deg) translateX(140px); } to { transform: rotate(360deg) translateX(140px); } }
+    @keyframes orbit2 { from { transform: rotate(180deg) translateX(100px); } to { transform: rotate(540deg) translateX(100px); } }
+    .scan-line { position: absolute; top: 0; left: 50%; width: 1px; height: 300px; background: linear-gradient(180deg, transparent, rgba(204,27,27,0.6), transparent); transform-origin: top center; animation: scan 4s ease-in-out infinite; }
+    @keyframes scan { 0%,100% { transform: rotate(-45deg); opacity: 0; } 20% { opacity: 1; } 50% { transform: rotate(45deg); opacity: 1; } 80% { opacity: 0; } }
+    /* Spec floats */
+    .spec-float { position: absolute; background: rgba(26,31,40,0.9); border: 1px solid rgba(204,27,27,0.2); border-radius: 8px; padding: 10px 14px; backdrop-filter: blur(8px); font-family:'Outfit',sans-serif; font-size: 0.72rem; font-weight: 700; color: var(--white); white-space: nowrap; }
+    .spec-float small { display: block; color: var(--muted); font-weight: 400; font-size: 0.65rem; margin-top: 2px; }
+    .spec-float-1 { top: 30px; left: -20px; animation: float1 4s ease-in-out infinite; }
+    .spec-float-2 { bottom: 40px; right: -20px; animation: float1 4s ease-in-out 1.5s infinite; }
+    .spec-float-3 { bottom: 30px; left: -10px; animation: float1 4s ease-in-out 2.5s infinite; }
+    @keyframes float1 { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+    /* Stats bar */
+    .stats-bar { display: grid; grid-template-columns: repeat(4,1fr); gap: 0; background: var(--steel); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; margin: 64px 0; overflow: hidden; }
+    .stat-item { padding: 28px 20px; text-align: center; border-right: 1px solid rgba(255,255,255,0.06); }
+    .stat-item:last-child { border-right: none; }
+    .stat-num { font-family:'Outfit',sans-serif; font-size: 2.2rem; font-weight: 900; color: var(--red); line-height: 1; }
+    .stat-label { font-size: 0.75rem; color: var(--muted); margin-top: 6px; font-family:'Outfit',sans-serif; font-weight: 600; }
+    /* Services grid */
+    .services-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-top: 40px; }
+    .service-card { background: var(--steel2); border: 1px solid rgba(255,255,255,0.07); border-radius: 8px; padding: 28px 24px; transition: all var(--transition); position: relative; overflow: hidden; }
+    .service-card::before { content:''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--red); transform: scaleX(0); transition: transform var(--transition); transform-origin: left; }
+    .service-card:hover { border-color: rgba(204,27,27,0.2); transform: translateY(-4px); }
+    .service-card:hover::before { transform: scaleX(1); }
+    .service-card-icon { width: 48px; height: 48px; border-radius: 10px; background: rgba(204,27,27,0.1); color: var(--red); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; margin-bottom: 16px; }
+    .service-card h3 { font-family:'Outfit',sans-serif; font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 8px; }
+    .service-card p { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
+    /* Gallery teaser */
+    .gallery-teaser { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-top: 32px; }
+    .gallery-teaser-item { border-radius: 6px; overflow: hidden; border: 1px solid rgba(255,255,255,0.06); }
+    .gallery-teaser-item img { width: 100%; height: 180px; object-fit: cover; display: block; transition: transform 0.4s; }
+    .gallery-teaser-item:hover img { transform: scale(1.06); }
+    @media (max-width: 1024px) { .hero-inner { grid-template-columns: 1fr; } .hero-vis { display: none; } .services-grid { grid-template-columns: repeat(2,1fr); } .stats-bar { grid-template-columns: repeat(2,1fr); } }
+    @media (max-width: 640px) { .services-grid { grid-template-columns: 1fr; } .gallery-teaser { grid-template-columns: repeat(2,1fr); } }
+  </style>
+</head>
+<body>
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><img src="assets/logo.jpg" alt="Meba Kalip" /><div class="nav-logo-text">MEBA KALIP<small>Makina Imalat San. ve Tic. Ltd.</small></div></a>
+    <div class="nav-menu">
+      <a href="index.html" class="active">Ana Sayfa</a><a href="hakkimizda.html">Hakk&#305;m&#305;zda</a>
+      <a href="hizmetler.html">Hizmetler</a><a href="galeri.html">Galeri</a><a href="iletisim.html">&#304;leti&#351;im</a>
+    </div>
+    <div class="nav-right">
+      <div class="nav-social"><a href="https://www.instagram.com/meba_kalip_cnc" target="_blank"><i class="fab fa-instagram"></i></a><a href="https://www.facebook.com/mebakalip" target="_blank"><i class="fab fa-facebook-f"></i></a><a href="https://wa.me/905359443655" target="_blank"><i class="fab fa-whatsapp"></i></a></div>
+      <div class="nav-cta"><a href="tel:+905359443655"><i class="fas fa-phone"></i> 0535 944 36 55</a></div>
+    </div>
+    <button class="nav-hamburger"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<nav class="nav-mobile">
+  <a href="index.html">Ana Sayfa</a><a href="hakkimizda.html">Hakk&#305;m&#305;zda</a>
+  <a href="hizmetler.html">Hizmetler</a><a href="galeri.html">Galeri</a><a href="iletisim.html">&#304;leti&#351;im</a>
+  <a href="tel:+905359443655" style="color:var(--red);margin-top:8px;"><i class="fas fa-phone"></i> 0535 944 36 55</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="container hero-inner">
+    <div class="hero-content">
+      <div class="hero-badge"><span class="dot"></span> Dudullu OSB &#8212; &#220;mraniye / &#304;stanbul</div>
+      <h1 class="hero-headline">
+        Hassas
+        <span class="hl">CNC &#304;&#351;leme</span>
+        &amp; Kal&#305;p
+        &#304;malat&#305;
+      </h1>
+      <p class="hero-sub">Metal ve plastik kal&#305;p &#252;retimi, CNC frezeleme, tala&#351;l&#305; imalat ve makina imalat&#305;nda y&#252;ksek hassasiyet ve g&#252;venilir teslimat.</p>
+      <div class="hero-actions">
+        <a href="tel:+905359443655" class="btn btn-primary"><i class="fas fa-phone"></i> Hemen Ara</a>
+        <a href="hizmetler.html" class="btn btn-outline"><i class="fas fa-cogs"></i> Hizmetlerimiz</a>
+      </div>
+    </div>
+    <div class="hero-vis">
+      <div class="cnc-wrap">
+        <div class="cnc-ring cnc-ring-1"></div>
+        <div class="cnc-ring cnc-ring-2"></div>
+        <div class="cnc-ring cnc-ring-3"></div>
+        <div class="cnc-crosshair"></div>
+        <div class="cnc-dot"></div>
+        <div class="orbit-dot orbit-1"></div>
+        <div class="orbit-dot orbit-2"></div>
+        <div class="scan-line"></div>
+      </div>
+      <div class="spec-float spec-float-1"><i class="fas fa-crosshairs" style="color:var(--red);margin-right:6px;"></i>&#177;0.01mm<small>Hassasiyet</small></div>
+      <div class="spec-float spec-float-2"><i class="fas fa-layer-group" style="color:var(--red);margin-right:6px;"></i>3-4 Eksen<small>CNC Kabiliyeti</small></div>
+      <div class="spec-float spec-float-3"><i class="fas fa-check-circle" style="color:#22c55e;margin-right:6px;"></i>ISO Kalite<small>Kontrol</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="container">
+  <div class="stats-bar slide-up">
+    <div class="stat-item"><div class="stat-num" data-target="20">0</div><div class="stat-label">Y&#305;l Deneyim</div></div>
+    <div class="stat-item"><div class="stat-num" data-target="500">0</div><div class="stat-label">Tamamlanan Proje</div></div>
+    <div class="stat-item"><div class="stat-num" data-target="150">0</div><div class="stat-label">Memnun M&#252;&#351;teri</div></div>
+    <div class="stat-item"><div class="stat-num" data-target="10">0</div><div class="stat-label">CNC Tezgah</div></div>
+  </div>
+</div>
+
+<!-- ABOUT TEASER -->
+<section style="padding:80px 0;">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;">
+      <div class="slide-left">
+        <div class="section-label">Firmam&#305;z</div>
+        <h2 class="section-title">MEBA KALIP<br><span>Hakk&#305;nda</span></h2>
+        <p style="color:var(--muted);line-height:1.8;margin-bottom:20px;">&#304;stanbul Dudullu OSB&apos;de faaliyet g&#246;steren firmam&#305;z, metal ve plastik kal&#305;p imalat&#305;, CNC frezeleme ve tala&#351;l&#305; imalat alanlar&#305;nda uzmanla&#351;m&#305;&#351;t&#305;r. Modern tezgahlar&#305;m&#305;z ve deneyimli kadromuzla m&#252;&#351;terilerimize en hassas &#231;&#246;z&#252;mleri sunuyoruz.</p>
+        <a href="hakkimizda.html" class="btn btn-outline"><i class="fas fa-arrow-right"></i> Daha Fazla</a>
+      </div>
+      <div class="slide-right" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <img src="img/galeri/ig_1.webp" alt="Uretim" style="border-radius:8px;width:100%;height:180px;object-fit:cover;border:1px solid rgba(255,255,255,0.07);" />
+        <img src="img/galeri/ig_3.webp" alt="Uretim" style="border-radius:8px;width:100%;height:180px;object-fit:cover;border:1px solid rgba(255,255,255,0.07);margin-top:20px;" />
+        <img src="img/galeri/ig_5.webp" alt="Uretim" style="border-radius:8px;width:100%;height:180px;object-fit:cover;border:1px solid rgba(255,255,255,0.07);margin-top:-20px;" />
+        <img src="img/galeri/ig_7.webp" alt="Uretim" style="border-radius:8px;width:100%;height:180px;object-fit:cover;border:1px solid rgba(255,255,255,0.07);" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section style="padding:0 0 80px;">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:8px;"><div class="section-label">Hizmetlerimiz</div></div>
+    <h2 class="section-title" style="text-align:center;margin-bottom:40px;">Ne Yapıyoruz?</h2>
+    <div class="services-grid">
+      <div class="service-card slide-up">
+        <div class="service-card-icon"><i class="fas fa-cube"></i></div>
+        <h3>Kal&#305;p &#304;malat&#305;</h3>
+        <p>Metal ve plastik enjeksiyon kal&#305;plar&#305; tasar&#305;m ve imalat&#305;. Tasar&#305;mdan prototipe tam hizmet.</p>
+      </div>
+      <div class="service-card slide-up" style="animation-delay:0.1s;">
+        <div class="service-card-icon"><i class="fas fa-microchip"></i></div>
+        <h3>CNC Frezeleme</h3>
+        <p>3-4 eksenli CNC freze tezgahlar&#305;yla y&#252;ksek hassasiyetli i&#351;leme kabiliyeti.</p>
+      </div>
+      <div class="service-card slide-up" style="animation-delay:0.2s;">
+        <div class="service-card-icon"><i class="fas fa-industry"></i></div>
+        <h3>Tala&#351;l&#305; &#304;malat</h3>
+        <p>Torna, freze ve ta&#351;lama operasyonlar&#305;yla her t&#252;r par&#231;a imalat&#305;.</p>
+      </div>
+      <div class="service-card slide-up" style="animation-delay:0.1s;">
+        <div class="service-card-icon"><i class="fas fa-tools"></i></div>
+        <h3>Fason &#220;retim</h3>
+        <p>Teknik &#231;izim ve numunelerinize g&#246;re k&#252;&#231;&#252;k ve orta seri &#252;retim.</p>
+      </div>
+      <div class="service-card slide-up" style="animation-delay:0.2s;">
+        <div class="service-card-icon"><i class="fas fa-drafting-compass"></i></div>
+        <h3>Prototip &#220;retim</h3>
+        <p>Yeni &#252;r&#252;n geli&#351;tirme s&#252;re&#231;lerinde h&#305;zl&#305; prototip ve numune imalat&#305;.</p>
+      </div>
+      <div class="service-card slide-up" style="animation-delay:0.3s;">
+        <div class="service-card-icon"><i class="fas fa-search"></i></div>
+        <h3>Kalite Kontrol</h3>
+        <p>Her par&#231;a teslimat &#246;ncesinde hassas &#246;l&#231;&#252;m ve kalite kontrol s&#252;re&#231;lerinden ge&#231;er.</p>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:32px;"><a href="hizmetler.html" class="btn btn-outline"><i class="fas fa-arrow-right"></i> T&#252;m Hizmetler</a></div>
+  </div>
+</section>
+
+<!-- GALLERY TEASER -->
+<section style="padding:0 0 80px;">
+  <div class="container">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:24px;">
+      <div><div class="section-label">Galeri</div><h2 class="section-title">&#220;retimden <span>Kareler</span></h2></div>
+      <a href="galeri.html" class="btn btn-outline"><i class="fas fa-images"></i> T&#252;m Foto&#287;raflar</a>
+    </div>
+    <div class="gallery-teaser">
+      <div class="gallery-teaser-item"><img src="img/galeri/ig_2.webp" alt="Uretim" loading="lazy" /></div>
+      <div class="gallery-teaser-item"><img src="img/galeri/ig_4.webp" alt="Uretim" loading="lazy" /></div>
+      <div class="gallery-teaser-item"><img src="img/galeri/ig_6.webp" alt="Uretim" loading="lazy" /></div>
+      <div class="gallery-teaser-item"><img src="img/galeri/ig_8.webp" alt="Uretim" loading="lazy" /></div>
+      <div class="gallery-teaser-item"><img src="img/galeri/ig_9.webp" alt="Uretim" loading="lazy" /></div>
+      <div class="gallery-teaser-item"><img src="img/galeri/ig_10.webp" alt="Uretim" loading="lazy" /></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section style="padding:80px 0;background:var(--steel);position:relative;overflow:hidden;">
+  <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(204,27,27,0.08) 0%,transparent 60%);pointer-events:none;"></div>
+  <div class="container" style="text-align:center;position:relative;z-index:1;">
+    <div class="section-label">&#304;leti&#351;im</div>
+    <h2 class="section-title" style="margin-bottom:16px;">Projenizi <span>Hayata</span> Ge&#231;irelim</h2>
+    <p style="color:var(--muted);max-width:500px;margin:0 auto 36px;line-height:1.7;">Kal&#305;p imalat&#305; veya CNC i&#351;leme ihtiya&#231;lar&#305;n&#305;z i&#231;in hemen bize ula&#351;&#305;n, teknik destek ve fiyat teklifi alın.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <a href="tel:+905359443655" class="btn btn-primary"><i class="fas fa-phone"></i> 0535 944 36 55</a>
+      <a href="https://wa.me/905359443655" target="_blank" class="btn btn-outline" style="color:#25D366;border-color:rgba(37,211,102,0.3);"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+      <a href="iletisim.html" class="btn btn-outline"><i class="fas fa-map-marker-alt"></i> Konum</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand"><a href="index.html" class="nav-logo"><img src="assets/logo.jpg" alt="Meba Kalip" style="height:44px;width:44px;object-fit:contain;" /><div class="nav-logo-text">MEBA KALIP<small>Makina Imalat San. ve Tic. Ltd.</small></div></a><p>Dudullu OSB&apos;de CNC i&#351;leme, kal&#305;p imalat&#305; ve tala&#351;l&#305; imalat.</p><div class="footer-social"><a href="https://www.instagram.com/meba_kalip_cnc" target="_blank"><i class="fab fa-instagram"></i></a><a href="https://www.facebook.com/mebakalip" target="_blank"><i class="fab fa-facebook-f"></i></a><a href="https://wa.me/905359443655" target="_blank"><i class="fab fa-whatsapp"></i></a></div></div>
+      <div class="footer-col"><h4>Sayfalar</h4><ul><li><a href="index.html">Ana Sayfa</a></li><li><a href="hakkimizda.html">Hakk&#305;m&#305;zda</a></li><li><a href="hizmetler.html">Hizmetler</a></li><li><a href="galeri.html">Galeri</a></li><li><a href="iletisim.html">&#304;leti&#351;im</a></li></ul></div>
+      <div class="footer-col"><h4>Hizmetler</h4><ul><li><a href="hizmetler.html">Kal&#305;p &#304;malat&#305;</a></li><li><a href="hizmetler.html">CNC Frezeleme</a></li><li><a href="hizmetler.html">Tala&#351;l&#305; &#304;malat</a></li><li><a href="hizmetler.html">Fason &#220;retim</a></li></ul></div>
+      <div class="footer-col"><h4>&#304;leti&#351;im</h4><div class="footer-contact-item"><i class="fas fa-map-marker-alt"></i><span>Dudullu O.S.B. Mh. &#304;MES Sanayi Sitesi E Blok No:2/1, &#220;mraniye / &#304;stanbul</span></div><div class="footer-contact-item"><i class="fas fa-phone"></i><span>0535 944 36 55</span></div><div class="footer-contact-item"><i class="fas fa-phone"></i><span>0216 364 33 47</span></div></div>
+    </div>
+  </div>
+  <div style="border-top:1px solid rgba(255,255,255,0.06);padding:18px 0;"><div class="container footer-bottom"><span>&copy; 2025 Meba Kal&#305;p Makina &#304;malat San. ve Tic. Ltd. &#350;ti.</span><span>T&#252;m haklar&#305; sakl&#305;d&#305;r.</span></div></div>
+</footer>
+<a href="https://wa.me/905359443655" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+<script src="assets/script.js"></script>
+</body>
+</html>
