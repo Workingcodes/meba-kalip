@@ -70,6 +70,7 @@
     .gallery-teaser-item { border-radius: 6px; overflow: hidden; border: 1px solid rgba(255,255,255,0.06); }
     .gallery-teaser-item img { width: 100%; height: 180px; object-fit: cover; display: block; transition: transform 0.4s; }
     .gallery-teaser-item:hover img { transform: scale(1.06); }
+    @media (max-width: 768px) { .about-grid-home { grid-template-columns: 1fr !important; } }
     @media (max-width: 1024px) { .hero-inner { grid-template-columns: 1fr; } .hero-vis { display: none; } .services-grid { grid-template-columns: repeat(2,1fr); } .stats-bar { grid-template-columns: repeat(2,1fr); } }
     @media (max-width: 640px) { .services-grid { grid-template-columns: 1fr; } .gallery-teaser { grid-template-columns: repeat(2,1fr); } }
   </style>
@@ -144,7 +145,7 @@
 <!-- ABOUT TEASER -->
 <section style="padding:80px 0;">
   <div class="container">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;">
+    <div class="about-grid-home" style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;">
       <div class="slide-left">
         <div class="section-label">Firmam&#305;z</div>
         <h2 class="section-title">MEBA KALIP<br><span>Hakk&#305;nda</span></h2>
@@ -210,12 +211,12 @@
       <a href="galeri.html" class="btn btn-outline"><i class="fas fa-images"></i> T&#252;m Foto&#287;raflar</a>
     </div>
     <div class="gallery-teaser">
-      <div class="gallery-teaser-item"><img src="img/galeri/ig_2.webp" alt="Uretim" loading="lazy" /></div>
-      <div class="gallery-teaser-item"><img src="img/galeri/ig_4.webp" alt="Uretim" loading="lazy" /></div>
-      <div class="gallery-teaser-item"><img src="img/galeri/ig_6.webp" alt="Uretim" loading="lazy" /></div>
-      <div class="gallery-teaser-item"><img src="img/galeri/ig_8.webp" alt="Uretim" loading="lazy" /></div>
-      <div class="gallery-teaser-item"><img src="img/galeri/ig_9.webp" alt="Uretim" loading="lazy" /></div>
-      <div class="gallery-teaser-item"><img src="img/galeri/ig_10.webp" alt="Uretim" loading="lazy" /></div>
+      <div class="gallery-teaser-item" data-src="img/galeri/ig_2.webp" style="cursor:pointer;"><img src="img/galeri/ig_2.webp" alt="Uretim" loading="lazy" /></div>
+      <div class="gallery-teaser-item" data-src="img/galeri/ig_4.webp" style="cursor:pointer;"><img src="img/galeri/ig_4.webp" alt="Uretim" loading="lazy" /></div>
+      <div class="gallery-teaser-item" data-src="img/galeri/ig_6.webp" style="cursor:pointer;"><img src="img/galeri/ig_6.webp" alt="Uretim" loading="lazy" /></div>
+      <div class="gallery-teaser-item" data-src="img/galeri/ig_8.webp" style="cursor:pointer;"><img src="img/galeri/ig_8.webp" alt="Uretim" loading="lazy" /></div>
+      <div class="gallery-teaser-item" data-src="img/galeri/ig_9.webp" style="cursor:pointer;"><img src="img/galeri/ig_9.webp" alt="Uretim" loading="lazy" /></div>
+      <div class="gallery-teaser-item" data-src="img/galeri/ig_10.webp" style="cursor:pointer;"><img src="img/galeri/ig_10.webp" alt="Uretim" loading="lazy" /></div>
     </div>
   </div>
 </section>
@@ -244,9 +245,31 @@
       <div class="footer-col"><h4>&#304;leti&#351;im</h4><div class="footer-contact-item"><i class="fas fa-map-marker-alt"></i><span>Dudullu O.S.B. Mh. &#304;MES Sanayi Sitesi E Blok No:2/1, &#220;mraniye / &#304;stanbul</span></div><div class="footer-contact-item"><i class="fas fa-phone"></i><span>0535 944 36 55</span></div><div class="footer-contact-item"><i class="fas fa-phone"></i><span>0216 364 33 47</span></div></div>
     </div>
   </div>
-  <div style="border-top:1px solid rgba(255,255,255,0.06);padding:18px 0;"><div class="container footer-bottom"><span>&copy; 2025 Meba Kal&#305;p Makina &#304;malat San. ve Tic. Ltd. &#350;ti.</span><span>T&#252;m haklar&#305; sakl&#305;d&#305;r.</span></div></div>
+  <div style="border-top:1px solid rgba(255,255,255,0.06);padding:18px 0;"><div class="container footer-bottom"><span>&copy; 2026 Meba Kal&#305;p Makina &#304;malat San. ve Tic. Ltd. &#350;ti.</span><span>T&#252;m haklar&#305; sakl&#305;d&#305;r.</span></div></div>
 </footer>
-<a href="https://wa.me/905359443655" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+<div id="teaserLightbox" style="display:none;position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,0.95);align-items:center;justify-content:center;padding:24px;">
+  <div style="position:relative;max-width:900px;width:100%;">
+    <button id="teaserLbClose" style="position:absolute;top:-14px;right:-14px;width:38px;height:38px;border-radius:50%;background:#CC1B1B;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:0.9rem;border:none;z-index:1;"><i class="fas fa-times"></i></button>
+    <img id="teaserLbImg" src="" alt="" style="width:100%;max-height:80vh;object-fit:contain;border-radius:6px;" />
+  </div>
+</div><a href="https://wa.me/905359443655" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+<div id="teaserLightbox" style="display:none;position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,0.95);align-items:center;justify-content:center;padding:24px;">
+  <div style="position:relative;max-width:900px;width:100%;">
+    <button id="teaserLbClose" style="position:absolute;top:-14px;right:-14px;width:38px;height:38px;border-radius:50%;background:#CC1B1B;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:0.9rem;border:none;z-index:1;"><i class="fas fa-times"></i></button>
+    <img id="teaserLbImg" src="" alt="" style="width:100%;max-height:80vh;object-fit:contain;border-radius:6px;" />
+  </div>
+</div>
 <script src="assets/script.js"></script>
+<script>
+const teaserItems = Array.from(document.querySelectorAll('.gallery-teaser-item[data-src]'));
+const tlb = document.getElementById('teaserLightbox');
+const tlbImg = document.getElementById('teaserLbImg');
+function openTlb(src) { tlbImg.src=src; tlb.style.display='flex'; document.body.style.overflow='hidden'; }
+function closeTlb() { tlb.style.display='none'; document.body.style.overflow=''; }
+teaserItems.forEach(item => item.addEventListener('click', () => openTlb(item.dataset.src)));
+document.getElementById('teaserLbClose').addEventListener('click', closeTlb);
+tlb.addEventListener('click', e => { if(e.target===tlb) closeTlb(); });
+document.addEventListener('keydown', e => { if(tlb.style.display==='flex' && e.key==='Escape') closeTlb(); });
+</script>
 </body>
 </html>
