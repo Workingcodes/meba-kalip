@@ -71,8 +71,8 @@ ul { list-style: none; }
 .nav-logo { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
 .nav-logo img { height: 58px; width: 58px; object-fit: contain; background: #fff; border-radius: 8px; padding: 4px;
 }
-.nav-logo-text { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1rem; line-height: 1.1; color: var(--white); }
-.nav-logo-text small { font-size: 0.62rem; font-weight: 400; color: var(--muted); letter-spacing: 0.05em; display: block; }
+.nav-logo-text { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.2rem; line-height: 1.1; color: var(--white); }
+.nav-logo-text small { font-size: 0.72rem; font-weight: 400; color: var(--muted); letter-spacing: 0.05em; display: block; }
 .nav-menu { display: flex; align-items: center; gap: 2px; margin: 0 auto; }
 .nav-menu a {
   padding: 8px 14px; border-radius: var(--radius);
