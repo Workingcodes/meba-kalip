@@ -19,7 +19,7 @@
   --light:     #CBD5E1;
   --white:     #FFFFFF;
   --radius:    5px;
-  --nav-h:     70px;
+  --nav-h:     86px;
   --transition: 0.25s ease;
 }
 
@@ -69,7 +69,7 @@ ul { list-style: none; }
 .navbar.scrolled { box-shadow: 0 4px 32px rgba(0,0,0,0.7); border-bottom-color: rgba(204,27,27,0.2); }
 .nav-inner { max-width: 1280px; margin: 0 auto; padding: 0 24px; width: 100%; display: flex; align-items: center; gap: 20px; }
 .nav-logo { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
-.nav-logo img { height: 46px; width: 46px; object-fit: contain;   background: #fff; border-radius: 6px; padding: 3px;
+.nav-logo img { height: 58px; width: 58px; object-fit: contain; background: #fff; border-radius: 8px; padding: 4px;
 }
 .nav-logo-text { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1rem; line-height: 1.1; color: var(--white); }
 .nav-logo-text small { font-size: 0.62rem; font-weight: 400; color: var(--muted); letter-spacing: 0.05em; display: block; }
