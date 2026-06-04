@@ -30,7 +30,7 @@ mobileMenu?.querySelectorAll('a').forEach(a => a.addEventListener('click', () =>
 const obs = new IntersectionObserver((entries) => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
 }, { threshold: 0.1 });
-document.querySelectorAll('.fade-in, .slide-left, .slide-right').forEach(el => obs.observe(el));
+document.querySelectorAll('.fade-in, .slide-left, .slide-right, .slide-up').forEach(el => obs.observe(el));
 
 // ── Counter animation ──
 function animateCounter(el) {
