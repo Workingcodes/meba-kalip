@@ -6,270 +6,760 @@
   <link rel="stylesheet" href="assets/style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
-    /* ===== HERO ===== */
-    .hero { min-height: 100dvh; display: flex; align-items: center; position: relative; overflow: hidden; background: var(--black); }
-    .hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(204,27,27,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(204,27,27,0.04) 1px, transparent 1px); background-size: 48px 48px; animation: grid-shift 20s linear infinite; }
-    @keyframes grid-shift { 0% { background-position: 0 0; } 100% { background-position: 48px 48px; } }
-    .hero-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; position: relative; z-index: 2; width: 100%; }
+    /* ===== 3D HERO ===== */
+    :root {
+      --chrome: #c8c8c8;
+      --chrome-lt: #efefef;
+      --chrome-dk: #888888;
+    }
+    #hero-canvas {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      display: block; z-index: 1;
+    }
+    .hero {
+      min-height: 100dvh; position: relative; overflow: hidden;
+      background: #080a0e; display: flex; align-items: center;
+    }
+    .hero-inner {
+      position: relative; z-index: 2; width: 100%;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 48px; align-items: center;
+    }
     .hero-content { }
-    .hero-badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; background: rgba(204,27,27,0.1); border: 1px solid rgba(204,27,27,0.25); border-radius: 20px; font-family:'Outfit',sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--red); margin-bottom: 24px; }
-    .hero-badge span.dot { width: 6px; height: 6px; border-radius: 50%; background: var(--red); animation: pulse-dot 2s ease-in-out infinite; }
-    @keyframes pulse-dot { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.7); } }
-    .hero-headline { font-family:'Outfit',sans-serif; font-size: clamp(2.4rem, 5vw, 3.8rem); font-weight: 900; line-height: 1.05; color: var(--white); margin-bottom: 20px; }
-    .hero-headline .hl { color: var(--red); display: block; }
-    .hero-sub { color: var(--muted); font-size: 1rem; line-height: 1.7; max-width: 480px; margin-bottom: 36px; }
-    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
-    .hero-vis { position: relative; height: 420px; display: flex; align-items: center; justify-content: center; }
-    /* CNC visualization */
-    .cnc-wrap { position: relative; width: 300px; height: 300px; }
-    .cnc-ring { position: absolute; top: 50%; left: 50%; border-radius: 50%; border: 1px solid rgba(204,27,27,0.25); transform: translate(-50%,-50%); }
-    .cnc-ring-1 { width: 280px; height: 280px; border-color: rgba(204,27,27,0.3); animation: spin-cw 18s linear infinite; }
-    .cnc-ring-1::before { content:''; position: absolute; top: 10px; left: 50%; width: 8px; height: 8px; background: var(--red); border-radius: 50%; transform: translateX(-50%); box-shadow: 0 0 10px var(--red); }
-    .cnc-ring-2 { width: 200px; height: 200px; border-color: rgba(204,27,27,0.2); border-style: dashed; animation: spin-ccw 25s linear infinite; }
-    .cnc-ring-2::before { content:''; position: absolute; bottom: 12px; left: 50%; width: 5px; height: 5px; background: rgba(204,27,27,0.7); border-radius: 50%; transform: translateX(-50%); }
-    .cnc-ring-3 { width: 120px; height: 120px; border-color: rgba(204,27,27,0.15); animation: spin-cw 35s linear infinite; }
-    @keyframes spin-cw { from { transform: translate(-50%,-50%) rotate(0deg); } to { transform: translate(-50%,-50%) rotate(360deg); } }
-    @keyframes spin-ccw { from { transform: translate(-50%,-50%) rotate(0deg); } to { transform: translate(-50%,-50%) rotate(-360deg); } }
-    .cnc-crosshair { position: absolute; top: 50%; left: 50%; width: 60px; height: 60px; transform: translate(-50%,-50%); animation: spin-cw 8s linear infinite; }
-    .cnc-crosshair::before, .cnc-crosshair::after { content:''; position: absolute; background: rgba(204,27,27,0.5); }
-    .cnc-crosshair::before { width: 100%; height: 1px; top: 50%; left: 0; }
-    .cnc-crosshair::after { width: 1px; height: 100%; left: 50%; top: 0; }
-    .cnc-dot { position: absolute; top: 50%; left: 50%; width: 16px; height: 16px; transform: translate(-50%,-50%); }
-    .cnc-dot::before { content:''; position: absolute; inset: 0; background: var(--red); border-radius: 50%; box-shadow: 0 0 20px var(--red-glow); animation: pulse-dot 2s ease-in-out infinite; }
-    .orbit-dot { position: absolute; top: 50%; left: 50%; width: 8px; height: 8px; border-radius: 50%; background: rgba(204,27,27,0.6); margin: -4px; }
-    .orbit-1 { animation: orbit1 18s linear infinite; }
-    .orbit-2 { animation: orbit2 25s linear infinite; }
-    @keyframes orbit1 { from { transform: rotate(0deg) translateX(140px); } to { transform: rotate(360deg) translateX(140px); } }
-    @keyframes orbit2 { from { transform: rotate(180deg) translateX(100px); } to { transform: rotate(540deg) translateX(100px); } }
-    .scan-line { position: absolute; top: 0; left: 50%; width: 1px; height: 300px; background: linear-gradient(180deg, transparent, rgba(204,27,27,0.6), transparent); transform-origin: top center; animation: scan 4s ease-in-out infinite; }
-    @keyframes scan { 0%,100% { transform: rotate(-45deg); opacity: 0; } 20% { opacity: 1; } 50% { transform: rotate(45deg); opacity: 1; } 80% { opacity: 0; } }
-    /* Spec floats */
-    .spec-float { position: absolute; background: rgba(26,31,40,0.9); border: 1px solid rgba(204,27,27,0.2); border-radius: 8px; padding: 10px 14px; backdrop-filter: blur(8px); font-family:'Outfit',sans-serif; font-size: 0.72rem; font-weight: 700; color: var(--white); white-space: nowrap; }
-    .spec-float small { display: block; color: var(--muted); font-weight: 400; font-size: 0.65rem; margin-top: 2px; }
-    .spec-float-1 { top: 30px; left: -20px; animation: float1 4s ease-in-out infinite; }
-    .spec-float-2 { bottom: 40px; right: -20px; animation: float1 4s ease-in-out 1.5s infinite; }
-    .spec-float-3 { bottom: 30px; left: -10px; animation: float1 4s ease-in-out 2.5s infinite; }
-    @keyframes float1 { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
-    /* Stats bar */
-    .stats-bar { display: grid; grid-template-columns: repeat(4,1fr); gap: 0; background: var(--steel); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; margin: 64px 0; overflow: hidden; }
-    .stat-item { padding: 28px 20px; text-align: center; border-right: 1px solid rgba(255,255,255,0.06); }
-    .stat-item:last-child { border-right: none; }
-    .stat-num { font-family:'Outfit',sans-serif; font-size: 2.2rem; font-weight: 900; color: var(--red); line-height: 1; }
-    .stat-label { font-size: 0.75rem; color: var(--muted); margin-top: 6px; font-family:'Outfit',sans-serif; font-weight: 600; }
-    /* Services grid */
-    .services-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-top: 40px; }
-    .service-card { background: var(--steel2); border: 1px solid rgba(255,255,255,0.07); border-radius: 8px; padding: 28px 24px; transition: all var(--transition); position: relative; overflow: hidden; }
-    .service-card::before { content:''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--red); transform: scaleX(0); transition: transform var(--transition); transform-origin: left; }
-    .service-card:hover { border-color: rgba(204,27,27,0.2); transform: translateY(-4px); }
-    .service-card:hover::before { transform: scaleX(1); }
-    .service-card-icon { width: 48px; height: 48px; border-radius: 10px; background: rgba(204,27,27,0.1); color: var(--red); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; margin-bottom: 16px; }
-    .service-card h3 { font-family:'Outfit',sans-serif; font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 8px; }
-    .service-card p { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
-    /* Gallery teaser */
-    .gallery-teaser { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-top: 32px; }
-    .gallery-teaser-item { border-radius: 6px; overflow: hidden; border: 1px solid rgba(255,255,255,0.06); }
-    .gallery-teaser-item img { width: 100%; height: 180px; object-fit: cover; display: block; transition: transform 0.4s; }
-    .gallery-teaser-item:hover img { transform: scale(1.06); }
-    @media (max-width: 768px) { .about-grid-home { grid-template-columns: 1fr !important; } }
-    @media (max-width: 1024px) { .hero-inner { grid-template-columns: 1fr; } .hero-vis { display: none; } .services-grid { grid-template-columns: repeat(2,1fr); } .stats-bar { grid-template-columns: repeat(2,1fr); } }
-    @media (max-width: 640px) { .services-grid { grid-template-columns: 1fr; } .gallery-teaser { grid-template-columns: repeat(2,1fr); } }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 14px;
+      background: rgba(204,27,27,0.12); border: 1px solid rgba(204,27,27,0.3);
+      border-radius: 20px; font-family:'Outfit',sans-serif;
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--red); margin-bottom: 28px;
+      opacity: 0;
+    }
+    .hero-badge .dot {
+      width: 6px; height: 6px; border-radius: 50%; background: var(--red);
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(.7);}
+    }
+    .hero-headline {
+      font-family:'Outfit',sans-serif;
+      font-size: clamp(2.6rem, 5vw, 4rem);
+      font-weight: 900; line-height: 1.0;
+      color: var(--white); margin-bottom: 24px;
+      overflow: hidden;
+    }
+    .hero-headline .line { display: block; transform: translateY(110%); opacity: 0; }
+    .hero-headline .hl { color: var(--red); }
+    .hero-sub {
+      color: var(--muted); font-size: 1rem; line-height: 1.75;
+      max-width: 480px; margin-bottom: 40px; opacity: 0;
+    }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; opacity: 0; }
+    .hero-scroll-hint {
+      position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      color: rgba(255,255,255,0.3); font-size: 0.7rem; letter-spacing: 0.1em;
+      text-transform: uppercase; z-index: 2; opacity: 0;
+    }
+    .hero-scroll-hint .arrow {
+      width: 1px; height: 40px;
+      background: linear-gradient(to bottom, rgba(204,27,27,0.6), transparent);
+      animation: arrow-drop 1.8s ease-in-out infinite;
+    }
+    @keyframes arrow-drop {
+      0%,100%{transform:scaleY(0);transform-origin:top;opacity:1;}
+      50%{transform:scaleY(1);transform-origin:top;opacity:1;}
+      51%{transform-origin:bottom;}
+      100%{transform:scaleY(0);transform-origin:bottom;opacity:0;}
+    }
+    /* ===== STATS ROW ===== */
+    .stats-row {
+      background: #0d0f14;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+    .stat-cell {
+      padding: 48px 32px;
+      border-right: 1px solid rgba(255,255,255,0.06);
+      position: relative; overflow: hidden;
+    }
+    .stat-cell:last-child { border-right: none; }
+    .stat-cell::before {
+      content:''; position: absolute; bottom: 0; left: 0;
+      width: 100%; height: 2px;
+      background: linear-gradient(90deg, var(--red), transparent);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.6s ease;
+    }
+    .stat-cell:hover::before { transform: scaleX(1); }
+    .stat-num {
+      font-family:'Outfit',sans-serif; font-size: 3rem; font-weight: 900;
+      color: var(--chrome-lt); line-height: 1; margin-bottom: 8px;
+    }
+    .stat-num span.accent { color: var(--red); }
+    .stat-label {
+      font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--muted); font-weight: 600;
+    }
+    /* ===== ABOUT SECTION ===== */
+    .about-wrap {
+      padding: 120px 0;
+      background: var(--black);
+    }
+    .about-layout {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+    }
+    .about-photos {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px; position: relative;
+    }
+    .about-photo-main {
+      grid-column: 1 / 3; height: 260px; overflow: hidden; border-radius: 4px;
+    }
+    .about-photo-sm { height: 160px; overflow: hidden; border-radius: 4px; }
+    .about-photos img { width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform 0.8s ease; }
+    .about-photos img:hover { transform: scale(1.04); }
+    .about-tag {
+      display: inline-block; font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase; color: var(--red);
+      border-left: 2px solid var(--red); padding-left: 12px; margin-bottom: 20px;
+    }
+    .about-h2 {
+      font-family:'Outfit',sans-serif; font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 800; color: var(--white); line-height: 1.15; margin-bottom: 20px;
+    }
+    .about-h2 em { color: var(--chrome); font-style: normal; }
+    .about-desc { color: var(--muted); line-height: 1.8; margin-bottom: 32px; }
+    .about-facts { display: flex; flex-direction: column; gap: 12px; }
+    .about-fact {
+      display: flex; align-items: center; gap: 12px;
+      font-size: 0.88rem; color: rgba(255,255,255,0.7);
+    }
+    .about-fact i { color: var(--red); width: 18px; text-align: center; }
+    /* ===== SERVICES ===== */
+    .services-section {
+      padding: 120px 0;
+      background: #0a0c10;
+    }
+    .section-header { margin-bottom: 64px; }
+    .section-tag {
+      display: inline-block; font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase; color: var(--red);
+      border-left: 2px solid var(--red); padding-left: 12px; margin-bottom: 16px;
+    }
+    .section-h2 {
+      font-family:'Outfit',sans-serif; font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 800; color: var(--white); line-height: 1.15;
+    }
+    .section-h2 em { color: var(--chrome); font-style: normal; }
+    .svc-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+    }
+    .svc-card {
+      padding: 40px 36px;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-right: none; border-bottom: none;
+      position: relative; overflow: hidden;
+      transition: background 0.3s ease;
+      opacity: 0; transform: translateY(50px);
+    }
+    .svc-card:nth-child(3n) { border-right: 1px solid rgba(255,255,255,0.06); }
+    .svc-card:nth-last-child(-n+3) { border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .svc-card::after {
+      content:''; position:absolute; inset:0;
+      background: linear-gradient(135deg, rgba(204,27,27,0.05) 0%, transparent 60%);
+      opacity:0; transition: opacity 0.4s;
+    }
+    .svc-card:hover { background: rgba(255,255,255,0.02); }
+    .svc-card:hover::after { opacity:1; }
+    .svc-icon {
+      width: 52px; height: 52px; border-radius: 8px;
+      background: rgba(204,27,27,0.1); border: 1px solid rgba(204,27,27,0.2);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 24px; color: var(--red); font-size: 1.3rem;
+      transition: background 0.3s, transform 0.3s;
+    }
+    .svc-card:hover .svc-icon { background: rgba(204,27,27,0.2); transform: scale(1.08); }
+    .svc-title {
+      font-family:'Outfit',sans-serif; font-size: 1.05rem; font-weight: 700;
+      color: var(--white); margin-bottom: 12px;
+    }
+    .svc-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.7; }
+    /* ===== GALLERY ===== */
+    .gallery-section { padding: 120px 0; background: var(--black); }
+    .gallery-grid-new {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      grid-template-rows: 280px 280px;
+      gap: 8px; margin-top: 56px;
+    }
+    .g-item {
+      overflow: hidden; border-radius: 4px; cursor: pointer; position: relative;
+      opacity: 0; transform: scale(0.92);
+    }
+    .g-item:first-child { grid-row: 1 / 3; }
+    .g-item img {
+      width:100%; height:100%; object-fit:cover; display:block;
+      transition: transform 0.7s cubic-bezier(.16,1,.3,1);
+    }
+    .g-item:hover img { transform: scale(1.07); }
+    .g-overlay {
+      position:absolute; inset:0; background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 60%);
+      opacity:0; transition:opacity 0.3s; display:flex; align-items:flex-end; padding:20px;
+    }
+    .g-item:hover .g-overlay { opacity:1; }
+    .g-overlay span { color:#fff; font-size:0.8rem; font-weight:600; letter-spacing:.06em; text-transform:uppercase; }
+    /* lightbox */
+    #teaserLightbox {
+      position:fixed; inset:0; background:rgba(0,0,0,0.92); z-index:9999;
+      display:none; align-items:center; justify-content:center;
+    }
+    #teaserLightbox.open { display:flex; }
+    #teaserLightbox img {
+      max-width:90vw; max-height:90vh; border-radius:6px;
+      box-shadow:0 24px 80px rgba(0,0,0,0.7);
+    }
+    #teaserLightbox .lb-close {
+      position:fixed; top:24px; right:28px; font-size:2rem; color:#fff;
+      cursor:pointer; line-height:1; opacity:.8; transition:opacity .2s;
+    }
+    #teaserLightbox .lb-close:hover { opacity:1; }
+    /* ===== CTA SECTION ===== */
+    .cta-section {
+      padding: 140px 0;
+      background: #06080b;
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .cta-section::before {
+      content:''; position:absolute; inset:0;
+      background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(204,27,27,0.08) 0%, transparent 70%);
+    }
+    .cta-line {
+      position:absolute; top:0; left:50%; width:1px; height:80px;
+      background:linear-gradient(to bottom, transparent, var(--red));
+    }
+    .cta-tag {
+      display:inline-block; font-size:.68rem; font-weight:700;
+      letter-spacing:.14em; text-transform:uppercase; color:var(--red);
+      margin-bottom:20px; opacity:0;
+    }
+    .cta-h2 {
+      font-family:'Outfit',sans-serif; font-size:clamp(2rem,4vw,3.2rem);
+      font-weight:900; color:var(--white); line-height:1.1; margin-bottom:16px;
+      opacity:0;
+    }
+    .cta-h2 em { color:var(--chrome); font-style:normal; }
+    .cta-sub {
+      color:var(--muted); font-size:1rem; line-height:1.7;
+      max-width:520px; margin:0 auto 48px; opacity:0;
+    }
+    .cta-actions { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; opacity:0; }
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1024px) {
+      .hero-inner { grid-template-columns: 1fr; text-align: center; }
+      .hero-sub { max-width: 100%; }
+      .hero-actions { justify-content: center; }
+      .stats-grid { grid-template-columns: repeat(2,1fr); }
+      .stat-cell:nth-child(2) { border-right: none; }
+      .about-layout { grid-template-columns: 1fr; gap: 48px; }
+      .svc-grid { grid-template-columns: repeat(2,1fr); }
+      .svc-card:nth-child(3n) { border-right: none; }
+      .svc-card:nth-child(2n) { border-right: 1px solid rgba(255,255,255,0.06); }
+      .svc-card:nth-last-child(-n+2) { border-bottom: 1px solid rgba(255,255,255,0.06); }
+      .gallery-grid-new { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+      .g-item:first-child { grid-row: auto; }
+    }
+    @media (max-width: 640px) {
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .svc-grid { grid-template-columns: 1fr; }
+      .svc-card:nth-child(2n) { border-right: none; }
+      .svc-card:nth-last-child(-n+1) { border-bottom: 1px solid rgba(255,255,255,0.06); }
+      .gallery-grid-new { grid-template-columns: 1fr; grid-template-rows: auto; }
+      .g-item { height: 220px; }
+    }
   </style>
 </head>
 <body>
-<nav class="navbar" id="navbar">
-  <div class="nav-inner">
-    <a href="index.html" class="nav-logo"><img src="assets/logo.jpg" alt="Meba Kalip" /><div class="nav-logo-text">MEBA KALIP<small>Makina Imalat San. ve Tic. Ltd.</small></div></a>
-    <div class="nav-menu">
-      <a href="index.html" class="active">Ana Sayfa</a><a href="hakkimizda.html">Hakk&#305;m&#305;zda</a>
-      <a href="hizmetler.html">Hizmetler</a><a href="galeri.html">Galeri</a><a href="iletisim.html">&#304;leti&#351;im</a>
-    </div>
-    <div class="nav-right">
-      <div class="nav-social"><a href="https://www.instagram.com/meba_kalip_cnc" target="_blank"><i class="fab fa-instagram"></i></a><a href="https://www.facebook.com/mebakalip" target="_blank"><i class="fab fa-facebook-f"></i></a><a href="https://wa.me/905359443655" target="_blank"><i class="fab fa-whatsapp"></i></a></div>
-      <div class="nav-cta"><a href="iletisim.html"><i class="fas fa-envelope"></i> &#304;leti&#351;ime Ge&#231;in</a></div>
-    </div>
-    <button class="nav-hamburger"><span></span><span></span><span></span></button>
+
+<!-- NAV -->
+<header class="nav" id="mainNav">
+  <div class="container nav-container">
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-img-box">
+        <img src="assets/logo.jpg" alt="MEBA KALIP Logo" />
+      </div>
+      <div class="nav-logo-text">MEBA KALIP<small>Kal&#305;p &#304;malat&#305; Ltd. &#350;ti.</small></div>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html" class="active">Ana Sayfa</a>
+      <a href="hakkimizda.html">Hakk&#305;m&#305;zda</a>
+      <a href="hizmetler.html">Hizmetler</a>
+      <a href="galeri.html">Galeri</a>
+      <a href="iletisim.html">&#304;leti&#351;im</a>
+    </nav>
+    <a href="iletisim.html" class="btn btn-primary nav-cta">&#304;leti&#351;ime Ge&#231;in</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Men&#252;">
+      <span></span><span></span><span></span>
+    </button>
   </div>
-</nav>
-<nav class="nav-mobile">
-  <a href="index.html">Ana Sayfa</a><a href="hakkimizda.html">Hakk&#305;m&#305;zda</a>
-  <a href="hizmetler.html">Hizmetler</a><a href="galeri.html">Galeri</a><a href="iletisim.html">&#304;leti&#351;im</a>
-  <a href="tel:+905359443655" style="color:var(--red);margin-top:8px;"><i class="fas fa-phone"></i> 0535 944 36 55</a>
-</nav>
+  <div class="nav-mobile" id="navMobile">
+    <a href="index.html">Ana Sayfa</a>
+    <a href="hakkimizda.html">Hakk&#305;m&#305;zda</a>
+    <a href="hizmetler.html">Hizmetler</a>
+    <a href="galeri.html">Galeri</a>
+    <a href="iletisim.html">&#304;leti&#351;im</a>
+    <a href="iletisim.html" class="btn btn-primary" style="margin-top:8px;">&#304;leti&#351;ime Ge&#231;in</a>
+  </div>
+</header>
 
 <!-- HERO -->
-<section class="hero">
-  <div class="hero-grid"></div>
+<section class="hero" id="hero">
+  <canvas id="hero-canvas"></canvas>
   <div class="container hero-inner">
     <div class="hero-content">
-      <div class="hero-badge"><span class="dot"></span> Dudullu OSB &#8212; &#220;mraniye / &#304;stanbul</div>
+      <div class="hero-badge"><span class="dot"></span> Dudullu OSB &mdash; &#220;mraniye</div>
       <h1 class="hero-headline">
-        Hassas
-        <span class="hl">CNC &#304;&#351;leme</span>
-        &amp; Kal&#305;p
-        &#304;malat&#305;
+        <span class="line">Hassas CNC</span>
+        <span class="line"><span class="hl">&#304;&#351;leme</span> &amp;</span>
+        <span class="line">Kal&#305;p &#304;malat&#305;</span>
       </h1>
-      <p class="hero-sub">Metal ve plastik kal&#305;p &#252;retimi, CNC frezeleme, tala&#351;l&#305; imalat ve makina imalat&#305;nda y&#252;ksek hassasiyet ve g&#252;venilir teslimat.</p>
+      <p class="hero-sub">
+        25 y&#305;ll&#305;k deneyim ve modern tezgah altyap&#305;m&#305;zla tolerans&#305;n&#305;za uygun,
+        zaman&#305;nda teslim. Prototipten seri &#252;retime her a&#351;amada yan&#305;n&#305;zday&#305;z.
+      </p>
       <div class="hero-actions">
-        <a href="iletisim.html" class="btn btn-primary"><i class="fas fa-envelope"></i> Bize Ula&#351;&#305;n</a>
-        <a href="hizmetler.html" class="btn btn-outline"><i class="fas fa-cogs"></i> Hizmetlerimiz</a>
+        <a href="iletisim.html" class="btn btn-primary">Bize Ula&#351;&#305;n</a>
+        <a href="hizmetler.html" class="btn btn-outline">Hizmetlerimiz</a>
       </div>
     </div>
-    <div class="hero-vis">
-      <div class="cnc-wrap">
-        <div class="cnc-ring cnc-ring-1"></div>
-        <div class="cnc-ring cnc-ring-2"></div>
-        <div class="cnc-ring cnc-ring-3"></div>
-        <div class="cnc-crosshair"></div>
-        <div class="cnc-dot"></div>
-        <div class="orbit-dot orbit-1"></div>
-        <div class="orbit-dot orbit-2"></div>
-        <div class="scan-line"></div>
+    <div></div>
+  </div>
+  <div class="hero-scroll-hint">
+    <span>Ka&#351;&#305;f et</span>
+    <div class="arrow"></div>
+  </div>
+</section>
+
+<!-- STATS ROW -->
+<section class="stats-row">
+  <div class="container" style="padding:0; max-width:100%;">
+    <div class="stats-grid" style="max-width:1400px; margin:0 auto; padding:0 24px;">
+      <div class="stat-cell">
+        <div class="stat-num" data-target="25"><span class="count">0</span><span class="accent">+</span></div>
+        <div class="stat-label">Y&#305;l Deneyim</div>
       </div>
-      <div class="spec-float spec-float-1"><i class="fas fa-crosshairs" style="color:var(--red);margin-right:6px;"></i>&#177;0.01mm<small>Hassasiyet</small></div>
-      <div class="spec-float spec-float-2"><i class="fas fa-layer-group" style="color:var(--red);margin-right:6px;"></i>3-4 Eksen<small>CNC Kabiliyeti</small></div>
-      <div class="spec-float spec-float-3"><i class="fas fa-check-circle" style="color:#22c55e;margin-right:6px;"></i>ISO Kalite<small>Kontrol</small></div>
+      <div class="stat-cell">
+        <div class="stat-num" data-target="500"><span class="count">0</span><span class="accent">+</span></div>
+        <div class="stat-label">Tamamlanan Proje</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num" data-target="12"><span class="count">0</span></div>
+        <div class="stat-label">CNC Tezgah</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num" data-target="100"><span class="count">0</span><span class="accent">%</span></div>
+        <div class="stat-label">M&#252;&#351;teri Memnuniyeti</div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- STATS -->
-<div class="container">
-  <div class="stats-bar slide-up">
-    <div class="stat-item"><div class="stat-num" data-target="20">0</div><div class="stat-label">Y&#305;l Deneyim</div></div>
-    <div class="stat-item"><div class="stat-num" data-target="500">0</div><div class="stat-label">Tamamlanan Proje</div></div>
-    <div class="stat-item"><div class="stat-num" data-target="150">0</div><div class="stat-label">Memnun M&#252;&#351;teri</div></div>
-    <div class="stat-item"><div class="stat-num" data-target="10">0</div><div class="stat-label">CNC Tezgah</div></div>
-  </div>
-</div>
-
-<!-- ABOUT TEASER -->
-<section style="padding:80px 0;">
+<!-- ABOUT -->
+<section class="about-wrap" id="about">
   <div class="container">
-    <div class="about-grid-home" style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;">
-      <div class="slide-left">
-        <div class="section-label">Firmam&#305;z</div>
-        <h2 class="section-title">MEBA KALIP<br><span>Hakk&#305;nda</span></h2>
-        <p style="color:var(--muted);line-height:1.8;margin-bottom:20px;">&#304;stanbul Dudullu OSB&apos;de faaliyet g&#246;steren firmam&#305;z, metal ve plastik kal&#305;p imalat&#305;, CNC frezeleme ve tala&#351;l&#305; imalat alanlar&#305;nda uzmanla&#351;m&#305;&#351;t&#305;r. Modern tezgahlar&#305;m&#305;z ve deneyimli kadromuzla m&#252;&#351;terilerimize en hassas &#231;&#246;z&#252;mleri sunuyoruz.</p>
-        <a href="hakkimizda.html" class="btn btn-outline"><i class="fas fa-arrow-right"></i> Daha Fazla</a>
+    <div class="about-layout">
+      <div class="about-photos">
+        <div class="about-photo-main">
+          <img src="assets/about1.jpg" alt="MEBA KALIP Atölye" loading="lazy" />
+        </div>
+        <div class="about-photo-sm">
+          <img src="assets/about2.jpg" alt="CNC Tezgah" loading="lazy" />
+        </div>
+        <div class="about-photo-sm">
+          <img src="assets/about3.jpg" alt="Kalıp İmalatı" loading="lazy" />
+        </div>
       </div>
-      <div class="slide-right" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-        <img src="img/galeri/ig_1.webp" alt="Uretim" style="border-radius:8px;width:100%;height:180px;object-fit:cover;border:1px solid rgba(255,255,255,0.07);" />
-        <img src="img/galeri/ig_3.webp" alt="Uretim" style="border-radius:8px;width:100%;height:180px;object-fit:cover;border:1px solid rgba(255,255,255,0.07);margin-top:20px;" />
-        <img src="img/galeri/ig_5.webp" alt="Uretim" style="border-radius:8px;width:100%;height:180px;object-fit:cover;border:1px solid rgba(255,255,255,0.07);margin-top:-20px;" />
-        <img src="img/galeri/ig_7.webp" alt="Uretim" style="border-radius:8px;width:100%;height:180px;object-fit:cover;border:1px solid rgba(255,255,255,0.07);" />
+      <div class="about-text">
+        <span class="about-tag">Hakk&#305;m&#305;zda</span>
+        <h2 class="about-h2">&#220;retimde <em>Hassasiyet</em>,<br>Teslimatta G&#252;venilirlik</h2>
+        <p class="about-desc">
+          1999 y&#305;l&#305;ndan bu yana Dudullu Organize Sanayi B&#246;lgesi&#8217;nde faaliyet g&#246;steren MEBA KALIP,
+          CNC i&#351;leme ve kal&#305;p imalat&#305;nda uzmanla&#351;m&#305;&#351; bir &#252;retim firmas&#305;d&#305;r.
+          Modern tezgah parkurum&#252;z ve deneyimli ekibimizle m&#252;&#351;terilerimize &#246;zel &#231;&#246;z&#252;mler sunuyoruz.
+        </p>
+        <div class="about-facts">
+          <div class="about-fact"><i class="fa fa-check-circle"></i> ISO 9001:2015 kalite y&#246;netim sistemi</div>
+          <div class="about-fact"><i class="fa fa-check-circle"></i> 0.01 mm tolerans kabiliyeti</div>
+          <div class="about-fact"><i class="fa fa-check-circle"></i> 7/24 teknik destek ve h&#305;zl&#305; teslimat</div>
+          <div class="about-fact"><i class="fa fa-check-circle"></i> Otomotiv, savunma ve makine sekt&#246;rleri</div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- SERVICES -->
-<section style="padding:0 0 80px;">
+<section class="services-section" id="hizmetler">
   <div class="container">
-    <div style="text-align:center;margin-bottom:8px;"><div class="section-label">Hizmetlerimiz</div></div>
-    <h2 class="section-title" style="text-align:center;margin-bottom:40px;">Ne Yapıyoruz?</h2>
-    <div class="services-grid">
-      <div class="service-card slide-up">
-        <div class="service-card-icon"><i class="fas fa-cube"></i></div>
-        <h3>Kal&#305;p &#304;malat&#305;</h3>
-        <p>Metal ve plastik enjeksiyon kal&#305;plar&#305; tasar&#305;m ve imalat&#305;. Tasar&#305;mdan prototipe tam hizmet.</p>
+    <div class="section-header">
+      <span class="section-tag">Hizmetlerimiz</span>
+      <h2 class="section-h2">Geni&#351; <em>&#199;&#246;z&#252;m</em> Yelpazesi</h2>
+    </div>
+    <div class="svc-grid">
+      <div class="svc-card">
+        <div class="svc-icon"><i class="fa fa-cogs"></i></div>
+        <div class="svc-title">CNC Freze &#304;&#351;leme</div>
+        <p class="svc-desc">3 ve 4 eksen CNC freze tezgahlar&#305;m&#305;zla karma&#351;&#305;k geometrileri y&#252;ksek hassasiyetle i&#351;liyoruz.</p>
       </div>
-      <div class="service-card slide-up" style="animation-delay:0.1s;">
-        <div class="service-card-icon"><i class="fas fa-microchip"></i></div>
-        <h3>CNC Frezeleme</h3>
-        <p>3-4 eksenli CNC freze tezgahlar&#305;yla y&#252;ksek hassasiyetli i&#351;leme kabiliyeti.</p>
+      <div class="svc-card">
+        <div class="svc-icon"><i class="fa fa-circle-notch"></i></div>
+        <div class="svc-title">CNC Torna</div>
+        <p class="svc-desc">Simetrik ve asimetrik par&#231;alar i&#231;in hassas tornalama hizmetleri sunuyoruz.</p>
       </div>
-      <div class="service-card slide-up" style="animation-delay:0.2s;">
-        <div class="service-card-icon"><i class="fas fa-industry"></i></div>
-        <h3>Tala&#351;l&#305; &#304;malat</h3>
-        <p>Torna, freze ve ta&#351;lama operasyonlar&#305;yla her t&#252;r par&#231;a imalat&#305;.</p>
+      <div class="svc-card">
+        <div class="svc-icon"><i class="fa fa-cube"></i></div>
+        <div class="svc-title">Kal&#305;p &#304;malat&#305;</div>
+        <p class="svc-desc">Plastik enjeksiyon, s&#305;k&#305;&#351;t&#305;rma ve d&#246;k&#252;m kal&#305;plar&#305; tasarlay&#305;p imal ediyoruz.</p>
       </div>
-      <div class="service-card slide-up" style="animation-delay:0.1s;">
-        <div class="service-card-icon"><i class="fas fa-tools"></i></div>
-        <h3>Fason &#220;retim</h3>
-        <p>Teknik &#231;izim ve numunelerinize g&#246;re k&#252;&#231;&#252;k ve orta seri &#252;retim.</p>
+      <div class="svc-card">
+        <div class="svc-icon"><i class="fa fa-ruler-combined"></i></div>
+        <div class="svc-title">Prototip &#220;retim</div>
+        <p class="svc-desc">Tasar&#305;mdan &#252;retime ge&#231;i&#351; s&#252;recini h&#305;zland&#305;ran prototip &#231;&#246;z&#252;mleri.</p>
       </div>
-      <div class="service-card slide-up" style="animation-delay:0.2s;">
-        <div class="service-card-icon"><i class="fas fa-drafting-compass"></i></div>
-        <h3>Prototip &#220;retim</h3>
-        <p>Yeni &#252;r&#252;n geli&#351;tirme s&#252;re&#231;lerinde h&#305;zl&#305; prototip ve numune imalat&#305;.</p>
+      <div class="svc-card">
+        <div class="svc-icon"><i class="fa fa-tools"></i></div>
+        <div class="svc-title">Tak&#305;m &amp; Aparat</div>
+        <p class="svc-desc">&#220;retim hatt&#305;n&#305;z&#305; optimize eden &#246;zel tak&#305;m ve aparat imalat&#305;.</p>
       </div>
-      <div class="service-card slide-up" style="animation-delay:0.3s;">
-        <div class="service-card-icon"><i class="fas fa-search"></i></div>
-        <h3>Kalite Kontrol</h3>
-        <p>Her par&#231;a teslimat &#246;ncesinde hassas &#246;l&#231;&#252;m ve kalite kontrol s&#252;re&#231;lerinden ge&#231;er.</p>
+      <div class="svc-card">
+        <div class="svc-icon"><i class="fa fa-microscope"></i></div>
+        <div class="svc-title">Kalite Kontrol</div>
+        <p class="svc-desc">CMM cihaz&#305; ve optik &#246;l&#231;&#252;m sistemleriyle her par&#231;a kalite onay&#305;ndan ge&#231;er.</p>
       </div>
     </div>
-    <div style="text-align:center;margin-top:32px;"><a href="hizmetler.html" class="btn btn-outline"><i class="fas fa-arrow-right"></i> T&#252;m Hizmetler</a></div>
   </div>
 </section>
 
 <!-- GALLERY TEASER -->
-<section style="padding:0 0 80px;">
+<section class="gallery-section" id="galeri">
   <div class="container">
-    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:24px;">
-      <div><div class="section-label">Galeri</div><h2 class="section-title">&#220;retimden <span>Kareler</span></h2></div>
-      <a href="galeri.html" class="btn btn-outline"><i class="fas fa-images"></i> T&#252;m Foto&#287;raflar</a>
+    <div class="section-header" style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px;">
+      <div>
+        <span class="section-tag">Galeri</span>
+        <h2 class="section-h2">&#199;al&#305;&#351;malar&#305;m&#305;zdan <em>Kareler</em></h2>
+      </div>
+      <a href="galeri.html" class="btn btn-outline" style="margin-bottom:4px;">T&#252;m Galeriyi G&#246;r</a>
     </div>
-    <div class="gallery-teaser">
-      <div class="gallery-teaser-item" data-src="img/galeri/ig_2.webp" style="cursor:pointer;"><img src="img/galeri/ig_2.webp" alt="Uretim" loading="lazy" /></div>
-      <div class="gallery-teaser-item" data-src="img/galeri/ig_4.webp" style="cursor:pointer;"><img src="img/galeri/ig_4.webp" alt="Uretim" loading="lazy" /></div>
-      <div class="gallery-teaser-item" data-src="img/galeri/ig_6.webp" style="cursor:pointer;"><img src="img/galeri/ig_6.webp" alt="Uretim" loading="lazy" /></div>
-      <div class="gallery-teaser-item" data-src="img/galeri/ig_8.webp" style="cursor:pointer;"><img src="img/galeri/ig_8.webp" alt="Uretim" loading="lazy" /></div>
-      <div class="gallery-teaser-item" data-src="img/galeri/ig_9.webp" style="cursor:pointer;"><img src="img/galeri/ig_9.webp" alt="Uretim" loading="lazy" /></div>
-      <div class="gallery-teaser-item" data-src="img/galeri/ig_10.webp" style="cursor:pointer;"><img src="img/galeri/ig_10.webp" alt="Uretim" loading="lazy" /></div>
+    <div class="gallery-grid-new">
+      <div class="g-item" onclick="openLightbox('assets/gallery1.jpg','CNC &#304;&#351;leme')">
+        <img src="assets/gallery1.jpg" alt="CNC İşleme" loading="lazy" />
+        <div class="g-overlay"><span>CNC &#304;&#351;leme</span></div>
+      </div>
+      <div class="g-item" onclick="openLightbox('assets/gallery2.jpg','Kal&#305;p &#304;malat&#305;')">
+        <img src="assets/gallery2.jpg" alt="Kalıp İmalatı" loading="lazy" />
+        <div class="g-overlay"><span>Kal&#305;p &#304;malat&#305;</span></div>
+      </div>
+      <div class="g-item" onclick="openLightbox('assets/gallery3.jpg','Prototip')">
+        <img src="assets/gallery3.jpg" alt="Prototip" loading="lazy" />
+        <div class="g-overlay"><span>Prototip</span></div>
+      </div>
+      <div class="g-item" onclick="openLightbox('assets/gallery4.jpg','Torna &#304;&#351;leme')">
+        <img src="assets/gallery4.jpg" alt="Torna İşleme" loading="lazy" />
+        <div class="g-overlay"><span>Torna &#304;&#351;leme</span></div>
+      </div>
+      <div class="g-item" onclick="openLightbox('assets/gallery5.jpg','Freze &#304;&#351;leme')">
+        <img src="assets/gallery5.jpg" alt="Freze İşleme" loading="lazy" />
+        <div class="g-overlay"><span>Freze &#304;&#351;leme</span></div>
+      </div>
     </div>
   </div>
 </section>
+
+<!-- LIGHTBOX -->
+<div id="teaserLightbox" onclick="closeLightbox(event)">
+  <span class="lb-close" onclick="closeLightboxDirect()">&times;</span>
+  <img id="lbImg" src="" alt="" />
+</div>
 
 <!-- CTA -->
-<section style="padding:80px 0;background:var(--steel);position:relative;overflow:hidden;">
-  <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(204,27,27,0.08) 0%,transparent 60%);pointer-events:none;"></div>
-  <div class="container" style="text-align:center;position:relative;z-index:1;">
-    <div class="section-label">&#304;leti&#351;im</div>
-    <h2 class="section-title" style="margin-bottom:16px;">Projenizi <span>Hayata</span> Ge&#231;irelim</h2>
-    <p style="color:var(--muted);max-width:500px;margin:0 auto 36px;line-height:1.7;">Kal&#305;p imalat&#305; veya CNC i&#351;leme ihtiya&#231;lar&#305;n&#305;z i&#231;in hemen bize ula&#351;&#305;n, teknik destek ve fiyat teklifi alın.</p>
-    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
-      <a href="tel:+905359443655" class="btn btn-primary"><i class="fas fa-phone"></i> 0535 944 36 55</a>
-      <a href="https://wa.me/905359443655" target="_blank" class="btn btn-outline" style="color:#25D366;border-color:rgba(37,211,102,0.3);"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-      <a href="iletisim.html" class="btn btn-outline"><i class="fas fa-map-marker-alt"></i> Konum</a>
+<section class="cta-section">
+  <div class="cta-line"></div>
+  <div class="container" style="position:relative;z-index:2;">
+    <div class="cta-tag">Hemen Ba&#351;layal&#305;m</div>
+    <h2 class="cta-h2">Projenizi <em>Hayata</em> Ge&#231;irelim</h2>
+    <p class="cta-sub">
+      Teknik &#231;izimlerinizi g&#246;nderin, fiyat teklifi al&#305;n. 24 saat i&#231;inde yan&#305;t veriyoruz.
+    </p>
+    <div class="cta-actions">
+      <a href="iletisim.html" class="btn btn-primary">Teklif Al</a>
+      <a href="tel:+902163649977" class="btn btn-outline">
+        <i class="fa fa-phone" style="margin-right:8px;"></i>(0216) 364 99 77
+      </a>
     </div>
   </div>
 </section>
 
-<footer>
-  <div class="container">
-    <div class="footer-grid">
-      <div class="footer-brand"><a href="index.html" class="nav-logo"><img src="assets/logo.jpg" alt="Meba Kalip" style="height:44px;width:44px;object-fit:contain;" /><div class="nav-logo-text">MEBA KALIP<small>Makina Imalat San. ve Tic. Ltd.</small></div></a><p>Dudullu OSB&apos;de CNC i&#351;leme, kal&#305;p imalat&#305; ve tala&#351;l&#305; imalat.</p><div class="footer-social"><a href="https://www.instagram.com/meba_kalip_cnc" target="_blank"><i class="fab fa-instagram"></i></a><a href="https://www.facebook.com/mebakalip" target="_blank"><i class="fab fa-facebook-f"></i></a><a href="https://wa.me/905359443655" target="_blank"><i class="fab fa-whatsapp"></i></a></div></div>
-      <div class="footer-col"><h4>Sayfalar</h4><ul><li><a href="index.html">Ana Sayfa</a></li><li><a href="hakkimizda.html">Hakk&#305;m&#305;zda</a></li><li><a href="hizmetler.html">Hizmetler</a></li><li><a href="galeri.html">Galeri</a></li><li><a href="iletisim.html">&#304;leti&#351;im</a></li></ul></div>
-      <div class="footer-col"><h4>Hizmetler</h4><ul><li><a href="hizmetler.html">Kal&#305;p &#304;malat&#305;</a></li><li><a href="hizmetler.html">CNC Frezeleme</a></li><li><a href="hizmetler.html">Tala&#351;l&#305; &#304;malat</a></li><li><a href="hizmetler.html">Fason &#220;retim</a></li></ul></div>
-      <div class="footer-col"><h4>&#304;leti&#351;im</h4><div class="footer-contact-item"><i class="fas fa-map-marker-alt"></i><span>Dudullu O.S.B. Mh. &#304;MES Sanayi Sitesi E Blok No:2/1, &#220;mraniye / &#304;stanbul</span></div><div class="footer-contact-item"><i class="fas fa-phone"></i><span>0535 944 36 55</span></div><div class="footer-contact-item"><i class="fas fa-phone"></i><span>0216 364 33 47</span></div></div>
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <div class="nav-logo" style="margin-bottom:16px;">
+        <div class="nav-logo-img-box">
+          <img src="assets/logo.jpg" alt="MEBA KALIP" />
+        </div>
+        <div class="nav-logo-text">MEBA KALIP<small>Kal&#305;p &#304;malat&#305; Ltd. &#350;ti.</small></div>
+      </div>
+      <p class="footer-desc">Dudullu OSB&#8217;de hassas CNC i&#351;leme ve kal&#305;p imalat&#305;.</p>
+      <div class="footer-social">
+        <a href="https://wa.me/905359443655" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://www.facebook.com/mebakalip" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://www.instagram.com/mebakalip" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>H&#305;zl&#305; Ba&#287;lant&#305;lar</h4>
+      <ul>
+        <li><a href="index.html">Ana Sayfa</a></li>
+        <li><a href="hakkimizda.html">Hakk&#305;m&#305;zda</a></li>
+        <li><a href="hizmetler.html">Hizmetler</a></li>
+        <li><a href="galeri.html">Galeri</a></li>
+        <li><a href="iletisim.html">&#304;leti&#351;im</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Hizmetlerimiz</h4>
+      <ul>
+        <li><a href="hizmetler.html">CNC Freze</a></li>
+        <li><a href="hizmetler.html">CNC Torna</a></li>
+        <li><a href="hizmetler.html">Kal&#305;p &#304;malat&#305;</a></li>
+        <li><a href="hizmetler.html">Prototip &#220;retim</a></li>
+        <li><a href="hizmetler.html">Kalite Kontrol</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>&#304;leti&#351;im</h4>
+      <ul>
+        <li><i class="fa fa-map-marker-alt" style="color:var(--red);margin-right:6px;"></i>Dudullu OSB, &#220;mraniye / &#304;stanbul</li>
+        <li><a href="tel:+902163649977"><i class="fa fa-phone" style="color:var(--red);margin-right:6px;"></i>(0216) 364 99 77</a></li>
+        <li><a href="tel:+905359443655"><i class="fa fa-phone" style="color:var(--red);margin-right:6px;"></i>0535 944 36 55</a></li>
+        <li><a href="mailto:info@mebakalip.com"><i class="fa fa-envelope" style="color:var(--red);margin-right:6px;"></i>info@mebakalip.com</a></li>
+      </ul>
     </div>
   </div>
-  <div style="border-top:1px solid rgba(255,255,255,0.06);padding:18px 0;"><div class="container footer-bottom"><span>&copy; 2026 Meba Kal&#305;p Makina &#304;malat San. ve Tic. Ltd. &#350;ti.</span><span>T&#252;m haklar&#305; sakl&#305;d&#305;r.</span></div></div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 MEBA KALIP Kal&#305;p &#304;malat&#305; Ltd. &#350;ti. T&#252;m haklar&#305; sakl&#305;d&#305;r.</p>
+  </div>
 </footer>
-<div id="teaserLightbox" style="display:none;position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,0.95);align-items:center;justify-content:center;padding:24px;">
-  <div style="position:relative;max-width:900px;width:100%;">
-    <button id="teaserLbClose" style="position:absolute;top:-14px;right:-14px;width:38px;height:38px;border-radius:50%;background:#CC1B1B;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:0.9rem;border:none;z-index:1;"><i class="fas fa-times"></i></button>
-    <img id="teaserLbImg" src="" alt="" style="width:100%;max-height:80vh;object-fit:contain;border-radius:6px;" />
-  </div>
-</div><a href="https://wa.me/905359443655" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
-<div id="teaserLightbox" style="display:none;position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,0.95);align-items:center;justify-content:center;padding:24px;">
-  <div style="position:relative;max-width:900px;width:100%;">
-    <button id="teaserLbClose" style="position:absolute;top:-14px;right:-14px;width:38px;height:38px;border-radius:50%;background:#CC1B1B;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:0.9rem;border:none;z-index:1;"><i class="fas fa-times"></i></button>
-    <img id="teaserLbImg" src="" alt="" style="width:100%;max-height:80vh;object-fit:contain;border-radius:6px;" />
-  </div>
-</div>
-<script src="assets/script.js"></script>
+
+<!-- THREE.JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+<!-- GSAP -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
 <script>
-const teaserItems = Array.from(document.querySelectorAll('.gallery-teaser-item[data-src]'));
-const tlb = document.getElementById('teaserLightbox');
-const tlbImg = document.getElementById('teaserLbImg');
-function openTlb(src) { tlbImg.src=src; tlb.style.display='flex'; document.body.style.overflow='hidden'; }
-function closeTlb() { tlb.style.display='none'; document.body.style.overflow=''; }
-teaserItems.forEach(item => item.addEventListener('click', () => openTlb(item.dataset.src)));
-document.getElementById('teaserLbClose').addEventListener('click', closeTlb);
-tlb.addEventListener('click', e => { if(e.target===tlb) closeTlb(); });
-document.addEventListener('keydown', e => { if(tlb.style.display==='flex' && e.key==='Escape') closeTlb(); });
+// ===== THREE.JS SCENE =====
+(function() {
+  const canvas = document.getElementById('hero-canvas');
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.2;
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 100);
+  camera.position.set(0, 0, 6);
+
+  // Lighting
+  const ambientLight = new THREE.AmbientLight(0x222233, 2);
+  scene.add(ambientLight);
+
+  const redLight = new THREE.PointLight(0xcc1b1b, 6, 12);
+  redLight.position.set(-4, 2, 3);
+  scene.add(redLight);
+
+  const blueLight = new THREE.PointLight(0x3366ff, 3, 10);
+  blueLight.position.set(4, -2, -2);
+  scene.add(blueLight);
+
+  const chromeLight = new THREE.PointLight(0xffffff, 4, 15);
+  chromeLight.position.set(0, 4, 4);
+  scene.add(chromeLight);
+
+  // Torus Knot (main metallic piece)
+  const knotGeo = new THREE.TorusKnotGeometry(1.2, 0.38, 180, 32, 2, 3);
+  const knotMat = new THREE.MeshStandardMaterial({
+    color: 0xb0b0b8,
+    metalness: 0.95,
+    roughness: 0.12,
+    envMapIntensity: 1.0
+  });
+  const knot = new THREE.Mesh(knotGeo, knotMat);
+  knot.position.set(1.8, 0, 0);
+  scene.add(knot);
+
+  // Red torus ring 1
+  const ring1Geo = new THREE.TorusGeometry(2.2, 0.012, 8, 120);
+  const ring1Mat = new THREE.MeshStandardMaterial({ color: 0xcc1b1b, metalness: 0.8, roughness: 0.2, transparent: true, opacity: 0.6 });
+  const ring1 = new THREE.Mesh(ring1Geo, ring1Mat);
+  ring1.position.set(1.8, 0, 0);
+  ring1.rotation.x = Math.PI / 4;
+  scene.add(ring1);
+
+  // Red torus ring 2
+  const ring2Geo = new THREE.TorusGeometry(2.8, 0.008, 8, 120);
+  const ring2Mat = new THREE.MeshStandardMaterial({ color: 0xcc1b1b, metalness: 0.8, roughness: 0.2, transparent: true, opacity: 0.3 });
+  const ring2 = new THREE.Mesh(ring2Geo, ring2Mat);
+  ring2.position.set(1.8, 0, 0);
+  ring2.rotation.x = -Math.PI / 5;
+  ring2.rotation.y = Math.PI / 6;
+  scene.add(ring2);
+
+  // Particles
+  const particleCount = 3000;
+  const positions = new Float32Array(particleCount * 3);
+  for (let i = 0; i < particleCount; i++) {
+    const r = 3.5 + Math.random() * 4;
+    const theta = Math.random() * Math.PI * 2;
+    const phi = Math.acos(2 * Math.random() - 1);
+    positions[i * 3]     = r * Math.sin(phi) * Math.cos(theta) + 1.8;
+    positions[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
+    positions[i * 3 + 2] = r * Math.cos(phi);
+  }
+  const particleGeo = new THREE.BufferGeometry();
+  particleGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  const particleMat = new THREE.PointsMaterial({ color: 0x888888, size: 0.025, transparent: true, opacity: 0.5 });
+  const particles = new THREE.Points(particleGeo, particleMat);
+  scene.add(particles);
+
+  // Mouse parallax
+  let mouseX = 0, mouseY = 0;
+  document.addEventListener('mousemove', e => {
+    mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+    mouseY = -(e.clientY / window.innerHeight - 0.5) * 2;
+  });
+
+  // Resize
+  window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
+
+  let time = 0;
+  function animate() {
+    requestAnimationFrame(animate);
+    time += 0.008;
+    knot.rotation.x += 0.004;
+    knot.rotation.y += 0.007;
+    ring1.rotation.z += 0.003;
+    ring2.rotation.z -= 0.002;
+    ring2.rotation.x += 0.001;
+    particles.rotation.y += 0.0003;
+
+    // Subtle camera movement
+    camera.position.x += (mouseX * 0.5 - camera.position.x) * 0.05;
+    camera.position.y += (mouseY * 0.3 - camera.position.y) * 0.05;
+    camera.lookAt(1.8, 0, 0);
+
+    // Breathing light
+    redLight.intensity = 5 + Math.sin(time * 1.5) * 1.5;
+
+    renderer.render(scene, camera);
+  }
+  animate();
+})();
+
+// ===== GSAP ANIMATIONS =====
+gsap.registerPlugin(ScrollTrigger);
+
+// Hero entrance
+const heroTl = gsap.timeline({ delay: 0.3 });
+heroTl
+  .to('.hero-badge', { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' })
+  .to('.hero-headline .line', {
+    y: 0, opacity: 1, duration: 0.9, stagger: 0.12, ease: 'power4.out'
+  }, '-=0.3')
+  .to('.hero-sub', { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }, '-=0.4')
+  .to('.hero-actions', { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, '-=0.3')
+  .to('.hero-scroll-hint', { opacity: 1, duration: 0.5 }, '-=0.2');
+
+// Stat counters
+document.querySelectorAll('.stat-cell').forEach((cell) => {
+  const numEl = cell.querySelector('.count');
+  const target = parseInt(cell.querySelector('.stat-num').dataset.target);
+  ScrollTrigger.create({
+    trigger: cell,
+    start: 'top 85%',
+    once: true,
+    onEnter: () => {
+      gsap.to({ val: 0 }, {
+        val: target, duration: 1.8, ease: 'power2.out',
+        onUpdate: function() { numEl.textContent = Math.round(this.targets()[0].val); }
+      });
+    }
+  });
+});
+
+// About section
+gsap.from('.about-photos', {
+  scrollTrigger: { trigger: '.about-wrap', start: 'top 75%' },
+  x: -60, opacity: 0, duration: 1.1, ease: 'power3.out'
+});
+gsap.from('.about-text', {
+  scrollTrigger: { trigger: '.about-wrap', start: 'top 75%' },
+  x: 60, opacity: 0, duration: 1.1, ease: 'power3.out'
+});
+
+// Services
+gsap.to('.svc-card', {
+  scrollTrigger: { trigger: '.svc-grid', start: 'top 80%' },
+  opacity: 1, y: 0, duration: 0.7, stagger: 0.1, ease: 'power3.out'
+});
+
+// Gallery
+gsap.to('.g-item', {
+  scrollTrigger: { trigger: '.gallery-grid-new', start: 'top 80%' },
+  opacity: 1, scale: 1, duration: 0.8, stagger: 0.1, ease: 'power3.out'
+});
+
+// CTA
+gsap.to(['.cta-tag', '.cta-h2', '.cta-sub', '.cta-actions'], {
+  scrollTrigger: { trigger: '.cta-section', start: 'top 75%' },
+  opacity: 1, y: 0, duration: 0.7, stagger: 0.12, ease: 'power3.out'
+});
+
+// ===== LIGHTBOX =====
+function openLightbox(src, alt) {
+  const lb = document.getElementById('teaserLightbox');
+  const img = document.getElementById('lbImg');
+  img.src = src; img.alt = alt;
+  lb.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox(e) {
+  if (e.target === document.getElementById('teaserLightbox')) closeLightboxDirect();
+}
+function closeLightboxDirect() {
+  document.getElementById('teaserLightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightboxDirect(); });
+
+// ===== NAV =====
+const nav = document.getElementById('mainNav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 50);
+});
+document.getElementById('navToggle').addEventListener('click', () => {
+  document.getElementById('navMobile').classList.toggle('open');
+});
 </script>
 </body>
 </html>
