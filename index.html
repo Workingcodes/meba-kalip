@@ -1,524 +1,700 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MEBA KALIP &#8211; Kal&#305;p &#304;malat&#305; &amp; CNC &#304;&#351;leme</title>
+  <meta name="description" content="Dudullu OSB'de hassas CNC işleme ve kalıp imalatı. 25 yıllık deneyim, modern tezgah parkuru." />
   <link rel="stylesheet" href="assets/style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
-    /* ===== 3D HERO ===== */
-    :root {
-      --chrome: #c8c8c8;
-      --chrome-lt: #efefef;
-      --chrome-dk: #888888;
-    }
-    #hero-canvas {
-      position: absolute; inset: 0; width: 100%; height: 100%;
-      display: block; z-index: 1;
-    }
+    /* ===== HERO ===== */
     .hero {
-      min-height: 100dvh; position: relative; overflow: hidden;
-      background: #080a0e; display: flex; align-items: center;
+      min-height: 100dvh;
+      background: #0b0e16;
+      display: flex; align-items: center;
+      padding-top: var(--nav-h);
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content:''; position:absolute; inset:0;
+      background: radial-gradient(ellipse 55% 60% at 70% 50%, rgba(204,27,27,0.07) 0%, transparent 65%);
+      pointer-events: none;
     }
     .hero-inner {
-      position: relative; z-index: 2; width: 100%;
       display: grid; grid-template-columns: 1fr 1fr;
-      gap: 48px; align-items: center;
+      gap: 56px; align-items: center;
+      padding: 80px 0;
     }
-    .hero-content { }
     .hero-badge {
       display: inline-flex; align-items: center; gap: 8px;
-      padding: 6px 14px;
-      background: rgba(204,27,27,0.12); border: 1px solid rgba(204,27,27,0.3);
-      border-radius: 20px; font-family:'Outfit',sans-serif;
-      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em;
-      text-transform: uppercase; color: var(--red); margin-bottom: 28px;
-      opacity: 0;
+      padding: 5px 14px;
+      background: rgba(204,27,27,0.1); border: 1px solid rgba(204,27,27,0.28);
+      border-radius: 20px;
+      font-family:'Outfit',sans-serif; font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase; color: var(--red);
+      margin-bottom: 24px;
     }
     .hero-badge .dot {
       width: 6px; height: 6px; border-radius: 50%; background: var(--red);
       animation: pulse-dot 2s ease-in-out infinite;
     }
-    @keyframes pulse-dot {
-      0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(.7);}
-    }
+    @keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(.65);} }
     .hero-headline {
       font-family:'Outfit',sans-serif;
-      font-size: clamp(2.6rem, 5vw, 4rem);
-      font-weight: 900; line-height: 1.0;
-      color: var(--white); margin-bottom: 24px;
-      overflow: hidden;
+      font-size: clamp(2.5rem, 4.5vw, 3.8rem);
+      font-weight: 900; line-height: 1.05;
+      color: #fff; margin-bottom: 22px;
     }
-    .hero-headline .line { display: block; transform: translateY(110%); opacity: 0; }
     .hero-headline .hl { color: var(--red); }
+    .hero-headline .hl2 { color: #c0cce0; }
     .hero-sub {
-      color: var(--muted); font-size: 1rem; line-height: 1.75;
-      max-width: 480px; margin-bottom: 40px; opacity: 0;
+      color: #7a8a9e; font-size: 0.97rem; line-height: 1.8;
+      max-width: 460px; margin-bottom: 36px;
     }
-    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; opacity: 0; }
-    .hero-scroll-hint {
-      position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%);
-      display: flex; flex-direction: column; align-items: center; gap: 8px;
-      color: rgba(255,255,255,0.3); font-size: 0.7rem; letter-spacing: 0.1em;
-      text-transform: uppercase; z-index: 2; opacity: 0;
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .hero-scroll {
+      position:absolute; bottom:28px; left:50%; transform:translateX(-50%);
+      display:flex; flex-direction:column; align-items:center; gap:6px;
+      color: rgba(255,255,255,0.22); font-size:0.65rem; letter-spacing:.12em; text-transform:uppercase;
     }
-    .hero-scroll-hint .arrow {
-      width: 1px; height: 40px;
-      background: linear-gradient(to bottom, rgba(204,27,27,0.6), transparent);
-      animation: arrow-drop 1.8s ease-in-out infinite;
+    .hero-scroll::after {
+      content:''; width:1px; height:32px;
+      background:linear-gradient(to bottom, rgba(204,27,27,0.5), transparent);
+      animation: grow-line 1.8s ease-in-out infinite;
     }
-    @keyframes arrow-drop {
-      0%,100%{transform:scaleY(0);transform-origin:top;opacity:1;}
-      50%{transform:scaleY(1);transform-origin:top;opacity:1;}
-      51%{transform-origin:bottom;}
-      100%{transform:scaleY(0);transform-origin:bottom;opacity:0;}
+    @keyframes grow-line { 0%,100%{transform:scaleY(0);opacity:0;}50%{transform:scaleY(1);opacity:1;} }
+
+    /* ===== SVG BLUEPRINT ===== */
+    .blueprint-wrap {
+      position: relative; width: 100%; aspect-ratio: 1 / 0.88;
+      background: #060a14;
+      border: 1px solid rgba(70,110,180,0.18);
+      border-radius: 8px; overflow: hidden;
+      box-shadow: 0 0 60px rgba(0,0,0,0.6), inset 0 0 40px rgba(10,20,60,0.4);
     }
-    /* ===== STATS ROW ===== */
+    .blueprint-wrap svg { width:100%; height:100%; display:block; }
+
+    /* Draw-on animation */
+    .bp-draw {
+      stroke-dasharray: 1; stroke-dashoffset: 1;
+      animation: bp-draw 0.7s ease forwards;
+    }
+    .bp-fade { opacity:0; animation: bp-appear 0.4s ease forwards; }
+    @keyframes bp-draw  { to { stroke-dashoffset: 0; } }
+    @keyframes bp-appear { to { opacity: 1; } }
+
+    .bp-spin {
+      transform-origin: 220px 172px;
+      animation: bp-spin 1.8s linear infinite;
+    }
+    @keyframes bp-spin { to { transform: rotate(360deg); } }
+    .bp-pulse { animation: bp-glow 2s ease-in-out infinite; }
+    @keyframes bp-glow { 0%,100%{opacity:.6;} 50%{opacity:1;} }
+
+    /* ===== STATS (white bg) ===== */
+    .stats-section {
+      background: #fff;
+      border-top: 3px solid var(--red);
+      padding: 0;
+    }
     .stats-row {
-      background: #0d0f14;
-      border-top: 1px solid rgba(255,255,255,0.06);
-      border-bottom: 1px solid rgba(255,255,255,0.06);
+      display: grid; grid-template-columns: repeat(4,1fr);
     }
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
+    .stat-box {
+      padding: 44px 28px;
+      border-right: 1px solid rgba(0,0,0,0.07);
+      text-align: center; position: relative;
+      transition: background 0.25s;
     }
-    .stat-cell {
-      padding: 48px 32px;
-      border-right: 1px solid rgba(255,255,255,0.06);
-      position: relative; overflow: hidden;
+    .stat-box:last-child { border-right: none; }
+    .stat-box:hover { background: #fafafa; }
+    .stat-box-num {
+      font-family:'Outfit',sans-serif; font-size: 2.8rem; font-weight: 900;
+      color: var(--red); line-height: 1; margin-bottom: 8px;
     }
-    .stat-cell:last-child { border-right: none; }
-    .stat-cell::before {
-      content:''; position: absolute; bottom: 0; left: 0;
-      width: 100%; height: 2px;
-      background: linear-gradient(90deg, var(--red), transparent);
-      transform: scaleX(0); transform-origin: left;
-      transition: transform 0.6s ease;
-    }
-    .stat-cell:hover::before { transform: scaleX(1); }
-    .stat-num {
-      font-family:'Outfit',sans-serif; font-size: 3rem; font-weight: 900;
-      color: var(--chrome-lt); line-height: 1; margin-bottom: 8px;
-    }
-    .stat-num span.accent { color: var(--red); }
-    .stat-label {
-      font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em;
-      color: var(--muted); font-weight: 600;
-    }
-    /* ===== ABOUT SECTION ===== */
-    .about-wrap {
-      padding: 120px 0;
-      background: var(--black);
-    }
-    .about-layout {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+    .stat-box-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: #777; font-weight: 600; }
+
+    /* ===== ABOUT (light bg) ===== */
+    .about-section { padding: 100px 0; background: #f4f6f9; }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 72px; align-items: center;
     }
     .about-photos {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 12px; position: relative;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
     }
-    .about-photo-main {
-      grid-column: 1 / 3; height: 260px; overflow: hidden; border-radius: 4px;
-    }
-    .about-photo-sm { height: 160px; overflow: hidden; border-radius: 4px; }
-    .about-photos img { width: 100%; height: 100%; object-fit: cover; display: block;
-      transition: transform 0.8s ease; }
+    .about-photo-tall { grid-row: 1/3; border-radius: 6px; overflow: hidden; }
+    .about-photo-sm   { border-radius: 6px; overflow: hidden; }
+    .about-photos img { width:100%; height:100%; object-fit:cover; display:block; transition: transform 0.6s ease; }
+    .about-photo-tall img { height: 340px; }
+    .about-photo-sm   img { height: 164px; }
     .about-photos img:hover { transform: scale(1.04); }
     .about-tag {
-      display: inline-block; font-size: 0.68rem; font-weight: 700;
-      letter-spacing: 0.14em; text-transform: uppercase; color: var(--red);
-      border-left: 2px solid var(--red); padding-left: 12px; margin-bottom: 20px;
+      display: inline-block; font-size:.68rem; font-weight:700;
+      letter-spacing:.14em; text-transform:uppercase; color:var(--red);
+      border-left: 2px solid var(--red); padding-left:12px; margin-bottom:18px;
     }
     .about-h2 {
-      font-family:'Outfit',sans-serif; font-size: clamp(1.8rem, 3vw, 2.6rem);
-      font-weight: 800; color: var(--white); line-height: 1.15; margin-bottom: 20px;
+      font-family:'Outfit',sans-serif; font-size: clamp(1.7rem,2.8vw,2.4rem);
+      font-weight:800; color:#0f1117; line-height:1.15; margin-bottom:18px;
     }
-    .about-h2 em { color: var(--chrome); font-style: normal; }
-    .about-desc { color: var(--muted); line-height: 1.8; margin-bottom: 32px; }
-    .about-facts { display: flex; flex-direction: column; gap: 12px; }
+    .about-h2 em { color:var(--red); font-style:normal; }
+    .about-desc { color:#5a6270; line-height:1.8; margin-bottom:28px; font-size:.93rem; }
+    .about-facts { display:flex; flex-direction:column; gap:10px; }
     .about-fact {
-      display: flex; align-items: center; gap: 12px;
-      font-size: 0.88rem; color: rgba(255,255,255,0.7);
+      display:flex; align-items:center; gap:10px;
+      font-size:.86rem; color:#4a5568;
     }
-    .about-fact i { color: var(--red); width: 18px; text-align: center; }
-    /* ===== SERVICES ===== */
-    .services-section {
-      padding: 120px 0;
-      background: #0a0c10;
-    }
-    .section-header { margin-bottom: 64px; }
-    .section-tag {
-      display: inline-block; font-size: 0.68rem; font-weight: 700;
-      letter-spacing: 0.14em; text-transform: uppercase; color: var(--red);
-      border-left: 2px solid var(--red); padding-left: 12px; margin-bottom: 16px;
-    }
-    .section-h2 {
-      font-family:'Outfit',sans-serif; font-size: clamp(1.8rem, 3vw, 2.6rem);
-      font-weight: 800; color: var(--white); line-height: 1.15;
-    }
-    .section-h2 em { color: var(--chrome); font-style: normal; }
+    .about-fact i { color:var(--red); width:16px; text-align:center; flex-shrink:0; }
+
+    /* ===== SERVICES (dark) ===== */
+    .services-section { padding: 100px 0; background: #0d1017; }
+    .services-h { margin-bottom:56px; }
     .svc-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 1px; background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 8px; overflow: hidden;
     }
     .svc-card {
-      padding: 40px 36px;
-      border: 1px solid rgba(255,255,255,0.06);
-      border-right: none; border-bottom: none;
+      background: #0d1017; padding: 36px 28px;
+      transition: background 0.25s;
       position: relative; overflow: hidden;
-      transition: background 0.3s ease;
-      opacity: 0; transform: translateY(50px);
     }
-    .svc-card:nth-child(3n) { border-right: 1px solid rgba(255,255,255,0.06); }
-    .svc-card:nth-last-child(-n+3) { border-bottom: 1px solid rgba(255,255,255,0.06); }
     .svc-card::after {
-      content:''; position:absolute; inset:0;
-      background: linear-gradient(135deg, rgba(204,27,27,0.05) 0%, transparent 60%);
-      opacity:0; transition: opacity 0.4s;
+      content:''; position:absolute; bottom:0; left:0; right:0; height:2px;
+      background: linear-gradient(90deg, var(--red), transparent);
+      transform: scaleX(0); transform-origin:left; transition: transform 0.35s ease;
     }
-    .svc-card:hover { background: rgba(255,255,255,0.02); }
-    .svc-card:hover::after { opacity:1; }
+    .svc-card:hover { background: #111520; }
+    .svc-card:hover::after { transform: scaleX(1); }
     .svc-icon {
-      width: 52px; height: 52px; border-radius: 8px;
-      background: rgba(204,27,27,0.1); border: 1px solid rgba(204,27,27,0.2);
-      display: flex; align-items: center; justify-content: center;
-      margin-bottom: 24px; color: var(--red); font-size: 1.3rem;
-      transition: background 0.3s, transform 0.3s;
+      width:48px; height:48px; border-radius:8px;
+      background:rgba(204,27,27,0.1); border:1px solid rgba(204,27,27,0.2);
+      display:flex; align-items:center; justify-content:center;
+      color:var(--red); font-size:1.15rem; margin-bottom:20px;
+      transition: background 0.25s, transform 0.25s;
     }
-    .svc-card:hover .svc-icon { background: rgba(204,27,27,0.2); transform: scale(1.08); }
+    .svc-card:hover .svc-icon { background:rgba(204,27,27,0.2); transform:scale(1.08); }
     .svc-title {
-      font-family:'Outfit',sans-serif; font-size: 1.05rem; font-weight: 700;
-      color: var(--white); margin-bottom: 12px;
+      font-family:'Outfit',sans-serif; font-size:1rem; font-weight:700;
+      color:#fff; margin-bottom:10px;
     }
-    .svc-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.7; }
-    /* ===== GALLERY ===== */
-    .gallery-section { padding: 120px 0; background: var(--black); }
-    .gallery-grid-new {
+    .svc-desc { font-size:.84rem; color:#6b7a8d; line-height:1.7; }
+
+    /* ===== GALLERY TEASER (white bg) ===== */
+    .gallery-teaser { padding: 100px 0; background: #fff; }
+    .gt-header {
+      display:flex; justify-content:space-between; align-items:flex-end;
+      flex-wrap:wrap; gap:16px; margin-bottom:48px;
+    }
+    .gt-grid {
       display: grid;
       grid-template-columns: 2fr 1fr 1fr;
-      grid-template-rows: 280px 280px;
-      gap: 8px; margin-top: 56px;
+      grid-template-rows: 240px 240px;
+      gap: 8px;
     }
-    .g-item {
-      overflow: hidden; border-radius: 4px; cursor: pointer; position: relative;
-      opacity: 0; transform: scale(0.92);
+    .gt-item { overflow:hidden; border-radius:6px; cursor:pointer; position:relative; }
+    .gt-item:first-child { grid-row: 1 / 3; }
+    .gt-item img { width:100%; height:100%; object-fit:cover; display:block; transition: transform 0.6s cubic-bezier(.16,1,.3,1); }
+    .gt-item:hover img { transform: scale(1.06); }
+    .gt-overlay {
+      position:absolute; inset:0;
+      background:linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 55%);
+      opacity:0; transition:opacity .3s;
+      display:flex; align-items:flex-end; padding:14px;
     }
-    .g-item:first-child { grid-row: 1 / 3; }
-    .g-item img {
-      width:100%; height:100%; object-fit:cover; display:block;
-      transition: transform 0.7s cubic-bezier(.16,1,.3,1);
-    }
-    .g-item:hover img { transform: scale(1.07); }
-    .g-overlay {
-      position:absolute; inset:0; background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 60%);
-      opacity:0; transition:opacity 0.3s; display:flex; align-items:flex-end; padding:20px;
-    }
-    .g-item:hover .g-overlay { opacity:1; }
-    .g-overlay span { color:#fff; font-size:0.8rem; font-weight:600; letter-spacing:.06em; text-transform:uppercase; }
-    /* lightbox */
-    #teaserLightbox {
-      position:fixed; inset:0; background:rgba(0,0,0,0.92); z-index:9999;
-      display:none; align-items:center; justify-content:center;
-    }
-    #teaserLightbox.open { display:flex; }
-    #teaserLightbox img {
-      max-width:90vw; max-height:90vh; border-radius:6px;
-      box-shadow:0 24px 80px rgba(0,0,0,0.7);
-    }
-    #teaserLightbox .lb-close {
-      position:fixed; top:24px; right:28px; font-size:2rem; color:#fff;
-      cursor:pointer; line-height:1; opacity:.8; transition:opacity .2s;
-    }
-    #teaserLightbox .lb-close:hover { opacity:1; }
-    /* ===== CTA SECTION ===== */
+    .gt-item:hover .gt-overlay { opacity:1; }
+    .gt-overlay span { color:#fff; font-size:.76rem; font-weight:700; letter-spacing:.07em; text-transform:uppercase; }
+
+    /* Lightbox */
+    #lb { position:fixed; inset:0; background:rgba(0,0,0,0.93); z-index:9999; display:none; align-items:center; justify-content:center; }
+    #lb.open { display:flex; }
+    #lb img { max-width:90vw; max-height:88vh; border-radius:6px; box-shadow:0 24px 80px rgba(0,0,0,0.7); }
+    #lb .lb-x { position:fixed; top:22px; right:26px; font-size:1.8rem; color:#fff; cursor:pointer; opacity:.7; line-height:1; transition:opacity .2s; }
+    #lb .lb-x:hover { opacity:1; }
+
+    /* ===== CTA ===== */
     .cta-section {
-      padding: 140px 0;
-      background: #06080b;
+      padding: 120px 0;
+      background: #0b0e16;
       text-align: center; position: relative; overflow: hidden;
     }
     .cta-section::before {
       content:''; position:absolute; inset:0;
-      background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(204,27,27,0.08) 0%, transparent 70%);
+      background: radial-gradient(ellipse 50% 50% at 50% 50%, rgba(204,27,27,0.09) 0%, transparent 70%);
     }
-    .cta-line {
-      position:absolute; top:0; left:50%; width:1px; height:80px;
-      background:linear-gradient(to bottom, transparent, var(--red));
-    }
-    .cta-tag {
-      display:inline-block; font-size:.68rem; font-weight:700;
-      letter-spacing:.14em; text-transform:uppercase; color:var(--red);
-      margin-bottom:20px; opacity:0;
-    }
-    .cta-h2 {
-      font-family:'Outfit',sans-serif; font-size:clamp(2rem,4vw,3.2rem);
-      font-weight:900; color:var(--white); line-height:1.1; margin-bottom:16px;
-      opacity:0;
-    }
-    .cta-h2 em { color:var(--chrome); font-style:normal; }
-    .cta-sub {
-      color:var(--muted); font-size:1rem; line-height:1.7;
-      max-width:520px; margin:0 auto 48px; opacity:0;
-    }
-    .cta-actions { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; opacity:0; }
+    .cta-line { position:absolute; top:0; left:50%; width:1px; height:72px; background:linear-gradient(to bottom, transparent, var(--red)); }
+    .cta-inner { position:relative; z-index:2; }
+    .cta-tag { font-size:.68rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--red); display:block; margin-bottom:16px; }
+    .cta-h2 { font-family:'Outfit',sans-serif; font-size:clamp(1.9rem,3.5vw,3rem); font-weight:900; color:#fff; line-height:1.1; margin-bottom:14px; }
+    .cta-h2 em { color:#adbdcc; font-style:normal; }
+    .cta-sub { color:#7a8a9e; font-size:.96rem; line-height:1.75; max-width:500px; margin:0 auto 44px; }
+    .cta-btns { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+
     /* ===== RESPONSIVE ===== */
     @media (max-width: 1024px) {
-      .hero-inner { grid-template-columns: 1fr; text-align: center; }
-      .hero-sub { max-width: 100%; }
-      .hero-actions { justify-content: center; }
-      .stats-grid { grid-template-columns: repeat(2,1fr); }
-      .stat-cell:nth-child(2) { border-right: none; }
-      .about-layout { grid-template-columns: 1fr; gap: 48px; }
+      .hero-inner { grid-template-columns: 1fr; text-align:center; }
+      .hero-sub { max-width:100%; }
+      .hero-actions { justify-content:center; }
+      .blueprint-wrap { max-width:480px; margin:0 auto; }
+      .stats-row { grid-template-columns: repeat(2,1fr); }
+      .stat-box:nth-child(2) { border-right: none; }
+      .about-grid { grid-template-columns:1fr; gap:40px; }
       .svc-grid { grid-template-columns: repeat(2,1fr); }
-      .svc-card:nth-child(3n) { border-right: none; }
-      .svc-card:nth-child(2n) { border-right: 1px solid rgba(255,255,255,0.06); }
-      .svc-card:nth-last-child(-n+2) { border-bottom: 1px solid rgba(255,255,255,0.06); }
-      .gallery-grid-new { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
-      .g-item:first-child { grid-row: auto; }
+      .gt-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+      .gt-item:first-child { grid-row:auto; }
+      .gt-item { height: 200px; }
     }
     @media (max-width: 640px) {
-      .stats-grid { grid-template-columns: 1fr 1fr; }
-      .svc-grid { grid-template-columns: 1fr; }
-      .svc-card:nth-child(2n) { border-right: none; }
-      .svc-card:nth-last-child(-n+1) { border-bottom: 1px solid rgba(255,255,255,0.06); }
-      .gallery-grid-new { grid-template-columns: 1fr; grid-template-rows: auto; }
-      .g-item { height: 220px; }
+      .stats-row { grid-template-columns: 1fr 1fr; }
+      .svc-grid { grid-template-columns:1fr; }
+      .gt-grid { grid-template-columns:1fr; }
     }
   </style>
 </head>
 <body>
 
-<!-- NAV -->
-<header class="nav" id="mainNav">
-  <div class="container nav-container">
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
     <a href="index.html" class="nav-logo">
-      <div class="nav-logo-img-box">
-        <img src="assets/logo.jpg" alt="MEBA KALIP Logo" />
-      </div>
+      <img src="assets/logo.jpg" alt="MEBA KALIP" />
       <div class="nav-logo-text">MEBA KALIP<small>Kal&#305;p &#304;malat&#305; Ltd. &#350;ti.</small></div>
     </a>
-    <nav class="nav-links">
+    <div class="nav-menu">
       <a href="index.html" class="active">Ana Sayfa</a>
       <a href="hakkimizda.html">Hakk&#305;m&#305;zda</a>
       <a href="hizmetler.html">Hizmetler</a>
       <a href="galeri.html">Galeri</a>
       <a href="iletisim.html">&#304;leti&#351;im</a>
-    </nav>
-    <a href="iletisim.html" class="btn btn-primary nav-cta">&#304;leti&#351;ime Ge&#231;in</a>
-    <button class="nav-toggle" id="navToggle" aria-label="Men&#252;">
-      <span></span><span></span><span></span>
-    </button>
+    </div>
+    <div class="nav-right">
+      <div class="nav-social">
+        <a href="https://www.instagram.com/meba_kalip_cnc" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.facebook.com/mebakalip" target="_blank" rel="noopener"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://wa.me/905359443655" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i></a>
+      </div>
+      <div class="nav-cta"><a href="iletisim.html"><i class="fas fa-envelope"></i> &#304;leti&#351;ime Ge&#231;in</a></div>
+    </div>
+    <button class="nav-hamburger" id="navHamburger"><span></span><span></span><span></span></button>
   </div>
-  <div class="nav-mobile" id="navMobile">
-    <a href="index.html">Ana Sayfa</a>
-    <a href="hakkimizda.html">Hakk&#305;m&#305;zda</a>
-    <a href="hizmetler.html">Hizmetler</a>
-    <a href="galeri.html">Galeri</a>
-    <a href="iletisim.html">&#304;leti&#351;im</a>
-    <a href="iletisim.html" class="btn btn-primary" style="margin-top:8px;">&#304;leti&#351;ime Ge&#231;in</a>
-  </div>
-</header>
+</nav>
+<nav class="nav-mobile" id="navMobile">
+  <a href="index.html">Ana Sayfa</a>
+  <a href="hakkimizda.html">Hakk&#305;m&#305;zda</a>
+  <a href="hizmetler.html">Hizmetler</a>
+  <a href="galeri.html">Galeri</a>
+  <a href="iletisim.html">&#304;leti&#351;im</a>
+  <a href="tel:+905359443655" style="color:var(--red);margin-top:8px;"><i class="fas fa-phone"></i> 0535 944 36 55</a>
+</nav>
 
-<!-- HERO -->
-<section class="hero" id="hero">
-  <canvas id="hero-canvas"></canvas>
+<!-- ===== HERO ===== -->
+<section class="hero">
   <div class="container hero-inner">
-    <div class="hero-content">
-      <div class="hero-badge"><span class="dot"></span> Dudullu OSB &mdash; &#220;mraniye</div>
+    <!-- Left: Content -->
+    <div class="hero-content fade-in">
+      <div class="hero-badge"><span class="dot"></span> Dudullu OSB &mdash; &#220;mraniye / &#304;stanbul</div>
       <h1 class="hero-headline">
-        <span class="line">Hassas CNC</span>
-        <span class="line"><span class="hl">&#304;&#351;leme</span> &amp;</span>
-        <span class="line">Kal&#305;p &#304;malat&#305;</span>
+        Hassas <span class="hl">CNC</span><br>
+        &#304;&#351;leme &amp;<br>
+        <span class="hl2">Kal&#305;p &#304;malat&#305;</span>
       </h1>
       <p class="hero-sub">
-        25 y&#305;ll&#305;k deneyim ve modern tezgah altyap&#305;m&#305;zla tolerans&#305;n&#305;za uygun,
-        zaman&#305;nda teslim. Prototipten seri &#252;retime her a&#351;amada yan&#305;n&#305;zday&#305;z.
+        1999&apos;dan bu yana Dudullu OSB&apos;de. Modern tezgah altyap&#305;m&#305;z ve
+        deneyimli ekibimizle tolerans&#305;n&#305;za uygun, zaman&#305;nda teslimat.
       </p>
       <div class="hero-actions">
-        <a href="iletisim.html" class="btn btn-primary">Bize Ula&#351;&#305;n</a>
+        <a href="iletisim.html" class="btn btn-primary"><i class="fas fa-envelope"></i> Bize Ula&#351;&#305;n</a>
         <a href="hizmetler.html" class="btn btn-outline">Hizmetlerimiz</a>
       </div>
     </div>
-    <div></div>
+
+    <!-- Right: CNC Blueprint SVG -->
+    <div class="blueprint-wrap fade-in stagger-2">
+      <svg viewBox="0 0 440 390" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <pattern id="dotgrid" width="22" height="22" patternUnits="userSpaceOnUse">
+            <circle cx="1" cy="1" r="0.6" fill="rgba(80,120,200,0.18)"/>
+          </pattern>
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+            <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+
+        <!-- Dot grid background -->
+        <rect width="440" height="390" fill="url(#dotgrid)"/>
+
+        <!-- ===  MACHINE FRAME  === -->
+        <!-- Outer envelope (dashed) -->
+        <rect x="28" y="14" width="384" height="350" rx="2"
+              stroke="rgba(80,120,200,0.2)" stroke-width="1" stroke-dasharray="5 4" fill="none"
+              pathLength="1" class="bp-draw" style="animation-delay:.1s"/>
+
+        <!-- Left column body -->
+        <rect x="28" y="14" width="72" height="350"
+              stroke="#4a7fc1" stroke-width="1.5" fill="rgba(30,60,110,0.18)"
+              pathLength="1" class="bp-draw" style="animation-delay:.25s"/>
+
+        <!-- Column horizontal ribs -->
+        <line x1="28" y1="100" x2="100" y2="100" stroke="#4a7fc1" stroke-width=".6" opacity=".4"
+              pathLength="1" class="bp-draw" style="animation-delay:.4s"/>
+        <line x1="28" y1="190" x2="100" y2="190" stroke="#4a7fc1" stroke-width=".6" opacity=".4"
+              pathLength="1" class="bp-draw" style="animation-delay:.45s"/>
+        <line x1="28" y1="280" x2="100" y2="280" stroke="#4a7fc1" stroke-width=".6" opacity=".4"
+              pathLength="1" class="bp-draw" style="animation-delay:.5s"/>
+
+        <!-- Top crossrail / gantry -->
+        <rect x="100" y="14" width="312" height="56"
+              stroke="#4a7fc1" stroke-width="1.5" fill="rgba(30,60,110,0.22)"
+              pathLength="1" class="bp-draw" style="animation-delay:.6s"/>
+
+        <!-- Gantry inner detail line -->
+        <line x1="100" y1="42" x2="412" y2="42" stroke="#4a7fc1" stroke-width=".5" opacity=".4"
+              pathLength="1" class="bp-draw" style="animation-delay:.75s"/>
+
+        <!-- Linear rail on gantry (underside) -->
+        <rect x="110" y="66" width="292" height="8"
+              stroke="#6898d0" stroke-width="1" fill="rgba(40,80,140,0.3)"
+              pathLength="1" class="bp-draw" style="animation-delay:.8s"/>
+
+        <!-- ===  SPINDLE CARRIER  === -->
+        <!-- Carrier body (slides on rail) -->
+        <rect x="183" y="70" width="74" height="68"
+              stroke="#7ab0e8" stroke-width="1.5" fill="rgba(40,80,150,0.25)"
+              pathLength="1" class="bp-draw" style="animation-delay:.95s"/>
+
+        <!-- Carrier detail cross -->
+        <line x1="183" y1="104" x2="257" y2="104" stroke="#7ab0e8" stroke-width=".5" opacity=".4"
+              pathLength="1" class="bp-draw" style="animation-delay:1.05s"/>
+        <line x1="220" y1="70" x2="220" y2="138" stroke="#7ab0e8" stroke-width=".5" opacity=".4"
+              pathLength="1" class="bp-draw" style="animation-delay:1.1s"/>
+
+        <!-- Z-axis rail on carrier -->
+        <rect x="212" y="136" width="16" height="40"
+              stroke="#6898d0" stroke-width="1" fill="rgba(40,80,140,0.4)"
+              pathLength="1" class="bp-draw" style="animation-delay:1.15s"/>
+
+        <!-- ===  SPINDLE UNIT  === -->
+        <!-- Spindle housing -->
+        <rect x="204" y="130" width="32" height="42" rx="3"
+              stroke="#CC1B1B" stroke-width="1.5" fill="rgba(204,27,27,0.12)"
+              pathLength="1" class="bp-draw" style="animation-delay:1.3s"/>
+
+        <!-- Spindle motor cap (ellipse on top) -->
+        <ellipse cx="220" cy="130" rx="20" ry="8"
+                 stroke="#CC1B1B" stroke-width="1.2" fill="rgba(204,27,27,0.18)"
+                 pathLength="1" class="bp-draw" style="animation-delay:1.4s"/>
+
+        <!-- Collet / tool holder -->
+        <rect x="212" y="172" width="16" height="22" rx="2"
+              stroke="#CC1B1B" stroke-width="1.5" fill="rgba(204,27,27,0.2)"
+              pathLength="1" class="bp-draw" style="animation-delay:1.5s"/>
+
+        <!-- Cutting tool (tapered) -->
+        <path d="M213,194 L214,220 L220,226 L226,220 L227,194 Z"
+              stroke="#CC1B1B" stroke-width="1.5" fill="rgba(204,27,27,0.28)"
+              pathLength="1" class="bp-draw" style="animation-delay:1.6s"/>
+
+        <!-- Tool tip glow dot -->
+        <circle cx="220" cy="227" r="2.5" fill="#CC1B1B" filter="url(#glow)"
+                class="bp-fade bp-pulse" style="animation-delay:1.7s; opacity:0"/>
+
+        <!-- Rotating cut radius circles -->
+        <circle cx="220" cy="172" r="8" stroke="rgba(204,27,27,0.5)" stroke-width=".8"
+                stroke-dasharray="3 2" fill="none"
+                class="bp-fade bp-spin" style="animation-delay:1.8s; opacity:0"/>
+        <circle cx="220" cy="172" r="14" stroke="rgba(204,27,27,0.25)" stroke-width=".6"
+                stroke-dasharray="2 4" fill="none"
+                class="bp-fade bp-spin" style="animation-delay:1.8s; opacity:0; animation-direction:reverse"/>
+
+        <!-- ===  WORKTABLE  === -->
+        <!-- Table body -->
+        <rect x="100" y="298" width="312" height="44"
+              stroke="#4a7fc1" stroke-width="1.5" fill="rgba(30,60,110,0.22)"
+              pathLength="1" class="bp-draw" style="animation-delay:1.9s"/>
+
+        <!-- T-slots on table -->
+        <line x1="132" y1="298" x2="132" y2="342" stroke="#4a7fc1" stroke-width=".6" opacity=".35"
+              pathLength="1" class="bp-draw" style="animation-delay:2.05s"/>
+        <line x1="178" y1="298" x2="178" y2="342" stroke="#4a7fc1" stroke-width=".6" opacity=".35"
+              pathLength="1" class="bp-draw" style="animation-delay:2.07s"/>
+        <line x1="224" y1="298" x2="224" y2="342" stroke="#4a7fc1" stroke-width=".6" opacity=".35"
+              pathLength="1" class="bp-draw" style="animation-delay:2.09s"/>
+        <line x1="270" y1="298" x2="270" y2="342" stroke="#4a7fc1" stroke-width=".6" opacity=".35"
+              pathLength="1" class="bp-draw" style="animation-delay:2.11s"/>
+        <line x1="316" y1="298" x2="316" y2="342" stroke="#4a7fc1" stroke-width=".6" opacity=".35"
+              pathLength="1" class="bp-draw" style="animation-delay:2.13s"/>
+        <line x1="362" y1="298" x2="362" y2="342" stroke="#4a7fc1" stroke-width=".6" opacity=".35"
+              pathLength="1" class="bp-draw" style="animation-delay:2.15s"/>
+
+        <!-- ===  WORKPIECE  === -->
+        <!-- Workpiece block -->
+        <rect x="152" y="258" width="136" height="40"
+              stroke="#e8c040" stroke-width="1.4" fill="rgba(220,180,40,0.08)"
+              pathLength="1" class="bp-draw" style="animation-delay:2.2s"/>
+
+        <!-- Workpiece hatching -->
+        <line x1="162" y1="258" x2="152" y2="268" stroke="#e8c040" stroke-width=".5" opacity=".3" pathLength="1" class="bp-draw" style="animation-delay:2.3s"/>
+        <line x1="180" y1="258" x2="162" y2="276" stroke="#e8c040" stroke-width=".5" opacity=".3" pathLength="1" class="bp-draw" style="animation-delay:2.31s"/>
+        <line x1="198" y1="258" x2="180" y2="276" stroke="#e8c040" stroke-width=".5" opacity=".3" pathLength="1" class="bp-draw" style="animation-delay:2.32s"/>
+        <line x1="216" y1="258" x2="198" y2="276" stroke="#e8c040" stroke-width=".5" opacity=".3" pathLength="1" class="bp-draw" style="animation-delay:2.33s"/>
+        <line x1="234" y1="258" x2="216" y2="276" stroke="#e8c040" stroke-width=".5" opacity=".3" pathLength="1" class="bp-draw" style="animation-delay:2.34s"/>
+        <line x1="252" y1="258" x2="234" y2="276" stroke="#e8c040" stroke-width=".5" opacity=".3" pathLength="1" class="bp-draw" style="animation-delay:2.35s"/>
+        <line x1="270" y1="258" x2="252" y2="276" stroke="#e8c040" stroke-width=".5" opacity=".3" pathLength="1" class="bp-draw" style="animation-delay:2.36s"/>
+        <line x1="288" y1="258" x2="270" y2="276" stroke="#e8c040" stroke-width=".5" opacity=".3" pathLength="1" class="bp-draw" style="animation-delay:2.37s"/>
+
+        <!-- Active toolpath on workpiece -->
+        <path d="M160,256 Q190,242 220,256 Q245,264 275,256"
+              stroke="#CC1B1B" stroke-width="1.4" stroke-dasharray="3 2" fill="none"
+              pathLength="1" class="bp-draw" style="animation-delay:2.5s"/>
+
+        <!-- ===  AXIS ARROWS  === -->
+        <!-- X axis line -->
+        <line x1="28" y1="364" x2="412" y2="364" stroke="rgba(100,150,220,0.5)" stroke-width=".8"
+              pathLength="1" class="bp-draw" style="animation-delay:2.7s"/>
+        <polygon points="412,360 422,364 412,368" fill="rgba(100,150,220,0.6)"
+                 class="bp-fade" style="animation-delay:2.8s; opacity:0"/>
+        <text x="426" y="368" fill="rgba(120,170,240,0.7)" font-family="monospace" font-size="11" font-weight="bold">X</text>
+
+        <!-- Z axis line -->
+        <line x1="18" y1="364" x2="18" y2="14" stroke="rgba(100,150,220,0.5)" stroke-width=".8"
+              pathLength="1" class="bp-draw" style="animation-delay:2.9s"/>
+        <polygon points="14,14 18,4 22,14" fill="rgba(100,150,220,0.6)"
+                 class="bp-fade" style="animation-delay:3.0s; opacity:0"/>
+        <text x="10" y="2" fill="rgba(120,170,240,0.7)" font-family="monospace" font-size="11" font-weight="bold">Z</text>
+
+        <!-- ===  DIMENSION LINES  === -->
+        <!-- Width dimension -->
+        <line x1="100" y1="374" x2="412" y2="374" stroke="rgba(100,150,220,0.35)" stroke-width=".5"
+              class="bp-fade" style="animation-delay:3.1s; opacity:0"/>
+        <line x1="100" y1="370" x2="100" y2="378" stroke="rgba(100,150,220,0.35)" stroke-width=".5"
+              class="bp-fade" style="animation-delay:3.1s; opacity:0"/>
+        <line x1="412" y1="370" x2="412" y2="378" stroke="rgba(100,150,220,0.35)" stroke-width=".5"
+              class="bp-fade" style="animation-delay:3.1s; opacity:0"/>
+        <text x="256" y="387" fill="rgba(100,160,240,0.45)" font-family="monospace" font-size="9" text-anchor="middle"
+              class="bp-fade" style="animation-delay:3.2s; opacity:0">1200 mm</text>
+
+        <!-- Height dimension -->
+        <line x1="428" y1="70" x2="428" y2="298" stroke="rgba(100,150,220,0.35)" stroke-width=".5"
+              class="bp-fade" style="animation-delay:3.3s; opacity:0"/>
+        <line x1="424" y1="70"  x2="432" y2="70"  stroke="rgba(100,150,220,0.35)" stroke-width=".5"
+              class="bp-fade" style="animation-delay:3.3s; opacity:0"/>
+        <line x1="424" y1="298" x2="432" y2="298" stroke="rgba(100,150,220,0.35)" stroke-width=".5"
+              class="bp-fade" style="animation-delay:3.3s; opacity:0"/>
+        <text x="438" y="184" fill="rgba(100,160,240,0.45)" font-family="monospace" font-size="9" text-anchor="middle"
+              transform="rotate(90,438,184)"
+              class="bp-fade" style="animation-delay:3.4s; opacity:0">800 mm</text>
+
+        <!-- ===  LABELS  === -->
+        <!-- SPINDLE label -->
+        <line x1="237" y1="152" x2="272" y2="130" stroke="rgba(204,100,100,.4)" stroke-width=".5"
+              class="bp-fade" style="animation-delay:3.5s; opacity:0"/>
+        <text x="275" y="128" fill="rgba(220,100,100,.75)" font-family="monospace" font-size="9" font-weight="bold"
+              class="bp-fade" style="animation-delay:3.5s; opacity:0">SPINDLE</text>
+
+        <!-- TABLE label -->
+        <line x1="320" y1="320" x2="352" y2="344" stroke="rgba(100,150,220,.4)" stroke-width=".5"
+              class="bp-fade" style="animation-delay:3.6s; opacity:0"/>
+        <text x="340" y="356" fill="rgba(100,160,240,.5)" font-family="monospace" font-size="9"
+              class="bp-fade" style="animation-delay:3.6s; opacity:0">WORKTABLE</text>
+
+        <!-- PART label -->
+        <line x1="288" y1="268" x2="318" y2="252" stroke="rgba(220,180,40,.4)" stroke-width=".5"
+              class="bp-fade" style="animation-delay:3.7s; opacity:0"/>
+        <text x="320" y="250" fill="rgba(220,200,80,.65)" font-family="monospace" font-size="9" font-weight="bold"
+              class="bp-fade" style="animation-delay:3.7s; opacity:0">PART</text>
+
+        <!-- Title block (bottom-left corner) -->
+        <rect x="28" y="342" width="72" height="22" fill="rgba(30,60,110,.35)" stroke="#4a7fc1" stroke-width=".8"
+              class="bp-fade" style="animation-delay:3.8s; opacity:0"/>
+        <text x="64" y="357" fill="rgba(100,160,240,.5)" font-family="monospace" font-size="8" text-anchor="middle"
+              class="bp-fade" style="animation-delay:3.9s; opacity:0">MEBA KALIP</text>
+      </svg>
+    </div>
   </div>
-  <div class="hero-scroll-hint">
-    <span>Ka&#351;&#305;f et</span>
-    <div class="arrow"></div>
-  </div>
+  <div class="hero-scroll">Ke&#351;fet</div>
 </section>
 
-<!-- STATS ROW -->
-<section class="stats-row">
-  <div class="container" style="padding:0; max-width:100%;">
-    <div class="stats-grid" style="max-width:1400px; margin:0 auto; padding:0 24px;">
-      <div class="stat-cell">
-        <div class="stat-num" data-target="25"><span class="count">0</span><span class="accent">+</span></div>
-        <div class="stat-label">Y&#305;l Deneyim</div>
-      </div>
-      <div class="stat-cell">
-        <div class="stat-num" data-target="500"><span class="count">0</span><span class="accent">+</span></div>
-        <div class="stat-label">Tamamlanan Proje</div>
-      </div>
-      <div class="stat-cell">
-        <div class="stat-num" data-target="12"><span class="count">0</span></div>
-        <div class="stat-label">CNC Tezgah</div>
-      </div>
-      <div class="stat-cell">
-        <div class="stat-num" data-target="100"><span class="count">0</span><span class="accent">%</span></div>
-        <div class="stat-label">M&#252;&#351;teri Memnuniyeti</div>
-      </div>
+<!-- ===== STATS ===== -->
+<section class="stats-section">
+  <div class="stats-row container" style="padding:0 24px;">
+    <div class="stat-box fade-in">
+      <div class="stat-box-num" data-target="25" data-suffix="+">25+</div>
+      <div class="stat-box-label">Y&#305;l Deneyim</div>
+    </div>
+    <div class="stat-box fade-in stagger-1">
+      <div class="stat-box-num" data-target="500" data-suffix="+">500+</div>
+      <div class="stat-box-label">Tamamlanan Proje</div>
+    </div>
+    <div class="stat-box fade-in stagger-2">
+      <div class="stat-box-num" data-target="12">12</div>
+      <div class="stat-box-label">CNC Tezgah</div>
+    </div>
+    <div class="stat-box fade-in stagger-3">
+      <div class="stat-box-num" data-target="100" data-suffix="%">100%</div>
+      <div class="stat-box-label">M&#252;&#351;teri Memnuniyeti</div>
     </div>
   </div>
 </section>
 
-<!-- ABOUT -->
-<section class="about-wrap" id="about">
+<!-- ===== ABOUT ===== -->
+<section class="about-section">
   <div class="container">
-    <div class="about-layout">
-      <div class="about-photos">
-        <div class="about-photo-main">
-          <img src="assets/about1.jpg" alt="MEBA KALIP Atölye" loading="lazy" />
+    <div class="about-grid">
+      <div class="about-photos slide-left">
+        <div class="about-photo-tall">
+          <img src="img/galeri/ig_1.webp" alt="MEBA KALIP Atölye" loading="lazy" />
         </div>
         <div class="about-photo-sm">
-          <img src="assets/about2.jpg" alt="CNC Tezgah" loading="lazy" />
+          <img src="img/galeri/ig_3.webp" alt="CNC Tezgah" loading="lazy" />
         </div>
         <div class="about-photo-sm">
-          <img src="assets/about3.jpg" alt="Kalıp İmalatı" loading="lazy" />
+          <img src="img/galeri/ig_5.webp" alt="Kalıp İmalatı" loading="lazy" />
         </div>
       </div>
-      <div class="about-text">
+      <div class="about-text slide-right">
         <span class="about-tag">Hakk&#305;m&#305;zda</span>
         <h2 class="about-h2">&#220;retimde <em>Hassasiyet</em>,<br>Teslimatta G&#252;venilirlik</h2>
         <p class="about-desc">
           1999 y&#305;l&#305;ndan bu yana Dudullu Organize Sanayi B&#246;lgesi&#8217;nde faaliyet g&#246;steren MEBA KALIP,
-          CNC i&#351;leme ve kal&#305;p imalat&#305;nda uzmanla&#351;m&#305;&#351; bir &#252;retim firmas&#305;d&#305;r.
-          Modern tezgah parkurum&#252;z ve deneyimli ekibimizle m&#252;&#351;terilerimize &#246;zel &#231;&#246;z&#252;mler sunuyoruz.
+          CNC i&#351;leme ve kal&#305;p imalat&#305;nda sekt&#246;r&#252;n g&#252;venilir ismi olmu&#351;tur.
+          Modern tezgah parkurum&#252;z ve uzman kadromuzla m&#252;&#351;terilerimize &#246;zel &#231;&#246;z&#252;mler sunuyoruz.
         </p>
         <div class="about-facts">
-          <div class="about-fact"><i class="fa fa-check-circle"></i> ISO 9001:2015 kalite y&#246;netim sistemi</div>
           <div class="about-fact"><i class="fa fa-check-circle"></i> 0.01 mm tolerans kabiliyeti</div>
-          <div class="about-fact"><i class="fa fa-check-circle"></i> 7/24 teknik destek ve h&#305;zl&#305; teslimat</div>
+          <div class="about-fact"><i class="fa fa-check-circle"></i> ISO 9001:2015 kalite y&#246;netim sistemi</div>
           <div class="about-fact"><i class="fa fa-check-circle"></i> Otomotiv, savunma ve makine sekt&#246;rleri</div>
+          <div class="about-fact"><i class="fa fa-check-circle"></i> Prototipten seri &#252;retime tam hizmet</div>
+        </div>
+        <div style="margin-top:28px;">
+          <a href="hakkimizda.html" class="btn btn-primary">Daha Fazla Bilgi</a>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- SERVICES -->
-<section class="services-section" id="hizmetler">
+<!-- ===== SERVICES ===== -->
+<section class="services-section">
   <div class="container">
-    <div class="section-header">
-      <span class="section-tag">Hizmetlerimiz</span>
-      <h2 class="section-h2">Geni&#351; <em>&#199;&#246;z&#252;m</em> Yelpazesi</h2>
+    <div class="services-h">
+      <div class="section-label">Hizmetlerimiz</div>
+      <h2 class="section-title">Geni&#351; <span>&#199;&#246;z&#252;m</span> Yelpazesi</h2>
     </div>
     <div class="svc-grid">
-      <div class="svc-card">
+      <div class="svc-card slide-up">
         <div class="svc-icon"><i class="fa fa-cogs"></i></div>
         <div class="svc-title">CNC Freze &#304;&#351;leme</div>
-        <p class="svc-desc">3 ve 4 eksen CNC freze tezgahlar&#305;m&#305;zla karma&#351;&#305;k geometrileri y&#252;ksek hassasiyetle i&#351;liyoruz.</p>
+        <p class="svc-desc">3&#8211;4 eksen CNC freze tezgahlar&#305;m&#305;zla karma&#351;&#305;k geometrileri y&#252;ksek hassasiyetle i&#351;liyoruz.</p>
       </div>
-      <div class="svc-card">
+      <div class="svc-card slide-up stagger-1">
         <div class="svc-icon"><i class="fa fa-circle-notch"></i></div>
         <div class="svc-title">CNC Torna</div>
-        <p class="svc-desc">Simetrik ve asimetrik par&#231;alar i&#231;in hassas tornalama hizmetleri sunuyoruz.</p>
+        <p class="svc-desc">Silindirik ve asimetrik par&#231;alar i&#231;in hassas tornalama, di&#351;li ve vida i&#351;leme hizmetleri.</p>
       </div>
-      <div class="svc-card">
+      <div class="svc-card slide-up stagger-2">
         <div class="svc-icon"><i class="fa fa-cube"></i></div>
         <div class="svc-title">Kal&#305;p &#304;malat&#305;</div>
-        <p class="svc-desc">Plastik enjeksiyon, s&#305;k&#305;&#351;t&#305;rma ve d&#246;k&#252;m kal&#305;plar&#305; tasarlay&#305;p imal ediyoruz.</p>
+        <p class="svc-desc">Plastik enjeksiyon, s&#305;k&#305;&#351;t&#305;rma ve d&#246;k&#252;m kal&#305;plar&#305; tasar&#305;m ve imalat&#305;.</p>
       </div>
-      <div class="svc-card">
+      <div class="svc-card slide-up stagger-3">
         <div class="svc-icon"><i class="fa fa-ruler-combined"></i></div>
         <div class="svc-title">Prototip &#220;retim</div>
-        <p class="svc-desc">Tasar&#305;mdan &#252;retime ge&#231;i&#351; s&#252;recini h&#305;zland&#305;ran prototip &#231;&#246;z&#252;mleri.</p>
+        <p class="svc-desc">Tasar&#305;mdan &#252;retime ge&#231;i&#351; s&#252;recini h&#305;zland&#305;ran prototip ve numune &#231;&#246;z&#252;mleri.</p>
       </div>
-      <div class="svc-card">
+      <div class="svc-card slide-up stagger-4">
         <div class="svc-icon"><i class="fa fa-tools"></i></div>
         <div class="svc-title">Tak&#305;m &amp; Aparat</div>
-        <p class="svc-desc">&#220;retim hatt&#305;n&#305;z&#305; optimize eden &#246;zel tak&#305;m ve aparat imalat&#305;.</p>
+        <p class="svc-desc">&#220;retim hatt&#305;n&#305;z&#305; optimize eden &#246;zel tak&#305;m, jig ve aparat imalat&#305;.</p>
       </div>
-      <div class="svc-card">
+      <div class="svc-card slide-up stagger-5">
         <div class="svc-icon"><i class="fa fa-microscope"></i></div>
         <div class="svc-title">Kalite Kontrol</div>
-        <p class="svc-desc">CMM cihaz&#305; ve optik &#246;l&#231;&#252;m sistemleriyle her par&#231;a kalite onay&#305;ndan ge&#231;er.</p>
+        <p class="svc-desc">CMM ve optik &#246;l&#231;&#252;m sistemleriyle her par&#231;a kalite onay&#305;ndan ge&#231;irilir.</p>
       </div>
+    </div>
+    <div style="margin-top:40px; text-align:center;">
+      <a href="hizmetler.html" class="btn btn-outline" style="border-color:rgba(255,255,255,0.25);">T&#252;m Hizmetleri G&#246;r</a>
     </div>
   </div>
 </section>
 
-<!-- GALLERY TEASER -->
-<section class="gallery-section" id="galeri">
+<!-- ===== GALLERY TEASER ===== -->
+<section class="gallery-teaser">
   <div class="container">
-    <div class="section-header" style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px;">
-      <div>
-        <span class="section-tag">Galeri</span>
-        <h2 class="section-h2">&#199;al&#305;&#351;malar&#305;m&#305;zdan <em>Kareler</em></h2>
+    <div class="gt-header">
+      <div class="slide-left">
+        <div class="section-label" style="color:var(--red)">&#199;al&#305;&#351;malar&#305;m&#305;zdan</div>
+        <h2 class="section-title" style="color:#0f1117;">Galeri <span>Kesimleri</span></h2>
       </div>
-      <a href="galeri.html" class="btn btn-outline" style="margin-bottom:4px;">T&#252;m Galeriyi G&#246;r</a>
+      <a href="galeri.html" class="btn btn-primary slide-right" style="margin-bottom:4px;">T&#252;m Galeriyi G&#246;r</a>
     </div>
-    <div class="gallery-grid-new">
-      <div class="g-item" onclick="openLightbox('assets/gallery1.jpg','CNC &#304;&#351;leme')">
-        <img src="assets/gallery1.jpg" alt="CNC İşleme" loading="lazy" />
-        <div class="g-overlay"><span>CNC &#304;&#351;leme</span></div>
+    <div class="gt-grid">
+      <div class="gt-item fade-in" onclick="openLb('img/galeri/ig_2.webp','CNC &#304;&#351;leme')">
+        <img src="img/galeri/ig_2.webp" alt="CNC İşleme" loading="lazy" />
+        <div class="gt-overlay"><span>CNC &#304;&#351;leme</span></div>
       </div>
-      <div class="g-item" onclick="openLightbox('assets/gallery2.jpg','Kal&#305;p &#304;malat&#305;')">
-        <img src="assets/gallery2.jpg" alt="Kalıp İmalatı" loading="lazy" />
-        <div class="g-overlay"><span>Kal&#305;p &#304;malat&#305;</span></div>
+      <div class="gt-item fade-in stagger-1" onclick="openLb('img/galeri/ig_4.webp','Kal&#305;p &#304;malat&#305;')">
+        <img src="img/galeri/ig_4.webp" alt="Kalıp İmalatı" loading="lazy" />
+        <div class="gt-overlay"><span>Kal&#305;p &#304;malat&#305;</span></div>
       </div>
-      <div class="g-item" onclick="openLightbox('assets/gallery3.jpg','Prototip')">
-        <img src="assets/gallery3.jpg" alt="Prototip" loading="lazy" />
-        <div class="g-overlay"><span>Prototip</span></div>
+      <div class="gt-item fade-in stagger-2" onclick="openLb('img/galeri/ig_6.webp','Torna')">
+        <img src="img/galeri/ig_6.webp" alt="Torna" loading="lazy" />
+        <div class="gt-overlay"><span>Torna &#304;&#351;leme</span></div>
       </div>
-      <div class="g-item" onclick="openLightbox('assets/gallery4.jpg','Torna &#304;&#351;leme')">
-        <img src="assets/gallery4.jpg" alt="Torna İşleme" loading="lazy" />
-        <div class="g-overlay"><span>Torna &#304;&#351;leme</span></div>
+      <div class="gt-item fade-in stagger-3" onclick="openLb('img/galeri/ig_8.webp','Freze')">
+        <img src="img/galeri/ig_8.webp" alt="Freze İşleme" loading="lazy" />
+        <div class="gt-overlay"><span>Freze &#304;&#351;leme</span></div>
       </div>
-      <div class="g-item" onclick="openLightbox('assets/gallery5.jpg','Freze &#304;&#351;leme')">
-        <img src="assets/gallery5.jpg" alt="Freze İşleme" loading="lazy" />
-        <div class="g-overlay"><span>Freze &#304;&#351;leme</span></div>
+      <div class="gt-item fade-in stagger-4" onclick="openLb('img/galeri/ig_10.webp','&#220;retim')">
+        <img src="img/galeri/ig_10.webp" alt="Üretim" loading="lazy" />
+        <div class="gt-overlay"><span>&#220;retim</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- LIGHTBOX -->
-<div id="teaserLightbox" onclick="closeLightbox(event)">
-  <span class="lb-close" onclick="closeLightboxDirect()">&times;</span>
+<!-- Lightbox -->
+<div id="lb" onclick="if(event.target===this)closeLb()">
+  <span class="lb-x" onclick="closeLb()">&times;</span>
   <img id="lbImg" src="" alt="" />
 </div>
 
-<!-- CTA -->
+<!-- ===== CTA ===== -->
 <section class="cta-section">
   <div class="cta-line"></div>
-  <div class="container" style="position:relative;z-index:2;">
-    <div class="cta-tag">Hemen Ba&#351;layal&#305;m</div>
-    <h2 class="cta-h2">Projenizi <em>Hayata</em> Ge&#231;irelim</h2>
-    <p class="cta-sub">
-      Teknik &#231;izimlerinizi g&#246;nderin, fiyat teklifi al&#305;n. 24 saat i&#231;inde yan&#305;t veriyoruz.
+  <div class="cta-inner container">
+    <span class="cta-tag fade-in">Hemen Ba&#351;layal&#305;m</span>
+    <h2 class="cta-h2 fade-in stagger-1">Projenizi <em>Hayata</em> Ge&#231;irelim</h2>
+    <p class="cta-sub fade-in stagger-2">
+      Teknik &#231;izimlerinizi g&#246;nderin, fiyat teklifi al&#305;n.
+      24 saat i&#231;inde size d&#246;n&#252;yoruz.
     </p>
-    <div class="cta-actions">
+    <div class="cta-btns fade-in stagger-3">
       <a href="iletisim.html" class="btn btn-primary">Teklif Al</a>
-      <a href="tel:+902163649977" class="btn btn-outline">
-        <i class="fa fa-phone" style="margin-right:8px;"></i>(0216) 364 99 77
+      <a href="tel:+902163649977" class="btn btn-outline" style="border-color:rgba(255,255,255,0.25);">
+        <i class="fas fa-phone"></i> (0216) 364 99 77
       </a>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
-<footer class="footer">
+<!-- ===== FOOTER ===== -->
+<footer>
   <div class="container footer-grid">
     <div class="footer-brand">
-      <div class="nav-logo" style="margin-bottom:16px;">
-        <div class="nav-logo-img-box">
-          <img src="assets/logo.jpg" alt="MEBA KALIP" />
-        </div>
+      <a href="index.html" class="nav-logo" style="margin-bottom:14px; display:inline-flex;">
+        <img src="assets/logo.jpg" alt="MEBA KALIP" />
         <div class="nav-logo-text">MEBA KALIP<small>Kal&#305;p &#304;malat&#305; Ltd. &#350;ti.</small></div>
-      </div>
-      <p class="footer-desc">Dudullu OSB&#8217;de hassas CNC i&#351;leme ve kal&#305;p imalat&#305;.</p>
+      </a>
+      <p>Dudullu OSB&apos;de hassas CNC i&#351;leme ve kal&#305;p imalat&#305;.</p>
       <div class="footer-social">
-        <a href="https://wa.me/905359443655" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-        <a href="https://www.facebook.com/mebakalip" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-        <a href="https://www.instagram.com/mebakalip" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://wa.me/905359443655" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://www.instagram.com/meba_kalip_cnc" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.facebook.com/mebakalip" target="_blank"><i class="fab fa-facebook-f"></i></a>
       </div>
     </div>
     <div class="footer-col">
@@ -544,222 +720,60 @@
     <div class="footer-col">
       <h4>&#304;leti&#351;im</h4>
       <ul>
-        <li><i class="fa fa-map-marker-alt" style="color:var(--red);margin-right:6px;"></i>Dudullu OSB, &#220;mraniye / &#304;stanbul</li>
-        <li><a href="tel:+902163649977"><i class="fa fa-phone" style="color:var(--red);margin-right:6px;"></i>(0216) 364 99 77</a></li>
-        <li><a href="tel:+905359443655"><i class="fa fa-phone" style="color:var(--red);margin-right:6px;"></i>0535 944 36 55</a></li>
-        <li><a href="mailto:info@mebakalip.com"><i class="fa fa-envelope" style="color:var(--red);margin-right:6px;"></i>info@mebakalip.com</a></li>
+        <li>
+          <div class="footer-contact-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>Dudullu OSB, &#220;mraniye / &#304;stanbul</span>
+          </div>
+        </li>
+        <li>
+          <div class="footer-contact-item">
+            <i class="fas fa-phone"></i>
+            <span><a href="tel:+902163649977" style="color:inherit;">(0216) 364 99 77</a></span>
+          </div>
+        </li>
+        <li>
+          <div class="footer-contact-item">
+            <i class="fab fa-whatsapp"></i>
+            <span><a href="https://wa.me/905359443655" style="color:inherit;">0535 944 36 55</a></span>
+          </div>
+        </li>
+        <li>
+          <div class="footer-contact-item">
+            <i class="fas fa-envelope"></i>
+            <span><a href="mailto:info@mebakalip.com" style="color:inherit;">info@mebakalip.com</a></span>
+          </div>
+        </li>
       </ul>
     </div>
   </div>
   <div class="footer-bottom">
-    <p>&copy; 2026 MEBA KALIP Kal&#305;p &#304;malat&#305; Ltd. &#350;ti. T&#252;m haklar&#305; sakl&#305;d&#305;r.</p>
+    <div class="container" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
+      <p>&copy; 2026 MEBA KALIP Kal&#305;p &#304;malat&#305; Ltd. &#350;ti.</p>
+      <p>Dudullu OSB &#8212; &#220;mraniye / &#304;stanbul</p>
+    </div>
   </div>
 </footer>
 
-<!-- THREE.JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-<!-- GSAP -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<!-- WhatsApp float -->
+<a href="https://wa.me/905359443655" target="_blank" class="whatsapp-float" aria-label="WhatsApp">
+  <i class="fab fa-whatsapp"></i>
+</a>
 
+<script src="assets/script.js"></script>
 <script>
-// ===== THREE.JS SCENE =====
-(function() {
-  const canvas = document.getElementById('hero-canvas');
-  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.2;
-
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 100);
-  camera.position.set(0, 0, 6);
-
-  // Lighting
-  const ambientLight = new THREE.AmbientLight(0x222233, 2);
-  scene.add(ambientLight);
-
-  const redLight = new THREE.PointLight(0xcc1b1b, 6, 12);
-  redLight.position.set(-4, 2, 3);
-  scene.add(redLight);
-
-  const blueLight = new THREE.PointLight(0x3366ff, 3, 10);
-  blueLight.position.set(4, -2, -2);
-  scene.add(blueLight);
-
-  const chromeLight = new THREE.PointLight(0xffffff, 4, 15);
-  chromeLight.position.set(0, 4, 4);
-  scene.add(chromeLight);
-
-  // Torus Knot (main metallic piece)
-  const knotGeo = new THREE.TorusKnotGeometry(1.2, 0.38, 180, 32, 2, 3);
-  const knotMat = new THREE.MeshStandardMaterial({
-    color: 0xb0b0b8,
-    metalness: 0.95,
-    roughness: 0.12,
-    envMapIntensity: 1.0
-  });
-  const knot = new THREE.Mesh(knotGeo, knotMat);
-  knot.position.set(1.8, 0, 0);
-  scene.add(knot);
-
-  // Red torus ring 1
-  const ring1Geo = new THREE.TorusGeometry(2.2, 0.012, 8, 120);
-  const ring1Mat = new THREE.MeshStandardMaterial({ color: 0xcc1b1b, metalness: 0.8, roughness: 0.2, transparent: true, opacity: 0.6 });
-  const ring1 = new THREE.Mesh(ring1Geo, ring1Mat);
-  ring1.position.set(1.8, 0, 0);
-  ring1.rotation.x = Math.PI / 4;
-  scene.add(ring1);
-
-  // Red torus ring 2
-  const ring2Geo = new THREE.TorusGeometry(2.8, 0.008, 8, 120);
-  const ring2Mat = new THREE.MeshStandardMaterial({ color: 0xcc1b1b, metalness: 0.8, roughness: 0.2, transparent: true, opacity: 0.3 });
-  const ring2 = new THREE.Mesh(ring2Geo, ring2Mat);
-  ring2.position.set(1.8, 0, 0);
-  ring2.rotation.x = -Math.PI / 5;
-  ring2.rotation.y = Math.PI / 6;
-  scene.add(ring2);
-
-  // Particles
-  const particleCount = 3000;
-  const positions = new Float32Array(particleCount * 3);
-  for (let i = 0; i < particleCount; i++) {
-    const r = 3.5 + Math.random() * 4;
-    const theta = Math.random() * Math.PI * 2;
-    const phi = Math.acos(2 * Math.random() - 1);
-    positions[i * 3]     = r * Math.sin(phi) * Math.cos(theta) + 1.8;
-    positions[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
-    positions[i * 3 + 2] = r * Math.cos(phi);
+  // Lightbox
+  function openLb(src, alt) {
+    document.getElementById('lbImg').src = src;
+    document.getElementById('lbImg').alt = alt;
+    document.getElementById('lb').classList.add('open');
+    document.body.style.overflow = 'hidden';
   }
-  const particleGeo = new THREE.BufferGeometry();
-  particleGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-  const particleMat = new THREE.PointsMaterial({ color: 0x888888, size: 0.025, transparent: true, opacity: 0.5 });
-  const particles = new THREE.Points(particleGeo, particleMat);
-  scene.add(particles);
-
-  // Mouse parallax
-  let mouseX = 0, mouseY = 0;
-  document.addEventListener('mousemove', e => {
-    mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
-    mouseY = -(e.clientY / window.innerHeight - 0.5) * 2;
-  });
-
-  // Resize
-  window.addEventListener('resize', () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-  });
-
-  let time = 0;
-  function animate() {
-    requestAnimationFrame(animate);
-    time += 0.008;
-    knot.rotation.x += 0.004;
-    knot.rotation.y += 0.007;
-    ring1.rotation.z += 0.003;
-    ring2.rotation.z -= 0.002;
-    ring2.rotation.x += 0.001;
-    particles.rotation.y += 0.0003;
-
-    // Subtle camera movement
-    camera.position.x += (mouseX * 0.5 - camera.position.x) * 0.05;
-    camera.position.y += (mouseY * 0.3 - camera.position.y) * 0.05;
-    camera.lookAt(1.8, 0, 0);
-
-    // Breathing light
-    redLight.intensity = 5 + Math.sin(time * 1.5) * 1.5;
-
-    renderer.render(scene, camera);
+  function closeLb() {
+    document.getElementById('lb').classList.remove('open');
+    document.body.style.overflow = '';
   }
-  animate();
-})();
-
-// ===== GSAP ANIMATIONS =====
-gsap.registerPlugin(ScrollTrigger);
-
-// Hero entrance
-const heroTl = gsap.timeline({ delay: 0.3 });
-heroTl
-  .to('.hero-badge', { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' })
-  .to('.hero-headline .line', {
-    y: 0, opacity: 1, duration: 0.9, stagger: 0.12, ease: 'power4.out'
-  }, '-=0.3')
-  .to('.hero-sub', { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }, '-=0.4')
-  .to('.hero-actions', { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, '-=0.3')
-  .to('.hero-scroll-hint', { opacity: 1, duration: 0.5 }, '-=0.2');
-
-// Stat counters
-document.querySelectorAll('.stat-cell').forEach((cell) => {
-  const numEl = cell.querySelector('.count');
-  const target = parseInt(cell.querySelector('.stat-num').dataset.target);
-  ScrollTrigger.create({
-    trigger: cell,
-    start: 'top 85%',
-    once: true,
-    onEnter: () => {
-      gsap.to({ val: 0 }, {
-        val: target, duration: 1.8, ease: 'power2.out',
-        onUpdate: function() { numEl.textContent = Math.round(this.targets()[0].val); }
-      });
-    }
-  });
-});
-
-// About section
-gsap.from('.about-photos', {
-  scrollTrigger: { trigger: '.about-wrap', start: 'top 75%' },
-  x: -60, opacity: 0, duration: 1.1, ease: 'power3.out'
-});
-gsap.from('.about-text', {
-  scrollTrigger: { trigger: '.about-wrap', start: 'top 75%' },
-  x: 60, opacity: 0, duration: 1.1, ease: 'power3.out'
-});
-
-// Services
-gsap.to('.svc-card', {
-  scrollTrigger: { trigger: '.svc-grid', start: 'top 80%' },
-  opacity: 1, y: 0, duration: 0.7, stagger: 0.1, ease: 'power3.out'
-});
-
-// Gallery
-gsap.to('.g-item', {
-  scrollTrigger: { trigger: '.gallery-grid-new', start: 'top 80%' },
-  opacity: 1, scale: 1, duration: 0.8, stagger: 0.1, ease: 'power3.out'
-});
-
-// CTA
-gsap.to(['.cta-tag', '.cta-h2', '.cta-sub', '.cta-actions'], {
-  scrollTrigger: { trigger: '.cta-section', start: 'top 75%' },
-  opacity: 1, y: 0, duration: 0.7, stagger: 0.12, ease: 'power3.out'
-});
-
-// ===== LIGHTBOX =====
-function openLightbox(src, alt) {
-  const lb = document.getElementById('teaserLightbox');
-  const img = document.getElementById('lbImg');
-  img.src = src; img.alt = alt;
-  lb.classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-function closeLightbox(e) {
-  if (e.target === document.getElementById('teaserLightbox')) closeLightboxDirect();
-}
-function closeLightboxDirect() {
-  document.getElementById('teaserLightbox').classList.remove('open');
-  document.body.style.overflow = '';
-}
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightboxDirect(); });
-
-// ===== NAV =====
-const nav = document.getElementById('mainNav');
-window.addEventListener('scroll', () => {
-  nav.classList.toggle('scrolled', window.scrollY > 50);
-});
-document.getElementById('navToggle').addEventListener('click', () => {
-  document.getElementById('navMobile').classList.toggle('open');
-});
+  document.addEventListener('keydown', e => { if(e.key==='Escape') closeLb(); });
 </script>
 </body>
 </html>
