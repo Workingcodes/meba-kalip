@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Galeri &#8211; MEBA KALIP</title>
+  <meta name="description" content="Meba Kalıp CNC atölyesinden üretim fotoğrafları. Kalıp imalatı, CNC frezeleme, talaşlı imalat ve fason üretimden gerçek çekimler." />
   <link rel="stylesheet" href="assets/style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
@@ -24,6 +25,12 @@
     .lb-nav:hover { background: var(--red); border-color: var(--red); }
     .lb-prev { left: -52px; } .lb-next { right: -52px; }
     .lb-counter { position: absolute; bottom: -32px; left: 50%; transform: translateX(-50%); font-size: 0.78rem; color: var(--muted); font-family:'Outfit',sans-serif; }
+    .filter-bar { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:28px; }
+    .filter-btn { padding:7px 18px; border-radius:20px; border:1px solid rgba(255,255,255,0.12); background:transparent; color:var(--muted); font-family:'Outfit',sans-serif; font-size:0.8rem; font-weight:600; cursor:pointer; transition:all 0.2s; }
+    .filter-btn:hover { border-color:rgba(204,27,27,0.4); color:var(--white); }
+    .filter-btn.active { background:var(--red); border-color:var(--red); color:#fff; }
+    .gallery-item { transition: opacity 0.3s, transform 0.3s; }
+    .gallery-item.hidden { opacity:0; pointer-events:none; position:absolute; }
     @media (max-width: 1024px) { .gallery-grid { grid-template-columns: repeat(3,1fr); } }
     @media (max-width: 768px) { .gallery-grid { grid-template-columns: repeat(2,1fr); } .lb-prev { left: -8px; } .lb-next { right: -8px; } }
   </style>
@@ -61,17 +68,24 @@
       <div><div class="section-label">Foto&#287;raf Galerisi</div><h2 class="section-title">&#220;retimden <span>Kareler</span></h2></div>
       <a href="https://www.instagram.com/meba_kalip_cnc" target="_blank" class="btn btn-outline"><i class="fab fa-instagram"></i> Instagram'da Takip Et</a>
     </div>
+    <div class="filter-bar">
+      <button class="filter-btn active" data-filter="all">Tümü</button>
+      <button class="filter-btn" data-filter="kalip">Kal&#305;p &#304;malat&#305;</button>
+      <button class="filter-btn" data-filter="cnc">CNC Frezeleme</button>
+      <button class="filter-btn" data-filter="talasli">Tala&#351;l&#305; &#304;malat</button>
+      <button class="filter-btn" data-filter="fason">Fason &#220;retim</button>
+    </div>
     <div class="gallery-grid" id="galleryGrid">
-      <div class="gallery-item fade-in" data-src="img/galeri/ig_1.webp"><img src="img/galeri/ig_1.webp" alt="Uretim 1" loading="lazy"><div class="gallery-item-overlay"><i class="fas fa-expand"></i></div></div>
-      <div class="gallery-item fade-in stagger-1" data-src="img/galeri/ig_2.webp"><img src="img/galeri/ig_2.webp" alt="Uretim 2" loading="lazy"><div class="gallery-item-overlay"><i class="fas fa-expand"></i></div></div>
-      <div class="gallery-item fade-in stagger-2" data-src="img/galeri/ig_3.webp"><img src="img/galeri/ig_3.webp" alt="Uretim 3" loading="lazy"><div class="gallery-item-overlay"><i class="fas fa-expand"></i></div></div>
-      <div class="gallery-item fade-in stagger-3" data-src="img/galeri/ig_4.webp"><img src="img/galeri/ig_4.webp" alt="Uretim 4" loading="lazy"><div class="gallery-item-overlay"><i class="fas fa-expand"></i></div></div>
-      <div class="gallery-item fade-in" data-src="img/galeri/ig_5.webp"><img src="img/galeri/ig_5.webp" alt="Uretim 5" loading="lazy"><div class="gallery-item-overlay"><i class="fas fa-expand"></i></div></div>
-      <div class="gallery-item fade-in stagger-1" data-src="img/galeri/ig_6.webp"><img src="img/galeri/ig_6.webp" alt="Uretim 6" loading="lazy"><div class="gallery-item-overlay"><i class="fas fa-expand"></i></div></div>
-      <div class="gallery-item fade-in stagger-2" data-src="img/galeri/ig_7.webp"><img src="img/galeri/ig_7.webp" alt="Uretim 7" loading="lazy"><div class="gallery-item-overlay"><i class="fas fa-expand"></i></div></div>
-      <div class="gallery-item fade-in stagger-3" data-src="img/galeri/ig_8.webp"><img src="img/galeri/ig_8.webp" alt="Uretim 8" loading="lazy"><div class="gallery-item-overlay"><i class="fas fa-expand"></i></div></div>
-      <div class="gallery-item fade-in" data-src="img/galeri/ig_9.webp"><img src="img/galeri/ig_9.webp" alt="Uretim 9" loading="lazy"><div class="gallery-item-overlay"><i class="fas fa-expand"></i></div></div>
-      <div class="gallery-item fade-in stagger-1" data-src="img/galeri/ig_10.webp"><img src="img/galeri/ig_10.webp" alt="Uretim 10" loading="lazy"><div class="gallery-item-overlay"><i class="fas fa-expand"></i></div></div>
+      <div class="gallery-item fade-in" data-cat="kalip" data-src="img/galeri/ig_1.webp"><img src="img/galeri/ig_1.webp" alt="Kalip Imalati" loading="lazy"><div class="gallery-item-overlay"><span style="font-size:.7rem;font-weight:700;color:rgba(255,255,255,.7);letter-spacing:.08em;text-transform:uppercase;">Kal&#305;p &#304;malat&#305;</span><i class="fas fa-expand"></i></div></div>
+      <div class="gallery-item fade-in stagger-1" data-cat="kalip" data-src="img/galeri/ig_2.webp"><img src="img/galeri/ig_2.webp" alt="Kalip Imalati" loading="lazy"><div class="gallery-item-overlay"><span style="font-size:.7rem;font-weight:700;color:rgba(255,255,255,.7);letter-spacing:.08em;text-transform:uppercase;">Kal&#305;p &#304;malat&#305;</span><i class="fas fa-expand"></i></div></div>
+      <div class="gallery-item fade-in stagger-2" data-cat="talasli" data-src="img/galeri/ig_3.webp"><img src="img/galeri/ig_3.webp" alt="Talasli Imalat" loading="lazy"><div class="gallery-item-overlay"><span style="font-size:.7rem;font-weight:700;color:rgba(255,255,255,.7);letter-spacing:.08em;text-transform:uppercase;">Tala&#351;l&#305; &#304;malat</span><i class="fas fa-expand"></i></div></div>
+      <div class="gallery-item fade-in stagger-3" data-cat="cnc" data-src="img/galeri/ig_4.webp"><img src="img/galeri/ig_4.webp" alt="CNC Frezeleme" loading="lazy"><div class="gallery-item-overlay"><span style="font-size:.7rem;font-weight:700;color:rgba(255,255,255,.7);letter-spacing:.08em;text-transform:uppercase;">CNC Frezeleme</span><i class="fas fa-expand"></i></div></div>
+      <div class="gallery-item fade-in" data-cat="kalip" data-src="img/galeri/ig_5.webp"><img src="img/galeri/ig_5.webp" alt="Kalip Imalati" loading="lazy"><div class="gallery-item-overlay"><span style="font-size:.7rem;font-weight:700;color:rgba(255,255,255,.7);letter-spacing:.08em;text-transform:uppercase;">Kal&#305;p &#304;malat&#305;</span><i class="fas fa-expand"></i></div></div>
+      <div class="gallery-item fade-in stagger-1" data-cat="talasli" data-src="img/galeri/ig_6.webp"><img src="img/galeri/ig_6.webp" alt="Talasli Imalat" loading="lazy"><div class="gallery-item-overlay"><span style="font-size:.7rem;font-weight:700;color:rgba(255,255,255,.7);letter-spacing:.08em;text-transform:uppercase;">Tala&#351;l&#305; &#304;malat</span><i class="fas fa-expand"></i></div></div>
+      <div class="gallery-item fade-in stagger-2" data-cat="cnc" data-src="img/galeri/ig_7.webp"><img src="img/galeri/ig_7.webp" alt="CNC Frezeleme" loading="lazy"><div class="gallery-item-overlay"><span style="font-size:.7rem;font-weight:700;color:rgba(255,255,255,.7);letter-spacing:.08em;text-transform:uppercase;">CNC Frezeleme</span><i class="fas fa-expand"></i></div></div>
+      <div class="gallery-item fade-in stagger-3" data-cat="fason" data-src="img/galeri/ig_8.webp"><img src="img/galeri/ig_8.webp" alt="Fason Uretim" loading="lazy"><div class="gallery-item-overlay"><span style="font-size:.7rem;font-weight:700;color:rgba(255,255,255,.7);letter-spacing:.08em;text-transform:uppercase;">Fason &#220;retim</span><i class="fas fa-expand"></i></div></div>
+      <div class="gallery-item fade-in" data-cat="cnc" data-src="img/galeri/ig_9.webp"><img src="img/galeri/ig_9.webp" alt="CNC Frezeleme" loading="lazy"><div class="gallery-item-overlay"><span style="font-size:.7rem;font-weight:700;color:rgba(255,255,255,.7);letter-spacing:.08em;text-transform:uppercase;">CNC Frezeleme</span><i class="fas fa-expand"></i></div></div>
+      <div class="gallery-item fade-in stagger-1" data-cat="fason" data-src="img/galeri/ig_10.webp"><img src="img/galeri/ig_10.webp" alt="Fason Uretim" loading="lazy"><div class="gallery-item-overlay"><span style="font-size:.7rem;font-weight:700;color:rgba(255,255,255,.7);letter-spacing:.08em;text-transform:uppercase;">Fason &#220;retim</span><i class="fas fa-expand"></i></div></div>
     </div>
   </div>
 </section>
@@ -88,7 +102,7 @@
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand"><a href="index.html" class="nav-logo"><img src="assets/logo.jpg" alt="Meba Kalip" style="height:44px;width:44px;object-fit:contain;" /><div class="nav-logo-text">MEBA KALIP<small>Makina Imalat San. ve Tic. Ltd.</small></div></a><p>Dudullu OSB'de CNC i&#351;leme, kal&#305;p imalat&#305; ve tala&#351;l&#305; imalat.</p><div class="footer-social"><a href="https://www.instagram.com/meba_kalip_cnc" target="_blank"><i class="fab fa-instagram"></i></a><a href="https://www.facebook.com/mebakalip" target="_blank"><i class="fab fa-facebook-f"></i></a><a href="https://wa.me/905359443655" target="_blank"><i class="fab fa-whatsapp"></i></a></div></div>
-      <div class="footer-col"><h4>Sayfalar</h4><ul><li><a href="index.html">Ana Sayfa</a></li><li><a href="hakkimizda.html">Hakk&#305;m&#305;zda</a></li><li><a href="hizmetler.html">Hizmetler</a></li><li><a href="galeri.html">Galeri</a></li><li><a href="iletisim.html">&#304;leti&#351;im</a></li></ul></div>
+      <div class="footer-col"><h4>Sayfalar</h4><ul><li><a href="index.html">Ana Sayfa</a></li><li><a href="hakkimizda.html">Hakk&#305;m&#305;zda</a></li><li><a href="hizmetler.html">Hizmetler</a></li><li><a href="galeri.html">Galeri</a></li><li><a href="iletisim.html">&#304;leti&#351;im</a></li><li><a href="index.html#sss">S&#305;k&#231;a Sorulan Sorular</a></li></ul></div>
       <div class="footer-col"><h4>Hizmetler</h4><ul><li><a href="hizmetler.html">Kal&#305;p &#304;malat&#305;</a></li><li><a href="hizmetler.html">CNC Frezeleme</a></li><li><a href="hizmetler.html">Tala&#351;l&#305; &#304;malat</a></li><li><a href="hizmetler.html">Fason &#220;retim</a></li></ul></div>
       <div class="footer-col"><h4>&#304;leti&#351;im</h4><div class="footer-contact-item"><i class="fas fa-map-marker-alt"></i><span>Dudullu O.S.B. Mh. &#304;MES Sanayi Sitesi E Blok No:2/1, &#220;mraniye / &#304;stanbul</span></div><div class="footer-contact-item"><i class="fas fa-phone"></i><span>0535 944 36 55</span></div><div class="footer-contact-item"><i class="fas fa-phone"></i><span>0216 364 33 47</span></div></div>
     </div>
@@ -112,6 +126,22 @@ document.getElementById('lbPrev').addEventListener('click',()=>nav(-1));
 document.getElementById('lbNext').addEventListener('click',()=>nav(1));
 lb.addEventListener('click',e=>{if(e.target===lb)closeLb();});
 document.addEventListener('keydown',e=>{if(!lb.classList.contains('open'))return;if(e.key==='Escape')closeLb();if(e.key==='ArrowLeft')nav(-1);if(e.key==='ArrowRight')nav(1);});
+
+// Category filter
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const f = btn.dataset.filter;
+    document.querySelectorAll('.gallery-item').forEach(item => {
+      if (f === 'all' || item.dataset.cat === f) {
+        item.style.display = '';
+      } else {
+        item.style.display = 'none';
+      }
+    });
+  });
+});
 </script>
 </body>
 </html>

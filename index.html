@@ -4,7 +4,42 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MEBA KALIP &#8211; Kal&#305;p &#304;malat&#305; &amp; CNC &#304;&#351;leme</title>
-  <meta name="description" content="Dudullu OSB'de hassas CNC işleme ve kalıp imalatı. 25 yıllık deneyim, modern tezgah parkuru." />
+  <meta name="description" content="İstanbul Dudullu OSB'de 1999'dan bu yana CNC frezeleme, kalıp imalatı, talaşlı imalat ve fason üretim. Mikron tolerans, hızlı teslimat. 0535 944 36 55" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Meba Kalıp Makina İmalat San. ve Tic. Ltd. Şti.",
+    "alternateName": "Meba Kalıp CNC",
+    "url": "https://mebakalip.com",
+    "telephone": ["+90-535-944-36-55", "+90-544-293-01-08", "+90-216-364-33-47"],
+    "email": "teklif@mebakalip.com",
+    "foundingDate": "1999",
+    "description": "İstanbul Dudullu OSB'de 1999'dan bu yana CNC frezeleme, kalıp imalatı, talaşlı imalat ve fason üretim hizmetleri.",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Dudullu O.S.B. Mh. İMES Sanayi Sitesi E Blok No:2/1",
+      "addressLocality": "Ümraniye",
+      "addressRegion": "İstanbul",
+      "postalCode": "34775",
+      "addressCountry": "TR"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 41.0010871,
+      "longitude": 29.1585902
+    },
+    "openingHoursSpecification": [
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "08:00", "closes": "18:00" },
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "08:00", "closes": "13:00" }
+    ],
+    "sameAs": [
+      "https://www.instagram.com/meba_kalip_cnc",
+      "https://www.facebook.com/mebakalip"
+    ],
+    "hasMap": "https://www.google.com/maps?cid=8016668577839176922"
+  }
+  </script>
   <link rel="stylesheet" href="assets/style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
@@ -225,12 +260,42 @@
     .cta-sub { color:#7a8a9e; font-size:.96rem; line-height:1.75; max-width:500px; margin:0 auto 44px; }
     .cta-btns { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
 
+    /* ===== SEKTÖRLER ===== */
+    .sector-card {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 10px; padding: 28px 24px; transition: all 0.25s;
+    }
+    .sector-card:hover { border-color: rgba(204,27,27,0.35); background: rgba(204,27,27,0.05); transform: translateY(-3px); }
+    .sector-icon {
+      width: 48px; height: 48px; border-radius: 10px;
+      background: rgba(204,27,27,0.12); color: var(--red);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; margin-bottom: 16px;
+    }
+    .sector-card h3 { font-family:'Outfit',sans-serif; font-size: 0.95rem; font-weight: 700; color: var(--white); margin-bottom: 8px; }
+    .sector-card p { font-size: 0.82rem; color: var(--muted); line-height: 1.65; }
+
+    /* ===== FAQ ===== */
+    .faq-item { border-bottom: 1px solid rgba(0,0,0,0.08); }
+    .faq-item:first-child { border-top: 1px solid rgba(0,0,0,0.08); }
+    .faq-q {
+      width: 100%; display: flex; justify-content: space-between; align-items: center;
+      gap: 16px; padding: 20px 0; background: none; border: none; cursor: pointer;
+      font-family:'Outfit',sans-serif; font-size: 0.97rem; font-weight: 700;
+      color: #0d1117; text-align: left; transition: color 0.2s;
+    }
+    .faq-q:hover { color: var(--red); }
+    .faq-q i { color: var(--red); font-size: 0.75rem; flex-shrink:0; transition: transform 0.25s; }
+    .faq-q.open i { transform: rotate(45deg); }
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.25s; }
+    .faq-a.open { max-height: 200px; padding-bottom: 18px; }
+    .faq-a p { font-size: 0.88rem; color: #5a6270; line-height: 1.75; margin: 0; }
+
     /* ===== RESPONSIVE ===== */
     @media (max-width: 1024px) {
       .hero-inner { grid-template-columns: 1fr; text-align:center; }
       .hero-sub { max-width:100%; }
       .hero-actions { justify-content:center; }
-      .blueprint-wrap { max-width:480px; margin:0 auto; }
       .stats-row { grid-template-columns: repeat(2,1fr); }
       .stat-box:nth-child(2) { border-right: none; }
       .about-grid { grid-template-columns:1fr; gap:40px; }
@@ -238,11 +303,13 @@
       .gt-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
       .gt-item:first-child { grid-row:auto; }
       .gt-item { height: 200px; }
+      .sectors-grid { grid-template-columns: repeat(2,1fr) !important; }
     }
     @media (max-width: 640px) {
       .stats-row { grid-template-columns: 1fr 1fr; }
       .svc-grid { grid-template-columns:1fr; }
       .gt-grid { grid-template-columns:1fr; }
+      .sectors-grid { grid-template-columns: 1fr !important; }
     }
   </style>
 </head>
@@ -458,6 +525,116 @@
   <img id="lbImg" src="" alt="" />
 </div>
 
+<!-- ===== HİZMET VERDİĞİMİZ SEKTÖRLER ===== -->
+<section style="padding:88px 0;background:#0d1017;">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:56px;">
+      <div class="section-label" style="justify-content:center;">Sektörlerimiz</div>
+      <h2 class="section-title" style="margin-bottom:12px;">Hizmet Verdi&#287;imiz <span>Sekt&#246;rler</span></h2>
+      <p style="color:var(--muted);max-width:520px;margin:0 auto;font-size:0.92rem;line-height:1.7;">Metal ve plastik i&#351;leme deneyimimizle Türkiye'nin önde gelen sanayi sektörlerine üretim hizmetleri veriyoruz.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;" class="sectors-grid">
+      <div class="sector-card slide-up">
+        <div class="sector-icon"><i class="fas fa-car"></i></div>
+        <h3>Otomotiv Yan Sanayii</h3>
+        <p>Motor, &#351;asi ve g&#246;vde par&#231;alar&#305; i&#231;in hassas tole&shy;ransl&#305; prototip ve seri imalat.</p>
+      </div>
+      <div class="sector-card slide-up stagger-1">
+        <div class="sector-icon"><i class="fas fa-shield-alt"></i></div>
+        <h3>Savunma Sanayii</h3>
+        <p>Y&#252;ksek mukavemetli malzemelerde kritik tolerans gerektiren savunma par&#231;alar&#305; i&#231;in &#252;retim.</p>
+      </div>
+      <div class="sector-card slide-up stagger-2">
+        <div class="sector-icon"><i class="fas fa-blender"></i></div>
+        <h3>Beyaz E&#351;ya</h3>
+        <p>Plastik enjeksiyon ve sac &#351;ekillendirme kal&#305;plar&#305;, s&#252;rekli &#252;retim hatt&#305;na uygun teslimat.</p>
+      </div>
+      <div class="sector-card slide-up stagger-1">
+        <div class="sector-icon"><i class="fas fa-industry"></i></div>
+        <h3>Plastik Enj. Kal&#305;plar&#305;</h3>
+        <p>So&#287;utma kanal&#305; dizayn&#305;ndan nihai y&#252;zey i&#351;lemine kadar komple kal&#305;p tasar&#305;m ve imalat&#305;.</p>
+      </div>
+      <div class="sector-card slide-up stagger-2">
+        <div class="sector-icon"><i class="fas fa-heartbeat"></i></div>
+        <h3>Medikal Cihaz</h3>
+        <p>Paslanmaz &#231;elik ve t&#305;bbi s&#305;n&#305;f alüminyumda y&#252;ksek hassasiyetli medikal par&#231;a imalat&#305;.</p>
+      </div>
+      <div class="sector-card slide-up stagger-3">
+        <div class="sector-icon"><i class="fas fa-bolt"></i></div>
+        <h3>Elektrik &amp; Elektronik</h3>
+        <p>Konnekt&#246;r, muhafaza ve so&#287;utucu g&#246;vdeler i&#231;in hassas i&#351;leme ve seri fason &#252;retim.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SSS ===== -->
+<section id="sss" style="padding:88px 0;background:#f4f6f9;">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:52px;">
+      <div class="section-label" style="justify-content:center;color:var(--red);">SSS</div>
+      <h2 class="section-title" style="margin-bottom:12px;color:#0d1117;">S&#305;k&#231;a Sorulan <span>Sorular</span></h2>
+      <p style="color:#5a6270;max-width:500px;margin:0 auto;font-size:0.92rem;line-height:1.7;">Kalıp imalatı ve CNC işleme hakkında en çok merak edilenler.</p>
+    </div>
+    <div style="max-width:780px;margin:0 auto;" class="faq-list">
+      <div class="faq-item slide-up">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span>Minimum sipari&#351; adedi nedir?</span>
+          <i class="fas fa-plus"></i>
+        </button>
+        <div class="faq-a">
+          <p>Minimum sipari&#351; adedimiz yoktur. Tek parça prototip siparişlerinden binlerce adetlik seri üretime kadar her hacimde hizmet veriyoruz. Küçük partilerde birim maliyet farklılık gösterebilir; fiyat teklifi için bizimle iletişime geçin.</p>
+        </div>
+      </div>
+      <div class="faq-item slide-up stagger-1">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span>Teslim s&#252;reniz ne kadar?</span>
+          <i class="fas fa-plus"></i>
+        </button>
+        <div class="faq-a">
+          <p>Teslim süresi parça karmaşıklığına ve miktarına göre değişir. Prototip ve tekil parçalarda genellikle 3–7 iş günü, seri üretimde 2–4 hafta hedefliyoruz. Acil siparişler için öncelikli üretim imkânımız mevcuttur.</p>
+        </div>
+      </div>
+      <div class="faq-item slide-up stagger-2">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span>Hangi malzemelerde &#231;al&#305;&#351;&#305;yorsunuz?</span>
+          <i class="fas fa-plus"></i>
+        </button>
+        <div class="faq-a">
+          <p>Başta çelik (C45, 1.2343, 1.2379), paslanmaz çelik (304, 316L), alüminyum alaşımları (6061, 7075) ve çeşitli plastikler (POM, PA66, PEEK) olmak üzere geniş bir malzeme yelpazesinde işleme yapabiliyoruz.</p>
+        </div>
+      </div>
+      <div class="faq-item slide-up stagger-1">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span>Teknik &#231;izim olmadan teklif alabilir miyim?</span>
+          <i class="fas fa-plus"></i>
+        </button>
+        <div class="faq-a">
+          <p>Evet. Numune, eskiz veya sözlü tanımlama ile de fiyat teklifi hazırlayabiliriz. Teknik resim isterseniz tasarım danışmanlığı da sunuyoruz. WhatsApp üzerinden fotoğraf veya taslak göndererek başlayabilirsiniz.</p>
+        </div>
+      </div>
+      <div class="faq-item slide-up stagger-2">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span>Ne kadar hassasiyet sa&#287;l&#305;yorsunuz?</span>
+          <i class="fas fa-plus"></i>
+        </button>
+        <div class="faq-a">
+          <p>CNC freze tezgâhlarımızda ±0,01 mm, hassas taşlama işlemlerinde ±0,005 mm tolerans sağlayabiliyoruz. Özel hassasiyet gerektiren uygulamalar için kalite kontrol süreci ve ölçüm raporu da sunulabilir.</p>
+        </div>
+      </div>
+      <div class="faq-item slide-up stagger-3">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span>Kargo veya teslimat hizmetiniz var m&#305;?</span>
+          <i class="fas fa-plus"></i>
+        </button>
+        <div class="faq-a">
+          <p>Türkiye genelinde kargo ile teslimat yapıyoruz. İstanbul içi büyük hacimli veya hassas parçalar için araçlı teslimat da organize edebiliyoruz. Fabrikamızdan elden teslim de mümkündür.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ===== CTA ===== -->
 <section class="cta-section">
   <div class="cta-line"></div>
@@ -569,6 +746,18 @@
     document.body.style.overflow = '';
   }
   document.addEventListener('keydown', e => { if(e.key==='Escape') closeLb(); });
+
+  function toggleFaq(btn) {
+    const item = btn.closest('.faq-item');
+    const answer = item.querySelector('.faq-a');
+    const isOpen = btn.classList.contains('open');
+    // close all
+    document.querySelectorAll('.faq-q.open').forEach(b => {
+      b.classList.remove('open');
+      b.closest('.faq-item').querySelector('.faq-a').classList.remove('open');
+    });
+    if (!isOpen) { btn.classList.add('open'); answer.classList.add('open'); }
+  }
 </script>
 
 </body>

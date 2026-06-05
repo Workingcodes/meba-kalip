@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Hakk&#305;m&#305;zda &#8211; MEBA KALIP</title>
+  <meta name="description" content="1999'dan bu yana Dudullu OSB'de CNC işleme ve kalıp imalatı. Modern makine parkı, deneyimli kadro, otomotiv ve savunma sanayii referansları." />
   <link rel="stylesheet" href="assets/style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
@@ -22,8 +23,14 @@
     .cert-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
     .cert-badge { display: flex; align-items: center; gap: 8px; padding: 10px 18px; background: var(--steel2); border: 1px solid rgba(255,255,255,0.07); border-radius: 6px; font-size: 0.82rem; color: var(--muted); font-family:'Outfit',sans-serif; font-weight: 600; }
     .cert-badge i { color: var(--red); }
-    @media (max-width: 1024px) { .about-grid { grid-template-columns: 1fr; } .values-grid { grid-template-columns: repeat(2,1fr); } }
-    @media (max-width: 640px) { .values-grid { grid-template-columns: 1fr; } }
+    .machine-card { background:#fff; border:1px solid rgba(0,0,0,0.08); border-radius:10px; padding:24px; transition:all 0.25s; position:relative; overflow:hidden; }
+    .machine-card:hover { border-color:rgba(204,27,27,0.25); box-shadow:0 8px 24px rgba(0,0,0,0.07); transform:translateY(-3px); }
+    .machine-num { font-family:'Outfit',sans-serif; font-size:2rem; font-weight:900; color:rgba(204,27,27,0.12); line-height:1; margin-bottom:10px; }
+    .machine-card h4 { font-family:'Outfit',sans-serif; font-size:0.92rem; font-weight:700; color:#0d1117; margin-bottom:8px; }
+    .machine-card p { font-size:0.82rem; color:#5a6270; line-height:1.65; margin-bottom:12px; }
+    .machine-tag { display:inline-flex; align-items:center; padding:3px 10px; background:rgba(204,27,27,0.08); border:1px solid rgba(204,27,27,0.18); border-radius:12px; font-size:0.7rem; font-weight:700; color:var(--red); font-family:'Outfit',sans-serif; letter-spacing:0.04em; }
+    @media (max-width: 1024px) { .about-grid { grid-template-columns: 1fr; } .values-grid { grid-template-columns: repeat(2,1fr); } .machines-grid { grid-template-columns: repeat(2,1fr) !important; } }
+    @media (max-width: 640px) { .values-grid { grid-template-columns: 1fr; } .machines-grid { grid-template-columns: 1fr !important; } }
   </style>
 </head>
 <body>
@@ -75,6 +82,55 @@
           <div class="cert-badge"><i class="fas fa-check-circle"></i> Tala&#351;l&#305; &#304;malat</div>
           <div class="cert-badge"><i class="fas fa-check-circle"></i> Fason &#220;retim</div>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAKİNE PARKI — light section -->
+<section class="section-light" style="padding:72px 0 64px;">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:44px;">
+      <div class="section-label" style="justify-content:center;color:var(--red);">Altyap&#305;m&#305;z</div>
+      <h2 class="section-title" style="color:#0f1117;margin-bottom:8px;">Makine <span>Park&#305;</span></h2>
+      <p style="color:#5a6270;max-width:540px;margin:0 auto;font-size:0.91rem;line-height:1.7;">Modern tezgah alt&shy;yap&#305;m&#305;z ile mikron toleranslarda, zamanl&#305; üretim yapıyoruz.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;" class="machines-grid">
+      <div class="machine-card slide-up">
+        <div class="machine-num">01</div>
+        <h4>Dikey &#304;&#351;leme Merkezi (VMC)</h4>
+        <p>3 eksenli CNC dikey i&#351;leme merkezi &mdash; &#231;elik, paslanmaz ve alüminyum i&#351;leme. Max. &#231;al&#305;&#351;ma alan&#305; 800&times;500 mm.</p>
+        <div class="machine-tag">Fanuc Kontrol</div>
+      </div>
+      <div class="machine-card slide-up stagger-1">
+        <div class="machine-num">02</div>
+        <h4>4 Eksenli CNC Freze</h4>
+        <p>Ekstra d&#246;nme ekseniyle karma&#351;&#305;k geometrili par&#231;a ve kal&#305;p bo&#351;luklar&#305;nda y&#252;ksek hassasiyetli frezeleme.</p>
+        <div class="machine-tag">±0,01 mm Tolerans</div>
+      </div>
+      <div class="machine-card slide-up stagger-2">
+        <div class="machine-num">03</div>
+        <h4>CNC Torna Tezg&#226;h&#305;</h4>
+        <p>Silindirik, konik ve vi&shy;dal&#305; par&#231;alar i&#231;in CNC kontrollü torna; &#231;ap 300 mm, boy 800 mm kapasitesi.</p>
+        <div class="machine-tag">Mitsubishi Kontrol</div>
+      </div>
+      <div class="machine-card slide-up stagger-1">
+        <div class="machine-num">04</div>
+        <h4>Silindirik Ta&#351;lama</h4>
+        <p>D&#305;&#351; ve i&#231; &#231;ap ta&#351;lama; Ra 0,4 &micro;m y&#252;zey p&#252;r&#252;zl&#252;l&#252;&#287;&#252; ve ±0,005 mm tolerans kabiliyeti.</p>
+        <div class="machine-tag">Y&#252;zey Kalitesi</div>
+      </div>
+      <div class="machine-card slide-up stagger-2">
+        <div class="machine-num">05</div>
+        <h4>Tel Erozyon (EDM)</h4>
+        <p>S&#252;rtünmesiz kesme y&#246;ntemiyle sertleştirilmi&#351; tak&#305;m &#231;eli&#287;inde hassas profil ve delik i&#351;leme.</p>
+        <div class="machine-tag">Sertleştirilmiş &#199;elik</div>
+      </div>
+      <div class="machine-card slide-up stagger-3">
+        <div class="machine-num">06</div>
+        <h4>3D &#214;l&#231;&#252;m &amp; Kalite Kontrol</h4>
+        <p>Dijital mikrometre, komparatör ve &#252;&#231; boyutlu &#246;l&#231;&#252;m aletleriyle her par&#231;ada boyutsal do&#287;rulama.</p>
+        <div class="machine-tag">ISO Uyumlu</div>
       </div>
     </div>
   </div>
@@ -136,7 +192,7 @@
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand"><a href="index.html" class="nav-logo"><img src="assets/logo.jpg" alt="Meba Kalip" style="height:44px;width:44px;object-fit:contain;" /><div class="nav-logo-text">MEBA KALIP<small>Makina Imalat San. ve Tic. Ltd.</small></div></a><p>Dudullu OSB&apos;de CNC i&#351;leme, kal&#305;p imalat&#305; ve tala&#351;l&#305; imalat.</p><div class="footer-social"><a href="https://www.instagram.com/meba_kalip_cnc" target="_blank"><i class="fab fa-instagram"></i></a><a href="https://www.facebook.com/mebakalip" target="_blank"><i class="fab fa-facebook-f"></i></a><a href="https://wa.me/905359443655" target="_blank"><i class="fab fa-whatsapp"></i></a></div></div>
-      <div class="footer-col"><h4>Sayfalar</h4><ul><li><a href="index.html">Ana Sayfa</a></li><li><a href="hakkimizda.html">Hakk&#305;m&#305;zda</a></li><li><a href="hizmetler.html">Hizmetler</a></li><li><a href="galeri.html">Galeri</a></li><li><a href="iletisim.html">&#304;leti&#351;im</a></li></ul></div>
+      <div class="footer-col"><h4>Sayfalar</h4><ul><li><a href="index.html">Ana Sayfa</a></li><li><a href="hakkimizda.html">Hakk&#305;m&#305;zda</a></li><li><a href="hizmetler.html">Hizmetler</a></li><li><a href="galeri.html">Galeri</a></li><li><a href="iletisim.html">&#304;leti&#351;im</a></li><li><a href="index.html#sss">S&#305;k&#231;a Sorulan Sorular</a></li></ul></div>
       <div class="footer-col"><h4>Hizmetler</h4><ul><li><a href="hizmetler.html">Kal&#305;p &#304;malat&#305;</a></li><li><a href="hizmetler.html">CNC Frezeleme</a></li><li><a href="hizmetler.html">Tala&#351;l&#305; &#304;malat</a></li><li><a href="hizmetler.html">Fason &#220;retim</a></li></ul></div>
       <div class="footer-col"><h4>&#304;leti&#351;im</h4><div class="footer-contact-item"><i class="fas fa-map-marker-alt"></i><span>Dudullu O.S.B. Mh. &#304;MES Sanayi Sitesi E Blok No:2/1, &#220;mraniye / &#304;stanbul</span></div><div class="footer-contact-item"><i class="fas fa-phone"></i><span>0535 944 36 55</span></div><div class="footer-contact-item"><i class="fas fa-phone"></i><span>0216 364 33 47</span></div></div>
     </div>
