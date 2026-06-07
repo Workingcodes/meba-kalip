@@ -3,7 +3,7 @@
    Brand: Red #CC1B1B | Black #111111 | Steel #1E2530
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@400;500;600&display=swap');
+/* Google Fonts — HTML <head>'de preconnect + <link> ile yükleniyor, burada @import yok */
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 

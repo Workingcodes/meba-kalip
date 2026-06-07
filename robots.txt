@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mebakalip.com/sitemap.xml
