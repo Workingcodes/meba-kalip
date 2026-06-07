@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="tr">
 <head>
   <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>İletişim – MEBA KALIP</title>
   <meta name="description" content="Meba Kalıp ile iletişime geçin. Dudullu OSB İMES Sanayi Sitesi, Ümraniye/İstanbul. Tel: 0535 944 36 55 | teklif@mebakalip.com" />
   <link rel="stylesheet" href="assets/style.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
     .contact-section { padding: 80px 0 96px; }
     .contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 56px; align-items: start; }
@@ -116,6 +116,8 @@
       <h2 class="section-title" style="margin-bottom:8px;color:#0d1117;">Bize <span>Yazın</span></h2>
       <p style="color:#5a6270;font-size:0.88rem;margin-bottom:28px;line-height:1.7;">Teknik çizimlerinizi veya sorularınızı iletin, 24 saat içinde dönüş yapalım.</p>
       <form id="contactForm" onsubmit="submitForm(event)" style="display:flex;flex-direction:column;gap:14px;flex:1;">
+        <!-- Honeypot — bot koruması -->
+        <input type="text" name="_gotcha" style="display:none !important" tabindex="-1" autocomplete="off" />
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
           <div>
             <label style="font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#6b7a8d;display:block;margin-bottom:6px;">Ad Soyad *</label>
