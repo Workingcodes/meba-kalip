@@ -75,20 +75,30 @@
   <div class="nav-inner">
     <a href="index.html" class="nav-logo"><img src="assets/logo.jpg" alt="Meba Kalip" /><div class="nav-logo-text">MEBA KALIP<small>Makina Imalat San. ve Tic. Ltd.</small></div></a>
     <div class="nav-menu">
-      <a href="index.html">Ana Sayfa</a><a href="hakkimizda.html" class="active">Hakk&#305;m&#305;zda</a>
-      <a href="hizmetler.html">Hizmetler</a><a href="galeri.html">Galeri</a><a href="iletisim.html">&#304;leti&#351;im</a>
+      <a href="index.html" data-i18n="nav.home">Ana Sayfa</a><a href="hakkimizda.html" class="active">Hakk&#305;m&#305;zda</a>
+      <a href="hizmetler.html">Hizmetler</a><a href="galeri.html">Galeri</a><a href="iletisim.html" data-i18n="nav.contact">İletişim</a>
     </div>
     <div class="nav-right">
       <div class="nav-social"><a href="https://www.instagram.com/meba_kalip_cnc" target="_blank"><i class="fab fa-instagram"></i></a><a href="https://www.facebook.com/mebakalip" target="_blank"><i class="fab fa-facebook-f"></i></a><a href="https://wa.me/905359443655" target="_blank"><i class="fab fa-whatsapp"></i></a></div>
-      <div class="nav-cta"><a href="iletisim.html"><i class="fas fa-envelope"></i> &#304;leti&#351;ime Ge&#231;in</a></div>
+      <div class="lang-toggle">
+        <button class="lang-btn" data-lang="tr" onclick="setLang('tr')">TR</button>
+        <span class="lang-sep">|</span>
+        <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+      </div>
+      <div class="nav-cta"><a href="iletisim.html"><i class="fas fa-envelope"></i> <span data-i18n="nav.cta">İletişime Geçin</span></a></div>
     </div>
     <button class="nav-hamburger"><span></span><span></span><span></span></button>
   </div>
 </nav>
 <nav class="nav-mobile">
-  <a href="index.html">Ana Sayfa</a><a href="hakkimizda.html">Hakk&#305;m&#305;zda</a>
-  <a href="hizmetler.html">Hizmetler</a><a href="galeri.html">Galeri</a><a href="iletisim.html">&#304;leti&#351;im</a>
+  <a href="index.html" data-i18n="nav.home">Ana Sayfa</a><a href="hakkimizda.html" data-i18n="nav.about">Hakkımızda</a>
+  <a href="hizmetler.html" data-i18n="nav.services">Hizmetler</a><a href="galeri.html" data-i18n="nav.gallery">Galeri</a><a href="iletisim.html" data-i18n="nav.contact">İletişim</a>
   <a href="tel:+905359443655" style="color:var(--red);margin-top:8px;"><i class="fas fa-phone"></i> 0535 944 36 55</a>
+  <div class="lang-toggle lang-toggle--mobile">
+    <button class="lang-btn" data-lang="tr" onclick="setLang('tr')">TR</button>
+    <span class="lang-sep">|</span>
+    <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+  </div>
 </nav>
 
 <div class="page-header">
@@ -229,7 +239,7 @@
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand"><a href="index.html" class="nav-logo"><img src="assets/logo.jpg" alt="Meba Kalip" style="height:44px;width:44px;object-fit:contain;" /><div class="nav-logo-text">MEBA KALIP<small>Makina Imalat San. ve Tic. Ltd.</small></div></a><p>Dudullu OSB&apos;de CNC i&#351;leme, kal&#305;p imalat&#305; ve tala&#351;l&#305; imalat.</p><div class="footer-social"><a href="https://www.instagram.com/meba_kalip_cnc" target="_blank"><i class="fab fa-instagram"></i></a><a href="https://www.facebook.com/mebakalip" target="_blank"><i class="fab fa-facebook-f"></i></a><a href="https://wa.me/905359443655" target="_blank"><i class="fab fa-whatsapp"></i></a></div></div>
-      <div class="footer-col"><h4>Sayfalar</h4><ul><li><a href="index.html">Ana Sayfa</a></li><li><a href="hakkimizda.html">Hakk&#305;m&#305;zda</a></li><li><a href="hizmetler.html">Hizmetler</a></li><li><a href="galeri.html">Galeri</a></li><li><a href="iletisim.html">&#304;leti&#351;im</a></li><li><a href="index.html#sss">S&#305;k&#231;a Sorulan Sorular</a></li></ul></div>
+      <div class="footer-col"><h4>Sayfalar</h4><ul><li><a href="index.html">Ana Sayfa</a></li><li><a href="hakkimizda.html" data-i18n="nav.about">Hakkımızda</a></li><li><a href="hizmetler.html">Hizmetler</a></li><li><a href="galeri.html">Galeri</a></li><li><a href="iletisim.html">&#304;leti&#351;im</a></li><li><a href="index.html#sss">S&#305;k&#231;a Sorulan Sorular</a></li></ul></div>
       <div class="footer-col"><h4>Hizmetler</h4><ul><li><a href="hizmetler.html">Kal&#305;p &#304;malat&#305;</a></li><li><a href="hizmetler.html">CNC Frezeleme</a></li><li><a href="hizmetler.html">Tala&#351;l&#305; &#304;malat</a></li><li><a href="hizmetler.html">Fason &#220;retim</a></li></ul></div>
       <div class="footer-col"><h4>&#304;leti&#351;im</h4><div class="footer-contact-item"><i class="fas fa-map-marker-alt"></i><span>Dudullu O.S.B. Mh. &#304;MES Sanayi Sitesi E Blok No:2/1, &#220;mraniye / &#304;stanbul</span></div><div class="footer-contact-item"><i class="fas fa-phone"></i><span>0535 944 36 55</span></div><div class="footer-contact-item"><i class="fas fa-phone"></i><span>0216 364 33 47</span></div></div>
     </div>

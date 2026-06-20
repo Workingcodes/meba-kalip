@@ -366,11 +366,11 @@
       <div class="nav-logo-text">MEBA KALIP<small>Kal&#305;p &#304;malat&#305; Ltd. &#350;ti.</small></div>
     </a>
     <div class="nav-menu">
-      <a href="index.html" class="active">Ana Sayfa</a>
-      <a href="hakkimizda.html">Hakk&#305;m&#305;zda</a>
-      <a href="hizmetler.html">Hizmetler</a>
-      <a href="galeri.html">Galeri</a>
-      <a href="iletisim.html">&#304;leti&#351;im</a>
+      <a href="index.html" class="active" data-i18n="nav.home">Ana Sayfa</a>
+      <a href="hakkimizda.html" data-i18n="nav.about">Hakkımızda</a>
+      <a href="hizmetler.html" data-i18n="nav.services">Hizmetler</a>
+      <a href="galeri.html" data-i18n="nav.gallery">Galeri</a>
+      <a href="iletisim.html" data-i18n="nav.contact">İletişim</a>
     </div>
     <div class="nav-right">
       <div class="nav-social">
@@ -378,18 +378,28 @@
         <a href="https://www.facebook.com/mebakalip" target="_blank" rel="noopener"><i class="fab fa-facebook-f"></i></a>
         <a href="https://wa.me/905359443655" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i></a>
       </div>
-      <div class="nav-cta"><a href="iletisim.html"><i class="fas fa-envelope"></i> &#304;leti&#351;ime Ge&#231;in</a></div>
+      <div class="lang-toggle">
+        <button class="lang-btn" data-lang="tr" onclick="setLang('tr')">TR</button>
+        <span class="lang-sep">|</span>
+        <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+      </div>
+      <div class="nav-cta"><a href="iletisim.html"><i class="fas fa-envelope"></i> <span data-i18n="nav.cta">İletişime Geçin</span></a></div>
     </div>
     <button class="nav-hamburger" id="navHamburger"><span></span><span></span><span></span></button>
   </div>
 </nav>
-<nav class="nav-mobile" id="navMobile">
-  <a href="index.html">Ana Sayfa</a>
-  <a href="hakkimizda.html">Hakk&#305;m&#305;zda</a>
-  <a href="hizmetler.html">Hizmetler</a>
-  <a href="galeri.html">Galeri</a>
-  <a href="iletisim.html">&#304;leti&#351;im</a>
+<nav class="nav-mobile" id="navMobile" data-mobile-nav="1">
+  <a href="index.html"><span style="display:none"></span></a>
+  <a href="hakkimizda.html" data-i18n="nav.about">Hakkımızda</a>
+  <a href="hizmetler.html" data-i18n="nav.services">Hizmetler</a>
+  <a href="galeri.html" data-i18n="nav.gallery">Galeri</a>
+  <a href="iletisim.html" data-i18n="nav.contact">İletişim</a>
   <a href="tel:+905359443655" style="color:var(--red);margin-top:8px;"><i class="fas fa-phone"></i> 0535 944 36 55</a>
+  <div class="lang-toggle lang-toggle--mobile">
+    <button class="lang-btn" data-lang="tr" onclick="setLang('tr')">TR</button>
+    <span class="lang-sep">|</span>
+    <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+  </div>
 </nav>
 
 <!-- ===== HERO ===== -->
@@ -404,22 +414,16 @@
 
   <div class="container">
     <div class="hero-inner fade-in">
-      <div class="hero-badge"><span class="dot"></span> Dudullu OSB &mdash; &#220;mraniye / &#304;stanbul</div>
-      <h1 class="hero-headline">
-        Hassas <span class="hl">CNC</span> &#304;&#351;leme<br>
-        <span class="hl2">Kal&#305;p &#304;malat&#305;</span>
-      </h1>
-      <p class="hero-sub">
-        1999&apos;dan bu yana Dudullu OSB&apos;de. Modern tezgah altyap&#305;m&#305;z ve
-        deneyimli ekibimizle tolerans&#305;n&#305;za uygun, zaman&#305;nda teslimat.
-      </p>
+      <div class="hero-badge"><span class="dot"></span> <span data-i18n="hero.badge">Dudullu OSB — Ümraniye / İstanbul</span></div>
+      <h1 class="hero-headline" data-i18n-html="hero.h1">Hassas <span class="hl">CNC</span> İşleme<br><span class="hl2">Kalıp İmalatı</span></h1>
+      <p class="hero-sub" data-i18n="hero.sub">1999'dan bu yana Dudullu OSB'de. Modern tezgah altyapımız ve deneyimli ekibimizle toleransınıza uygun, zamanında teslimat.</p>
       <div class="hero-actions">
-        <a href="iletisim.html" class="btn btn-primary"><i class="fas fa-envelope"></i> Bize Ula&#351;&#305;n</a>
-        <a href="hizmetler.html" class="btn btn-outline">Hizmetlerimiz</a>
+        <a href="iletisim.html" class="btn btn-primary"><i class="fas fa-envelope"></i> <span data-i18n="hero.btn1">Bize Ulaşın</span></a>
+        <a href="hizmetler.html" class="btn btn-outline" data-i18n="hero.btn2">Hizmetlerimiz</a>
       </div>
     </div>
   </div>
-  <div class="hero-scroll">Ke&#351;fet</div>
+  <div class="hero-scroll" data-i18n="hero.scroll">Keşfet</div>
 </section>
 
 <!-- ===== STATS ===== -->
@@ -427,19 +431,19 @@
   <div class="stats-row container" style="padding:0 24px;">
     <div class="stat-box fade-in">
       <div class="stat-box-num" data-target="25" data-suffix="+">25+</div>
-      <div class="stat-box-label">Y&#305;l Deneyim</div>
+      <div class="stat-box-label" data-i18n="stat.years">Yıl Deneyim</div>
     </div>
     <div class="stat-box fade-in stagger-1">
       <div class="stat-box-num" data-target="500" data-suffix="+">500+</div>
-      <div class="stat-box-label">Tamamlanan Proje</div>
+      <div class="stat-box-label" data-i18n="stat.projects" data-i18n="stat.projects">Tamamlanan Proje</div>
     </div>
     <div class="stat-box fade-in stagger-2">
       <div class="stat-box-num" data-target="12">12</div>
-      <div class="stat-box-label">CNC Tezgah</div>
+      <div class="stat-box-label" data-i18n="stat.machines" data-i18n="stat.machines">CNC Tezgah</div>
     </div>
     <div class="stat-box fade-in stagger-3">
       <div class="stat-box-num" data-target="100" data-suffix="%">100%</div>
-      <div class="stat-box-label">M&#252;&#351;teri Memnuniyeti</div>
+      <div class="stat-box-label" data-i18n="stat.satisfaction">Müşteri Memnuniyeti</div>
     </div>
   </div>
 </section>
@@ -460,21 +464,17 @@
         </div>
       </div>
       <div class="about-text slide-right">
-        <span class="about-tag">Hakk&#305;m&#305;zda</span>
-        <h2 class="about-h2">&#220;retimde <em>Hassasiyet</em>,<br>Teslimatta G&#252;venilirlik</h2>
-        <p class="about-desc">
-          1999 y&#305;l&#305;ndan bu yana Dudullu Organize Sanayi B&#246;lgesi&#8217;nde faaliyet g&#246;steren MEBA KALIP,
-          CNC i&#351;leme ve kal&#305;p imalat&#305;nda sekt&#246;r&#252;n g&#252;venilir ismi olmu&#351;tur.
-          Modern tezgah parkurum&#252;z ve uzman kadromuzla m&#252;&#351;terilerimize &#246;zel &#231;&#246;z&#252;mler sunuyoruz.
-        </p>
+        <span class="about-tag" data-i18n="about.tag">Hakkımızda</span>
+        <h2 class="about-h2" data-i18n-html="about.h2">Üretimde <em>Hassasiyet</em>,<br>Teslimatta Güvenilirlik</h2>
+        <p class="about-desc" data-i18n="about.desc">1999 yılından bu yana Dudullu Organize Sanayi Bölgesi'nde faaliyet gösteren MEBA KALIP, CNC işleme ve kalıp imalatında sektörün güvenilir ismi olmuştur. Modern tezgah parkurumuz ve uzman kadromuzla müşterilerimize özel çözümler sunuyoruz.</p>
         <div class="about-facts">
-          <div class="about-fact"><i class="fa fa-check-circle"></i> 0.01 mm tolerans kabiliyeti</div>
-          <div class="about-fact"><i class="fa fa-check-circle"></i> ISO 9001:2015 kalite y&#246;netim sistemi</div>
-          <div class="about-fact"><i class="fa fa-check-circle"></i> Otomotiv, savunma ve makine sekt&#246;rleri</div>
-          <div class="about-fact"><i class="fa fa-check-circle"></i> Prototipten seri &#252;retime tam hizmet</div>
+          <div class="about-fact"><i class="fa fa-check-circle"></i> <span data-i18n="about.fact1">0.01 mm tolerans kabiliyeti</span></div>
+          <div class="about-fact"><i class="fa fa-check-circle"></i> <span data-i18n="about.fact2">ISO 9001:2015 kalite yönetim sistemi</span></div>
+          <div class="about-fact"><i class="fa fa-check-circle"></i> <span data-i18n="about.fact3">Otomotiv, savunma ve makine sektörleri</span></div>
+          <div class="about-fact"><i class="fa fa-check-circle"></i> <span data-i18n="about.fact4">Prototipten seri üretime tam hizmet</span></div>
         </div>
         <div style="margin-top:28px;">
-          <a href="hakkimizda.html" class="btn btn-primary">Daha Fazla Bilgi</a>
+          <a href="hakkimizda.html" class="btn btn-primary" data-i18n="about.btn">Daha Fazla Bilgi</a>
         </div>
       </div>
     </div>
@@ -485,43 +485,43 @@
 <section class="services-section">
   <div class="container">
     <div class="services-h">
-      <div class="section-label">Hizmetlerimiz</div>
-      <h2 class="section-title">Geni&#351; <span>&#199;&#246;z&#252;m</span> Yelpazesi</h2>
+      <div class="section-label" data-i18n="svc.label">Hizmetlerimiz</div>
+      <h2 class="section-title" data-i18n-html="svc.h2">Geniş <span>Çözüm</span> Yelpazesi</h2>
     </div>
     <div class="svc-grid">
       <div class="svc-card slide-up">
         <div class="svc-icon"><i class="fa fa-cogs"></i></div>
-        <div class="svc-title">CNC Freze &#304;&#351;leme</div>
-        <p class="svc-desc">3&#8211;4 eksen CNC freze tezgahlar&#305;m&#305;zla karma&#351;&#305;k geometrileri y&#252;ksek hassasiyetle i&#351;liyoruz.</p>
+        <div class="svc-title" data-i18n="svc1.title">CNC Freze İşleme</div>
+        <p class="svc-desc" data-i18n="svc1.desc">3–4 eksen CNC freze tezgahlarımızla karmaşık geometrileri yüksek hassasiyetle işliyoruz.</p>
       </div>
       <div class="svc-card slide-up stagger-1">
         <div class="svc-icon"><i class="fa fa-circle-notch"></i></div>
-        <div class="svc-title">CNC Torna</div>
-        <p class="svc-desc">Silindirik ve asimetrik par&#231;alar i&#231;in hassas tornalama, di&#351;li ve vida i&#351;leme hizmetleri.</p>
+        <div class="svc-title" data-i18n="svc2.title">CNC Torna</div>
+        <p class="svc-desc" data-i18n="svc2.desc">Silindirik ve asimetrik parçalar için hassas tornalama, dişli ve vida işleme hizmetleri.</p>
       </div>
       <div class="svc-card slide-up stagger-2">
         <div class="svc-icon"><i class="fa fa-cube"></i></div>
-        <div class="svc-title">Kal&#305;p &#304;malat&#305;</div>
-        <p class="svc-desc">Plastik enjeksiyon, s&#305;k&#305;&#351;t&#305;rma ve d&#246;k&#252;m kal&#305;plar&#305; tasar&#305;m ve imalat&#305;.</p>
+        <div class="svc-title" data-i18n="svc3.title">Kalıp İmalatı</div>
+        <p class="svc-desc" data-i18n="svc3.desc">Plastik enjeksiyon, sıkıştırma ve döküm kalıpları tasarım ve imalatı.</p>
       </div>
       <div class="svc-card slide-up stagger-3">
         <div class="svc-icon"><i class="fa fa-ruler-combined"></i></div>
-        <div class="svc-title">Prototip &#220;retim</div>
-        <p class="svc-desc">Tasar&#305;mdan &#252;retime ge&#231;i&#351; s&#252;recini h&#305;zland&#305;ran prototip ve numune &#231;&#246;z&#252;mleri.</p>
+        <div class="svc-title" data-i18n="svc4.title">Prototip Üretim</div>
+        <p class="svc-desc" data-i18n="svc4.desc">Tasarımdan üretime geçiş sürecini hızlandıran prototip ve numune çözümleri.</p>
       </div>
       <div class="svc-card slide-up stagger-4">
         <div class="svc-icon"><i class="fa fa-tools"></i></div>
-        <div class="svc-title">Tak&#305;m &amp; Aparat</div>
-        <p class="svc-desc">&#220;retim hatt&#305;n&#305;z&#305; optimize eden &#246;zel tak&#305;m, jig ve aparat imalat&#305;.</p>
+        <div class="svc-title" data-i18n="svc5.title">Takım & Aparat</div>
+        <p class="svc-desc" data-i18n="svc5.desc">Üretim hattınızı optimize eden özel takım, jig ve aparat imalatı.</p>
       </div>
       <div class="svc-card slide-up stagger-5">
         <div class="svc-icon"><i class="fa fa-microscope"></i></div>
-        <div class="svc-title">Kalite Kontrol</div>
-        <p class="svc-desc">CMM ve optik &#246;l&#231;&#252;m sistemleriyle her par&#231;a kalite onay&#305;ndan ge&#231;irilir.</p>
+        <div class="svc-title" data-i18n="svc6.title">Kalite Kontrol</div>
+        <p class="svc-desc" data-i18n="svc6.desc">CMM ve optik ölçüm sistemleriyle her parça kalite onayından geçirilir.</p>
       </div>
     </div>
     <div style="margin-top:40px; text-align:center;">
-      <a href="hizmetler.html" class="btn btn-outline" style="border-color:rgba(255,255,255,0.25);">T&#252;m Hizmetleri G&#246;r</a>
+      <a href="hizmetler.html" class="btn btn-outline" style="border-color:rgba(255,255,255,0.25);" data-i18n="svc.btn">Tüm Hizmetleri Gör</a>
     </div>
   </div>
 </section>
@@ -531,31 +531,31 @@
   <div class="container">
     <div class="gt-header">
       <div class="slide-left">
-        <div class="section-label" style="color:var(--red)">&#199;al&#305;&#351;malar&#305;m&#305;zdan</div>
-        <h2 class="section-title" style="color:#0f1117;">Galeri <span>Kesimleri</span></h2>
+        <div class="section-label" style="color:var(--red)" data-i18n="gal.label">Çalışmalarımızdan</div>
+        <h2 class="section-title" style="color:#0f1117;" data-i18n-html="gal.h2">Galeri <span>Kesimleri</span></h2>
       </div>
-      <a href="galeri.html" class="btn btn-primary slide-right" style="margin-bottom:4px;">T&#252;m Galeriyi G&#246;r</a>
+      <a href="galeri.html" class="btn btn-primary slide-right" style="margin-bottom:4px;" data-i18n="gal.btn">Tüm Galeriyi Gör</a>
     </div>
     <div class="gt-grid">
       <div class="gt-item fade-in" onclick="openLb('img/galeri/ig_9.webp','CNC &#304;&#351;leme')">
         <img src="img/galeri/ig_9.webp" alt="CNC İşleme" loading="lazy" />
-        <div class="gt-overlay"><span>CNC &#304;&#351;leme</span></div>
+        <div class="gt-overlay"><span data-i18n="gal.item1">CNC İşleme</span></div>
       </div>
       <div class="gt-item fade-in stagger-1" onclick="openLb('img/galeri/ig_4.webp','Kal&#305;p &#304;malat&#305;')">
         <img src="img/galeri/ig_4.webp" alt="Kalıp İmalatı" loading="lazy" />
-        <div class="gt-overlay"><span>Kal&#305;p &#304;malat&#305;</span></div>
+        <div class="gt-overlay"><span data-i18n="gal.item2">Kalıp İmalatı</span></div>
       </div>
       <div class="gt-item fade-in stagger-2" onclick="openLb('img/galeri/ig_6.webp','Torna')">
         <img src="img/galeri/ig_6.webp" alt="Torna" loading="lazy" />
-        <div class="gt-overlay"><span>Torna &#304;&#351;leme</span></div>
+        <div class="gt-overlay"><span data-i18n="gal.item3">Torna İşleme</span></div>
       </div>
       <div class="gt-item fade-in stagger-3" onclick="openLb('img/galeri/ig_8.webp','Freze')">
         <img src="img/galeri/ig_8.webp" alt="Freze İşleme" loading="lazy" />
-        <div class="gt-overlay"><span>Freze &#304;&#351;leme</span></div>
+        <div class="gt-overlay"><span data-i18n="gal.item4">Freze İşleme</span></div>
       </div>
       <div class="gt-item fade-in stagger-4" onclick="openLb('img/galeri/ig_10.webp','&#220;retim')">
         <img src="img/galeri/ig_10.webp" alt="Üretim" loading="lazy" />
-        <div class="gt-overlay"><span>&#220;retim</span></div>
+        <div class="gt-overlay"><span data-i18n="gal.item5">Üretim</span></div>
       </div>
     </div>
   </div>
@@ -572,39 +572,39 @@
   <div class="container">
     <div style="text-align:center;margin-bottom:56px;">
       <div class="section-label" style="justify-content:center;">Sektörlerimiz</div>
-      <h2 class="section-title" style="margin-bottom:12px;">Hizmet Verdi&#287;imiz <span>Sekt&#246;rler</span></h2>
-      <p style="color:var(--muted);max-width:520px;margin:0 auto;font-size:0.92rem;line-height:1.7;">Metal ve plastik i&#351;leme deneyimimizle Türkiye'nin önde gelen sanayi sektörlerine üretim hizmetleri veriyoruz.</p>
+      <h2 class="section-title" style="margin-bottom:12px;" data-i18n-html="sec.h2">Hizmet Verdiğimiz <span>Sektörler</span></h2>
+      <p style="color:var(--muted);max-width:520px;margin:0 auto;font-size:0.92rem;line-height:1.7;" data-i18n="sec.desc">Metal ve plastik işleme deneyimimizle Türkiye'nin önde gelen sanayi sektörlerine üretim hizmetleri veriyoruz.</p>
     </div>
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;" class="sectors-grid">
       <div class="sector-card slide-up">
         <div class="sector-icon"><i class="fas fa-car"></i></div>
-        <h3>Otomotiv Yan Sanayii</h3>
-        <p>Motor, &#351;asi ve g&#246;vde par&#231;alar&#305; i&#231;in hassas tole&shy;ransl&#305; prototip ve seri imalat.</p>
+        <h3 data-i18n="sec1.title">Otomotiv Yan Sanayii</h3>
+        <p data-i18n="sec1.desc">Motor, şasi ve gövde parçaları için hassas toleranslı prototip ve seri imalat.</p>
       </div>
       <div class="sector-card slide-up stagger-1">
         <div class="sector-icon"><i class="fas fa-shield-alt"></i></div>
-        <h3>Savunma Sanayii</h3>
-        <p>Y&#252;ksek mukavemetli malzemelerde kritik tolerans gerektiren savunma par&#231;alar&#305; i&#231;in &#252;retim.</p>
+        <h3 data-i18n="sec2.title">Savunma Sanayii</h3>
+        <p data-i18n="sec2.desc">Yüksek mukavemetli malzemelerde kritik tolerans gerektiren savunma parçaları için üretim.</p>
       </div>
       <div class="sector-card slide-up stagger-2">
         <div class="sector-icon"><i class="fas fa-blender"></i></div>
-        <h3>Beyaz E&#351;ya</h3>
-        <p>Plastik enjeksiyon ve sac &#351;ekillendirme kal&#305;plar&#305;, s&#252;rekli &#252;retim hatt&#305;na uygun teslimat.</p>
+        <h3 data-i18n="sec3.title">Beyaz Eşya</h3>
+        <p data-i18n="sec3.desc">Plastik enjeksiyon ve sac şekillendirme kalıpları, sürekli üretim hattına uygun teslimat.</p>
       </div>
       <div class="sector-card slide-up stagger-1">
         <div class="sector-icon"><i class="fas fa-industry"></i></div>
-        <h3>Plastik Enj. Kal&#305;plar&#305;</h3>
-        <p>So&#287;utma kanal&#305; dizayn&#305;ndan nihai y&#252;zey i&#351;lemine kadar komple kal&#305;p tasar&#305;m ve imalat&#305;.</p>
+        <h3 data-i18n="sec4.title">Plastik Enj. Kalıpları</h3>
+        <p data-i18n="sec4.desc">Soğutma kanalı dizaynından nihai yüzey işlemine kadar komple kalıp tasarım ve imalatı.</p>
       </div>
       <div class="sector-card slide-up stagger-2">
         <div class="sector-icon"><i class="fas fa-heartbeat"></i></div>
-        <h3>Medikal Cihaz</h3>
-        <p>Paslanmaz &#231;elik ve t&#305;bbi s&#305;n&#305;f alüminyumda y&#252;ksek hassasiyetli medikal par&#231;a imalat&#305;.</p>
+        <h3 data-i18n="sec5.title">Medikal Cihaz</h3>
+        <p data-i18n="sec5.desc">Paslanmaz çelik ve tıbbi sınıf alüminyumda yüksek hassasiyetli medikal parça imalatı.</p>
       </div>
       <div class="sector-card slide-up stagger-3">
         <div class="sector-icon"><i class="fas fa-bolt"></i></div>
-        <h3>Elektrik &amp; Elektronik</h3>
-        <p>Konnekt&#246;r, muhafaza ve so&#287;utucu g&#246;vdeler i&#231;in hassas i&#351;leme ve seri fason &#252;retim.</p>
+        <h3 data-i18n="sec6.title">Elektrik & Elektronik</h3>
+        <p data-i18n="sec6.desc">Konnektör, muhafaza ve soğutucu gövdeler için hassas işleme ve seri fason üretim.</p>
       </div>
     </div>
   </div>
@@ -614,63 +614,63 @@
 <section id="sss" style="padding:88px 0;background:#f4f6f9;">
   <div class="container">
     <div style="text-align:center;margin-bottom:52px;">
-      <div class="section-label" style="justify-content:center;color:var(--red);">SSS</div>
-      <h2 class="section-title" style="margin-bottom:12px;color:#0d1117;">S&#305;k&#231;a Sorulan <span>Sorular</span></h2>
-      <p style="color:#5a6270;max-width:500px;margin:0 auto;font-size:0.92rem;line-height:1.7;">Kalıp imalatı ve CNC işleme hakkında en çok merak edilenler.</p>
+      <div class="section-label" style="justify-content:center;color:var(--red);" data-i18n="faq.label">SSS</div>
+      <h2 class="section-title" style="margin-bottom:12px;color:#0d1117;" data-i18n-html="faq.h2">Sıkça Sorulan <span>Sorular</span></h2>
+      <p style="color:#5a6270;max-width:500px;margin:0 auto;font-size:0.92rem;line-height:1.7;" data-i18n="faq.desc">Kalıp imalatı ve CNC işleme hakkında en çok merak edilenler.</p>
     </div>
     <div style="max-width:780px;margin:0 auto;" class="faq-list">
       <div class="faq-item slide-up">
         <button class="faq-q">
-          <span>Minimum sipari&#351; adedi nedir?</span>
+          <span data-i18n="faq1.q">Minimum sipariş adedi nedir?</span>
           <i class="fas fa-plus"></i>
         </button>
         <div class="faq-a">
-          <p>Minimum sipari&#351; adedimiz yoktur. Tek parça prototip siparişlerinden binlerce adetlik seri üretime kadar her hacimde hizmet veriyoruz. Küçük partilerde birim maliyet farklılık gösterebilir; fiyat teklifi için bizimle iletişime geçin.</p>
+          <p data-i18n="faq1.a">Minimum sipariş adedimiz yoktur. Tek parça prototip siparişlerinden binlerce adetlik seri üretime kadar her hacimde hizmet veriyoruz. Küçük partilerde birim maliyet farklılık gösterebilir; fiyat teklifi için bizimle iletişime geçin.</p>
         </div>
       </div>
       <div class="faq-item slide-up stagger-1">
         <button class="faq-q">
-          <span>Teslim s&#252;reniz ne kadar?</span>
+          <span data-i18n="faq2.q">Teslim süreniz ne kadar?</span>
           <i class="fas fa-plus"></i>
         </button>
         <div class="faq-a">
-          <p>Teslim süresi parça karmaşıklığına ve miktarına göre değişir. Prototip ve tekil parçalarda genellikle 3–7 iş günü, seri üretimde 2–4 hafta hedefliyoruz. Acil siparişler için öncelikli üretim imkânımız mevcuttur.</p>
+          <p data-i18n="faq2.a">Teslim süresi parça karmaşıklığına ve miktarına göre değişir. Prototip ve tekil parçalarda genellikle 3–7 iş günü, seri üretimde 2–4 hafta hedefliyoruz. Acil siparişler için öncelikli üretim imkânımız mevcuttur.</p>
         </div>
       </div>
       <div class="faq-item slide-up stagger-2">
         <button class="faq-q">
-          <span>Hangi malzemelerde &#231;al&#305;&#351;&#305;yorsunuz?</span>
+          <span data-i18n="faq3.q">Hangi malzemelerde çalışıyorsunuz?</span>
           <i class="fas fa-plus"></i>
         </button>
         <div class="faq-a">
-          <p>Başta çelik (C45, 1.2343, 1.2379), paslanmaz çelik (304, 316L), alüminyum alaşımları (6061, 7075) ve çeşitli plastikler (POM, PA66, PEEK) olmak üzere geniş bir malzeme yelpazesinde işleme yapabiliyoruz.</p>
+          <p data-i18n="faq3.a">Başta çelik (C45, 1.2343, 1.2379), paslanmaz çelik (304, 316L), alüminyum alaşımları (6061, 7075) ve çeşitli plastikler (POM, PA66, PEEK) olmak üzere geniş bir malzeme yelpazesinde işleme yapabiliyoruz.</p>
         </div>
       </div>
       <div class="faq-item slide-up stagger-1">
         <button class="faq-q">
-          <span>Teknik &#231;izim olmadan teklif alabilir miyim?</span>
+          <span data-i18n="faq4.q">Teknik çizim olmadan teklif alabilir miyim?</span>
           <i class="fas fa-plus"></i>
         </button>
         <div class="faq-a">
-          <p>Evet. Numune, eskiz veya sözlü tanımlama ile de fiyat teklifi hazırlayabiliriz. Teknik resim isterseniz tasarım danışmanlığı da sunuyoruz. WhatsApp üzerinden fotoğraf veya taslak göndererek başlayabilirsiniz.</p>
+          <p data-i18n="faq4.a">Evet. Numune, eskiz veya sözlü tanımlama ile de fiyat teklifi hazırlayabiliriz. Teknik resim isterseniz tasarım danışmanlığı da sunuyoruz. WhatsApp üzerinden fotoğraf veya taslak göndererek başlayabilirsiniz.</p>
         </div>
       </div>
       <div class="faq-item slide-up stagger-2">
         <button class="faq-q">
-          <span>Ne kadar hassasiyet sa&#287;l&#305;yorsunuz?</span>
+          <span data-i18n="faq5.q">Ne kadar hassasiyet sağlıyorsunuz?</span>
           <i class="fas fa-plus"></i>
         </button>
         <div class="faq-a">
-          <p>CNC freze tezgâhlarımızda ±0,01 mm, hassas taşlama işlemlerinde ±0,005 mm tolerans sağlayabiliyoruz. Özel hassasiyet gerektiren uygulamalar için kalite kontrol süreci ve ölçüm raporu da sunulabilir.</p>
+          <p data-i18n="faq5.a">CNC freze tezgâhlarımızda ±0,01 mm, hassas taşlama işlemlerinde ±0,005 mm tolerans sağlayabiliyoruz. Özel hassasiyet gerektiren uygulamalar için kalite kontrol süreci ve ölçüm raporu da sunulabilir.</p>
         </div>
       </div>
       <div class="faq-item slide-up stagger-3">
         <button class="faq-q">
-          <span>Kargo veya teslimat hizmetiniz var m&#305;?</span>
+          <span data-i18n="faq6.q">Kargo veya teslimat hizmetiniz var mı?</span>
           <i class="fas fa-plus"></i>
         </button>
         <div class="faq-a">
-          <p>Türkiye genelinde kargo ile teslimat yapıyoruz. İstanbul içi büyük hacimli veya hassas parçalar için araçlı teslimat da organize edebiliyoruz. Fabrikamızdan elden teslim de mümkündür.</p>
+          <p data-i18n="faq6.a">Türkiye genelinde kargo ile teslimat yapıyoruz. İstanbul içi büyük hacimli veya hassas parçalar için araçlı teslimat da organize edebiliyoruz. Fabrikamızdan elden teslim de mümkündür.</p>
         </div>
       </div>
     </div>
@@ -681,14 +681,11 @@
 <section class="cta-section">
   <div class="cta-line"></div>
   <div class="cta-inner container">
-    <span class="cta-tag fade-in">Hemen Ba&#351;layal&#305;m</span>
-    <h2 class="cta-h2 fade-in stagger-1">Projenizi Hayata Ge&#231;irelim</h2>
-    <p class="cta-sub fade-in stagger-2">
-      Teknik &#231;izimlerinizi g&#246;nderin, fiyat teklifi al&#305;n.
-      24 saat i&#231;inde size d&#246;n&#252;yoruz.
-    </p>
+    <span class="cta-tag fade-in" data-i18n="cta.tag">Hemen Başlayalım</span>
+    <h2 class="cta-h2 fade-in stagger-1" data-i18n="cta.h2">Projenizi Hayata Geçirelim</h2>
+    <p class="cta-sub fade-in stagger-2" data-i18n="cta.sub">Teknik çizimlerinizi gönderin, fiyat teklifi alın. 24 saat içinde size dönüyoruz.</p>
     <div class="cta-btns fade-in stagger-3">
-      <a href="iletisim.html" class="btn btn-primary">Teklif Al</a>
+      <a href="iletisim.html" class="btn btn-primary" data-i18n="cta.btn1">Teklif Al</a>
       <a href="https://wa.me/905359443655" target="_blank" class="btn btn-outline" style="border-color:rgba(255,255,255,0.25);">
         <i class="fab fa-whatsapp"></i> 0535 944 36 55
       </a>
@@ -704,7 +701,7 @@
         <img src="assets/logo.jpg" alt="MEBA KALIP" />
         <div class="nav-logo-text">MEBA KALIP<small>Kal&#305;p &#304;malat&#305; Ltd. &#350;ti.</small></div>
       </a>
-      <p>Dudullu OSB&apos;de hassas CNC i&#351;leme ve kal&#305;p imalat&#305;.</p>
+      <p data-i18n="footer.desc">Dudullu OSB'de hassas CNC işleme ve kalıp imalatı.</p>
       <div class="footer-social">
         <a href="https://wa.me/905359443655" target="_blank"><i class="fab fa-whatsapp"></i></a>
         <a href="https://www.instagram.com/meba_kalip_cnc" target="_blank"><i class="fab fa-instagram"></i></a>
@@ -712,27 +709,27 @@
       </div>
     </div>
     <div class="footer-col">
-      <h4>H&#305;zl&#305; Ba&#287;lant&#305;lar</h4>
+      <h4 data-i18n="footer.links">Hızlı Bağlantılar</h4>
       <ul>
-        <li><a href="index.html">Ana Sayfa</a></li>
-        <li><a href="hakkimizda.html">Hakk&#305;m&#305;zda</a></li>
-        <li><a href="hizmetler.html">Hizmetler</a></li>
-        <li><a href="galeri.html">Galeri</a></li>
-        <li><a href="iletisim.html">&#304;leti&#351;im</a></li>
+        <li><a href="index.html" data-i18n="nav.home">Ana Sayfa</a></li>
+        <li><a href="hakkimizda.html" data-i18n="nav.about">Hakkımızda</a></li>
+        <li><a href="hizmetler.html" data-i18n="nav.services">Hizmetler</a></li>
+        <li><a href="galeri.html" data-i18n="nav.gallery">Galeri</a></li>
+        <li><a href="iletisim.html" data-i18n="nav.contact">İletişim</a></li>
       </ul>
     </div>
     <div class="footer-col">
-      <h4>Hizmetlerimiz</h4>
+      <h4 data-i18n="footer.services">Hizmetlerimiz</h4>
       <ul>
-        <li><a href="hizmetler.html">CNC Freze</a></li>
-        <li><a href="hizmetler.html">CNC Torna</a></li>
-        <li><a href="hizmetler.html">Kal&#305;p &#304;malat&#305;</a></li>
-        <li><a href="hizmetler.html">Prototip &#220;retim</a></li>
-        <li><a href="hizmetler.html">Kalite Kontrol</a></li>
+        <li><a href="hizmetler.html" data-i18n="svc1.title">CNC Freze İşleme</a></li>
+        <li><a href="hizmetler.html" data-i18n="svc2.title">CNC Torna</a></li>
+        <li><a href="hizmetler.html" data-i18n="svc3.title">Kalıp İmalatı</a></li>
+        <li><a href="hizmetler.html" data-i18n="svc4.title">Prototip Üretim</a></li>
+        <li><a href="hizmetler.html" data-i18n="svc6.title">Kalite Kontrol</a></li>
       </ul>
     </div>
     <div class="footer-col">
-      <h4>&#304;leti&#351;im</h4>
+      <h4 data-i18n="footer.contact">İletişim</h4>
       <ul>
         <li>
           <div class="footer-contact-item">
